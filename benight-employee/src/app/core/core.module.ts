@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { IonicModule } from '@ionic/angular'
-import { ProfileComponent } from './profile/profile.component'
-import { LoginComponent } from './login/login.component'
-import { PaymentsComponent } from './payments/payments.component'
-import { TabsComponent } from './tabs/tabs.component'
-import { QrComponent } from './qr/qr.component'
+import {RouterModule} from '@angular/router'
+
+import { coreComponents, myBaseModules } from '@bn8-core/imports'
 
 @NgModule({
   imports: [
-    CommonModule,
-    IonicModule
+    ...myBaseModules,
+    RouterModule
   ],
-  declarations: [ProfileComponent, LoginComponent, PaymentsComponent, TabsComponent, QrComponent],
-  exports: [ProfileComponent, LoginComponent, PaymentsComponent, TabsComponent, QrComponent]
+  declarations: [...coreComponents],
+  exports: [...coreComponents]
 })
 export class CoreModule { }

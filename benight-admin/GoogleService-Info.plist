@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>io.sabdallah.benight.admin</string>
+	<string>io.sabdallah.benight</string>
 	<key>PROJECT_ID</key>
 	<string>benight-39ddb</string>
 	<key>STORAGE_BUCKET</key>

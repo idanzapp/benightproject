@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
-  selector: 'qr',
+  selector: 'app-qr',
   templateUrl: './qr.component.html',
   styleUrls: ['./qr.component.scss']
 })

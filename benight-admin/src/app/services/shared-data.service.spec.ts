@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing'
 
-import { FcmService } from './fcm.service'
+import { SharedDataService } from './shared-data.service'
 
-describe('FcmService', () => {
+describe('SharedDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}))
 
   it('should be created', () => {
-    const service: FcmService = TestBed.get(FcmService)
+    const service: SharedDataService = TestBed.get(SharedDataService)
     expect(service).toBeTruthy()
   })
 })

@@ -11,6 +11,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@bn8-core/*":["app/core/*"],
+      "@bn8-environments/*":["environments/*"],
+      "@bn8-services/*":["app/services/*"],
+      "@bn8-detalle/*":["app/navigator/detalle/*"]
+
+    }
   }
 }
