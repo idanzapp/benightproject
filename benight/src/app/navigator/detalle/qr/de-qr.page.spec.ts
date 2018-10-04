@@ -1,25 +1,25 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PerfilHandlerPage } from './perfil-handler.page'
+import { QrPage } from './de-qr.page'
 
-describe('PerfilPage', () => {
-  let component: PerfilHandlerPage
-  let fixture: ComponentFixture<PerfilHandlerPage>
+describe('QrPage', () => {
+  let component: QrPage
+  let fixture: ComponentFixture<QrPage>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PerfilHandlerPage ],
+      declarations: [ QrPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents()
-  }));
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PerfilHandlerPage)
-    component = fixture.componentInstance
+    fixture = TestBed.createComponent(QrPage);
+    component = fixture.componentInstance;
     fixture.detectChanges()
-  });
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()

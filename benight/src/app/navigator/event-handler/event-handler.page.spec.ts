@@ -16,10 +16,10 @@ describe('EventHandlerPage', () => {
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventHandlerPage);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(EventHandlerPage)
+    component = fixture.componentInstance
     fixture.detectChanges()
-  });
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()

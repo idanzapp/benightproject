@@ -1,25 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
 
-import { IonicModule } from '@ionic/angular';
-
-import { InfoPage } from './info.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: InfoPage
-  }
-];
+import { myBaseModules } from '@bn8-core/imports'
+import { InfoPage } from './info.page'
+import { InfoRoutingModule } from './info-routing.page.module'
+import { CoreModule } from '@bn8-core/core.module'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    ...myBaseModules,
+    CoreModule,
+    RouterModule,
+    InfoRoutingModule
   ],
   declarations: [InfoPage]
 })

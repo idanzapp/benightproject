@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-core/imports'
-import { ListadoPage } from './listado.page'
-import { ListadoRoutingModule } from './listado-routing.page.module'
+import { QrPage } from './de-qr.page'
+import { QrRoutingModule } from './de-qr-routing.module'
 import { CoreModule } from '@bn8-core/core.module'
 import { RouterModule } from '@angular/router'
 
@@ -11,8 +11,8 @@ import { RouterModule } from '@angular/router'
     ...myBaseModules,
     CoreModule,
     RouterModule,
-    ListadoRoutingModule
+    QrRoutingModule
   ],
-  declarations: [ListadoPage]
+  declarations: [QrPage]
 })
-export class ListadoPageModule {}
+export class QrPageModule {}

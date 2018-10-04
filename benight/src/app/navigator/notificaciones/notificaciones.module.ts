@@ -1,25 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { myBaseModules } from  '@bn8-core/imports'
+import { CoreModule } from  '@bn8-core/core.module'
 
-import { IonicModule } from '@ionic/angular';
-
-import { NotificacionesPage } from './notificaciones.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: NotificacionesPage
-  }
-];
+import { RouterModule } from '@angular/router'
+import { NotificacionesRoutingModule } from './notificaciones-routing.module'
+import { NotificacionesPage } from './notificaciones.page'
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    ...myBaseModules,
+    CoreModule,
+    RouterModule,
+    NotificacionesRoutingModule,
   ],
   declarations: [NotificacionesPage]
 })

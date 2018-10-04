@@ -12,14 +12,14 @@ describe('MapaPage', () => {
       declarations: [ MapaPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
-  }));
+    .compileComponents()
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapaPage)
     component = fixture.componentInstance
     fixture.detectChanges()
-  });
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()

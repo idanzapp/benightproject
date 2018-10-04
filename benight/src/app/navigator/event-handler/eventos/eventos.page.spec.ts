@@ -13,13 +13,13 @@ describe('EventosPage', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents()
-  }));
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EventosPage)
     component = fixture.componentInstance
-    fixture.detectChanges();
-  });
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
