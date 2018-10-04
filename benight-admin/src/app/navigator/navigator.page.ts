@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { SharedDataService } from '@bn8-services/shared-data.service'
 
 @Component({
   selector: 'navigator',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigatorPage implements OnInit {
 
-  constructor() { }
+  mainTabs = [
+    {href:'/navigator/gestion',icon:'play',title:'Gestion'},
+    {href:'/navigator/chat',icon:'list',title:'Chat'},
+    {href:'/navigator/notificaciones',icon:'list',title:'Notificaciones'},
+    {href:'/navigator/general',icon:'book',title:'General'}
+  ] 
+
+  constructor(public sd: SharedDataService) { }
 
   ngOnInit() {
   }

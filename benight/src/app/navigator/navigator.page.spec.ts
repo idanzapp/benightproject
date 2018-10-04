@@ -1,27 +1,27 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { NavigatorPage } from './navigator.page';
+import { NavigatorPage } from './navigator.page'
 
 describe('NavigatorPage', () => {
-  let component: NavigatorPage;
-  let fixture: ComponentFixture<NavigatorPage>;
+  let component: NavigatorPage
+  let fixture: ComponentFixture<NavigatorPage>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NavigatorPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
-  }));
+    .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigatorPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(NavigatorPage)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

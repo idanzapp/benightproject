@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '../services/shared-data.service'
+import { SharedDataService } from '@bn8-services/shared-data.service'
 
 @Component({
   selector: 'navigator',

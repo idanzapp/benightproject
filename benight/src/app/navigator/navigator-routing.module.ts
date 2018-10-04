@@ -7,12 +7,10 @@ const routes: Routes = [{
   component: NavigatorPage,
   children: [
     { path: '', redirectTo: 'eventos-handler', pathMatch: 'full' },
-    //{ path: 'eventos', loadChildren: './eventos/eventos.module#EventosTabModule' },
     { path: 'eventos-handler', loadChildren: './event-handler/event-handler.module#EventHandlerPageModule' },
     { path: 'entradas', loadChildren: './entradas/entradas.module#EntradasPageModule' },
     { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
     { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesPageModule'  },
-    //{ path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
     { path: 'perfil', loadChildren: './perfil-handler/perfil-handler.module#PerfilHandlerPageModule' },
     { path: '**', redirectTo: '', pathMatch: 'full' }    
   ]

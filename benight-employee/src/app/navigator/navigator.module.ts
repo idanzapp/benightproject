@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
-
-import { IonicModule } from '@ionic/angular'
 
 import { NavigatorPage } from './navigator.page'
 import { NavigatorRoutingModule } from './navigator-routing.module'
 
+import { myBaseModules} from '@bn8-core/imports'
+import { CoreModule} from '@bn8-core/core.module'
+
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NavigatorRoutingModule
+    ...myBaseModules,
+    CoreModule, 
+    NavigatorRoutingModule,
   ],
   declarations: [NavigatorPage]
 })
