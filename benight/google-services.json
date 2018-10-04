@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "564464103325",
+    "firebase_url": "https://benight-39ddb.firebaseio.com",
+    "project_id": "benight-39ddb",
+    "storage_bucket": "benight-39ddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564464103325:android:55f75d82d2287070",
+        "android_client_info": {
+          "package_name": "io.sabdallah.benight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564464103325-re3h81b7ehhkb6m8c3r6j0r0ln4osj1h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.sabdallah.benight",
+            "certificate_hash": "d7e9f6b65c48fe9a907d31e1eef4167288679ce7"
+          }
+        },
+        {
+          "client_id": "564464103325-nfdg6bb62i61jofkfeik4dp1ruafqati.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYmd2Lz0fVgiUU-E_5Vq85p_-cmvgB0ZM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564464103325-nfdg6bb62i61jofkfeik4dp1ruafqati.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "564464103325-i98em2d9lf1jfl7tre0s47ushf0afka9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.sabdallah.benight"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-3852167034335491~1199101417"
+    }
+  ],
+  "configuration_version": "1"
+}

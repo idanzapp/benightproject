@@ -1,0 +1,7 @@
+{
+  "name": "benight",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

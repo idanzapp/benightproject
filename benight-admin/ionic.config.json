@@ -1,0 +1,7 @@
+{
+  "name": "benight-admin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
