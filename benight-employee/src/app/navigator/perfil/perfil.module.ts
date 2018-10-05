@@ -1,25 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
 
-import { IonicModule } from '@ionic/angular';
-
-import { PerfilPage } from './perfil.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: PerfilPage
-  }
-];
+import { myBaseModules } from '@bn8-core/imports'
+import { PerfilPage } from './perfil.page'
+import { PerfilRoutingModule } from './perfil-routing.module'
+import { CoreModule } from '@bn8-core/core.module'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    ...myBaseModules,
+    CoreModule,
+    RouterModule,
+    PerfilRoutingModule
   ],
   declarations: [PerfilPage]
 })

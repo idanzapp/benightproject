@@ -1,25 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
 
-import { IonicModule } from '@ionic/angular';
-
-import { ChatPage } from './chat.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ChatPage
-  }
-];
+import { myBaseModules } from '@bn8-core/imports'
+import { ChatPage } from './chat.page'
+import { ChatRoutingModule } from './chat-routing.module'
+import { CoreModule } from '@bn8-core/core.module'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    ...myBaseModules,
+    CoreModule,
+    RouterModule,
+    ChatRoutingModule
   ],
   declarations: [ChatPage]
 })

@@ -1,25 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
 
-import { IonicModule } from '@ionic/angular';
-
-import { GeneralPage } from './general.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: GeneralPage
-  }
-];
+import { myBaseModules } from '@bn8-core/imports'
+import { GeneralPage } from './general.page'
+import { GeneralRoutingModule } from './general-routing.module'
+import { CoreModule } from '@bn8-core/core.module'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    ...myBaseModules,
+    CoreModule,
+    RouterModule,
+    GeneralRoutingModule
   ],
   declarations: [GeneralPage]
 })
