@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { SharedDataService } from '@bn8-services/shared-data.service';
 
 @Component({
   selector: 'app-general',
@@ -15,8 +15,8 @@ export class GeneralPage implements OnInit {
     {href:'/navigator/general/bans',title:'Bans'}
   ]
 
-  constructor(private router: Router) { }
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {} 
 
 }

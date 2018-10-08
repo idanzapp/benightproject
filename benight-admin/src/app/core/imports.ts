@@ -65,9 +65,10 @@ export const coreComponents = [
     QrComponent
 ]
 
-//For eager charge of navigator (Only Gestion in Lazy due to navigation error)
+//Views import
  
 export * from '@bn8-navigator/chat/chat.page'
+export * from '@bn8-navigator/detalle/detalle.page'
 export * from '@bn8-navigator/general/general.page'
 export * from '@bn8-navigator/gestion/gestion.page'
 export * from '@bn8-navigator/notificaciones/notificaciones.page'

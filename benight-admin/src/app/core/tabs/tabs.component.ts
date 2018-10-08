@@ -1,6 +1,4 @@
-import { SharedDataService } from '@bn8-services/shared-data.service'
 import { Component, OnInit, Input } from '@angular/core'
-import { Router } from '@angular/router'
 
 @Component({
   selector: 'tabs',
@@ -12,22 +10,8 @@ export class TabsComponent implements OnInit {
 
   @Input() tabs: any
 
-  constructor(private router: Router, private sd: SharedDataService) {
-  }
+  constructor() {}
 
-  ngOnInit() {
-    for (let i = 0; i < this.tabs.length; i++)
-      this.tabs[i] = { ...this.tabs[i], index: i }
-    this.router.events.subscribe((res) => {
-      this.activeLinkIndex = this.tabs.indexOf(this.tabs.find(tab => {return tab.href === this.router.url}))
-    })
-  }
-
-  click(title) {
-    this.sd.set('header', title)
-  }
-  show(str) {
-    console.log(str)
-  }
+  ngOnInit() {}
 
 }

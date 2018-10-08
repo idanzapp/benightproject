@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { SharedDataService } from '@bn8-services/shared-data.service'
 
 @Component({
   selector: 'chat',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core'
 })
 export class ChatPage implements OnInit {
 
-  constructor() { 
+  constructor(public sd: SharedDataService) { 
   }
 
   ngOnInit() {
+    this.sd.set('header', 'Chat')   
   }
 }

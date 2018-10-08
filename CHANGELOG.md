@@ -1,11 +1,41 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
-6th commit (2018-10-5, ??:??)
+7th commit (2018-10-8, 19:30)
 --------------------
-+ Added admin navigation
-+ Added [routerDirection]="['forward']" to tabs // Not sure, but maybe it helps with tabs navigation (try to add path:'**' to the solo components, seems its something with the navigation between 
-1-pathed pages and others )
++ Admin, changed ion-buttons for ion-tabs in tabs component
++ Admin, refactor header name change to the gnOnOnit of views instead ion-tab (click/ionSelect)
+* Reporting ionSelect, ionChange, click doesnt to anything on ion-tab
++ Admin added navigation for actions:
+        * Info
+        * List => Entrdas
+        * List => Clubs
+        * List => Propietarios
+        * List => Fechas
+        * List => Estadisticas
+        * List => Requisitos
+        * List => Tags
+        * List => Listas
+        * List => Traducciones
+        * List => Empleados
+        * List => Publico
+        * File Picker
+
+
+
+6th commit (2018-10-8, 13:15)
+--------------------
++ Added navigation to admin
++ Fix to navigation found after weekend check
+    use
+    ``` 
+     \<router-outlet> 
+    ``` 
+    instead of
+    ``` 
+     \<ion-router-outlet> 
+    ``` 
+     in navigator 
 
 5th commit (2018-10-5, 08:30)
 --------------------

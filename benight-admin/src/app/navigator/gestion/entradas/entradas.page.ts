@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { SharedDataService } from '@bn8-services/shared-data.service'
 
 @Component({
   selector: 'gestion-entradas',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntradasPage implements OnInit {
 
-  constructor() { }
+  constructor(private sd: SharedDataService) { }
 
   ngOnInit() {
+    this.sd.set('header', 'Entradas')
   }
 
 }
