@@ -2,24 +2,25 @@
 ==========
 
 7th commit (2018-10-8, 19:30)
---------------------
+----------------------------
 + Admin, changed ion-buttons for ion-tabs in tabs component
-+ Admin, refactor header name change to the gnOnOnit of views instead ion-tab (click/ionSelect)
-* Reporting ionSelect, ionChange, click doesnt to anything on ion-tab
-+ Admin added navigation for actions:
-        * Info
-        * List => Entrdas
-        * List => Clubs
-        * List => Propietarios
-        * List => Fechas
-        * List => Estadisticas
-        * List => Requisitos
-        * List => Tags
-        * List => Listas
-        * List => Traducciones
-        * List => Empleados
-        * List => Publico
-        * File Picker
++ Admin, refactor header name change to the ngOnOnit of views instead ion-tab (click/ionSelect)
+* Reporting ionSelect, ionChange, click doesnt do anything on ion-tab
+Admin added navigation for actions:
+-----------------------------------
+* Info
+* List => Entrdas
+* List => Clubs
+* List => Propietarios
+* List => Fechas
+* List => Estadisticas
+* List => Requisitos
+* List => Tags
+* List => Listas
+* List => Traducciones
+* List => Empleados
+* List => Publico
+* File Picker
 
 
 

@@ -40,8 +40,7 @@ export class DetallePage implements OnInit {
     //if(tabs['traducciones'])
       this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/list-traducciones`,title:'Traducciones'}]
     //if(tabs['publico'])
-      this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/list-publico`,title:'Publico'}]
-      console.log(this.detalleTabs)
+      this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/list-publico`,title:'Publico'}]      
   }
 
   ngOnInit() {
