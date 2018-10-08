@@ -10,7 +10,7 @@ import { CoreModule} from '@bn8-core/core.module'
   imports: [
     ...myBaseModules,
     CoreModule, 
-    NavigatorRoutingModule,
+    NavigatorRoutingModule
   ],
   declarations: [NavigatorPage]
 })

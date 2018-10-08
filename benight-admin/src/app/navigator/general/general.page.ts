@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-general',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./general.page.scss'],
 })
 export class GeneralPage implements OnInit {
+  
+  generalTabs = [
+    {href:'/navigator/general/info',title:'Info'},
+    {href:'/navigator/general/preferencias',title:'Preferencias'},
+    {href:'/navigator/general/estadisticas',title:'Estadisticas'},
+    {href:'/navigator/general/bans',title:'Bans'}
+  ]
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

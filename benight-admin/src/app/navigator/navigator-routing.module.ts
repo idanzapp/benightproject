@@ -6,16 +6,16 @@ const routes: Routes = [{
   path:'',
   component: NavigatorPage,
   children: [
-    { path: '', redirectTo: 'eventos-handler', pathMatch: 'full' },
+    { path: '', redirectTo: 'gestion', pathMatch: 'full' },
     { path: 'gestion', loadChildren: './gestion/gestion.module#GestionPageModule' },
-    { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
-    { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesPageModule' },
-    { path: 'general', loadChildren: './general/general.module#GeneralPageModule' },
+    { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },    
+    { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesPageModule' }, 
+    { path: 'general', loadChildren: './general/general.module#GeneralPageModule' },    
     { path: '**', redirectTo: '', pathMatch: 'full' }    
   ]
 },
 { path: '**', redirectTo: '', pathMatch: 'full' },
-  
+
 
 ]
 

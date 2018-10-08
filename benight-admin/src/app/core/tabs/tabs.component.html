@@ -1,14 +1,37 @@
 <ion-toolbar>
-  <ion-buttons>
-    <ion-button 
-      [ngStyle]="{'color':activeLinkIndex === tab.index ? 'var(--ion-color-primary)' : ''}"
-       *ngFor='let tab of tabs;let i = index;' 
-       [routerLink]="[tab.href]" 
-       (click)="click(tab.title)">
+ <ion-buttons>
+    <ion-button [ngStyle]="{'color':activeLinkIndex === tab.index ? 'var(--ion-color-primary)' : ''}" 
+      *ngFor='let tab of tabs;let i = index;'
+      [routerLink]="[tab.href]" 
+      (click)="click(tab.title)">
       <div>
         <ion-icon *ngIf="tab.icon" slot="start" name="{{tab.icon}}"></ion-icon>
         <ion-title>{{tab.title}}</ion-title>
       </div>
     </ion-button>
   </ion-buttons>
+  <!--<nav>
+    <a 
+    [ngStyle]="{'color':activeLinkIndex === tab.index ? 'var(--ion-color-primary)' : ''}" 
+      *ngFor='let tab of tabs;let i = index;'
+      [routerLink]="[tab.href]" 
+      (click)="click(tab.title)">
+      <div>
+        <ion-icon *ngIf="tab.icon" slot="start" name="{{tab.icon}}"></ion-icon>
+        <ion-title>{{tab.title}}</ion-title>
+      </div>      
+    </a>
+  </nav>-->
+  <!--<ion-tabs>
+    <ion-tab 
+    *ngFor='let tab of tabs;let i = index;'
+      href="{{tab.href}}" 
+      (ionSelect)="click(tab.title)"
+      (ionNavDidChange)="show('did change')"
+      (ionNavWillChange)="show('will change')"
+      (ionNavWillLoad)="show('will load')"
+      label="{{tab.title}}" icon="{{tab.icon}}">
+    </ion-tab>    
+  </ion-tabs>-->
+
 </ion-toolbar>

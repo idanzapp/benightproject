@@ -26,5 +26,8 @@ export class TabsComponent implements OnInit {
   click(title) {
     this.sd.set('header', title)
   }
+  show(str) {
+    console.log(str)
+  }
 
 }

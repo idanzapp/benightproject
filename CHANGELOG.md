@@ -1,6 +1,12 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+6th commit (2018-10-5, ??:??)
+--------------------
++ Added admin navigation
++ Added [routerDirection]="['forward']" to tabs // Not sure, but maybe it helps with tabs navigation (try to add path:'**' to the solo components, seems its something with the navigation between 
+1-pathed pages and others )
+
 5th commit (2018-10-5, 08:30)
 --------------------
 + All apps updated (codelyzer@4.5, cordova-plugin-ionic-webwiew@2.2.0,firebase@5.5.3)

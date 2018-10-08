@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 
 @Component({
@@ -14,7 +13,7 @@ export class EventHandlerPage implements OnInit {
     {href:'/navigator/eventos-handler/clubs',title:'Clubs'},
     {href:'/navigator/eventos-handler/mapa',title:'Mapa'}
   ]   
-  constructor(public router: RouterModule) { }
+  constructor() { }
 
   ngOnInit() {
   }

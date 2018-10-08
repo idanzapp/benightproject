@@ -65,34 +65,68 @@ export const coreComponents = [
     QrComponent
 ]
 
+//For eager charge of navigator (Only Gestion in Lazy due to navigation error)
+ 
+export * from '@bn8-navigator/chat/chat.page'
+export * from '@bn8-navigator/general/general.page'
+export * from '@bn8-navigator/gestion/gestion.page'
+export * from '@bn8-navigator/notificaciones/notificaciones.page'
+export * from '@bn8-navigator/navigator.page'
 
-/*export * from './eventos/eventos.module'
-export * from './entradas/entradas.module'
-export * from './chat/chat.module'
-export * from './notificaciones/notificaciones.module'
-export * from './perfil/perfil.module'*/
+/*import {ChatPage} from '@bn8-navigator/chat/chat.page'
+import {GeneralPage} from '@bn8-navigator/general/general.page'
+import {GestionPage} from '@bn8-navigator/gestion/gestion.page'
+import {NotificacionesPage} from '@bn8-navigator/notificaciones/notificaciones.page'
+import {NavigatorPage} from '@bn8-navigator/navigator.page'
 
-/*
-// Navigator Routing
-export * from './navigator.page'
-export * from './eventos/eventos.page'
-export * from './entradas/entradas.page'
-export * from './chat/chat.page'
-export * from './notificaciones/notificaciones.page'
-export * from './perfil/perfil.page' 
-
-// Navigator Module
-import { EventosPageModule } from './eventos/eventos.module'
-import { EntradasPageModule } from './entradas/entradas.module'
-import { ChatPageModule } from './chat/chat.module'
-import { NotificacionesPageModule } from './notificaciones/notificaciones.module'
-import { PerfilPageModule } from './perfil/perfil.module'
+export const viewPages = [
+    ChatPage,
+    GestionPage,
+    GeneralPage,
+    NotificacionesPage,
+    NavigatorPage
+]*/
 
 
-export const myPagesModules = [   
-    EventosPageModule,   
-    EntradasPageModule,
-    ChatPageModule,
-    NotificacionesPageModule,
-    PerfilPageModule
+//General navigation
+/*export * from '@bn8-navigator/general/bans/bans.page'
+export * from '@bn8-navigator/general/estadisticas/estadisticas.page'
+export * from '@bn8-navigator/general/info/info.page'
+export * from '@bn8-navigator/general/preferencias/preferencias.page'
+
+import {EstadisticasPage} from '@bn8-navigator/general/estadisticas/estadisticas.page'
+import {BansPage} from '@bn8-navigator/general/bans/bans.page'
+import {InfoPage} from '@bn8-navigator/general/info/info.page'
+import {PreferenciasPage} from '@bn8-navigator/general/preferencias/preferencias.page'
+
+export const viewGeneralPages = [
+    EstadisticasPage,
+    BansPage,
+    InfoPage,
+    PreferenciasPage
+]*/
+
+
+//Gention navigation
+/*export * from '@bn8-navigator/gestion/clubs/clubs.page'
+export * from '@bn8-navigator/gestion/empleados/empleados.page'
+export * from '@bn8-navigator/gestion/entradas/entradas.page'
+export * from '@bn8-navigator/gestion/eventos/eventos.page'
+export * from '@bn8-navigator/gestion/planes/planes.page'
+export * from '@bn8-navigator/gestion/promos/promos.page'
+
+import {ClubsPage} from '@bn8-navigator/gestion/clubs/clubs.page'
+import {EmpleadosPage} from '@bn8-navigator/gestion/empleados/empleados.page'
+import {EntradasPage} from '@bn8-navigator/gestion/entradas/entradas.page'
+import {EventosPage} from '@bn8-navigator/gestion/eventos/eventos.page'
+import {PlanesPage} from '@bn8-navigator/gestion/planes/planes.page'
+import {PromosPage} from '@bn8-navigator/gestion/promos/promos.page'
+
+export const viewGestionPages = [
+    ClubsPage,
+    EmpleadosPage,
+    EntradasPage,
+    EventosPage,
+    PlanesPage,
+    PromosPage    
 ]*/
