@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core'
 import { myAppProviders, myAppModules, FirebaseModules} from '@bn8-core/imports'
 
 import { AppComponent } from './app.component'
-import { AppRoutingModule } from './app-routing.module'
+import { AppRoutingModule } from './app-routing.module';
+import { FireFormDirective } from './directives/fire-form.directive'
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FireFormDirective],
   entryComponents: [],
   imports: [
     ...myAppModules,

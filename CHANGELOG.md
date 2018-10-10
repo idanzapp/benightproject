@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+9th commit (2018-10-10, ??:??)
+----------------------------
++ Weather Icons added in every app
++ Firebase functions for login, preparing proxy for db connections
+
 7th commit (2018-10-8, 19:30)
 ----------------------------
 + Admin, changed ion-buttons for ion-tabs in tabs component
