@@ -55,5 +55,13 @@ export const environment = {
     projectId: "bn8-fr",
     storageBucket: "bn8-fr.appspot.com",
     messagingSenderId: "657673819921"
+  },
+  firebase_ticket: {
+    apiKey: "AIzaSyBDTZAiXa8w7PjQJoJISROl6Q2nC8SwtQo",
+    authDomain: "bn8-ticket.firebaseapp.com",
+    databaseURL: "https://bn8-ticket.firebaseio.com",
+    projectId: "bn8-ticket",
+    storageBucket: "bn8-ticket.appspot.com",
+    messagingSenderId: "642996909727"
   }
-};
+}

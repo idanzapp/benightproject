@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { FormGroup } from '@angular/forms'
 import { tap,  take, debounceTime } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
+import { FirestoreAdminService, FirestoreEventService, FirestoreTicketService } from '@bn8-services/db-extension.service'
 
 @Directive({
   selector: '[fireForm]'
@@ -26,9 +27,13 @@ export class FireFormDirective implements OnInit, OnDestroy {
 
   // Subscriptions
   private formSub: Subscription
-
-  constructor(private afs: AngularFirestore) { }
-
+  //Firestore  
+  constructor(
+    private afs: AngularFirestore,
+    private afsAdmin: FirestoreAdminService,
+    private afsTicket: FirestoreTicketService,
+    private afsEvent: FirestoreEventService,
+    ) { }
 
   ngOnInit() {
     this.preloadData()
@@ -38,7 +43,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
   // Loads initial form data from Firestore
   preloadData() {
     this.state = 'loading'
-    this.docRef = this.getDocRef(this.path)
+    this.docRef = this.getDocRef()
     this.docRef
       .valueChanges()
       .pipe(
@@ -53,7 +58,6 @@ export class FireFormDirective implements OnInit, OnDestroy {
       )
       .subscribe()
   }
-
   
   // Autosaves form changes
   autoSave() {
@@ -80,11 +84,30 @@ export class FireFormDirective implements OnInit, OnDestroy {
 
 
   // Determines if path is a collection or document
-  getDocRef(path: string): any {
-    if (path.split('/').length % 2) {
-      return this.afs.doc(`${path}/${this.afs.createId()}`)
+  getDocRef(): any {    
+    let store
+    if  (this.dbRef) 
+      switch (this.dbRef) {
+        case 'admin':
+          store = this.afsAdmin
+          break
+        case 'ticket':
+          store = this.afsTicket
+          break
+        case 'event':
+          store = this.afsEvent
+          break    
+        default:
+          store = this.afs
+          break
+      }
+    else  
+      store = this.afs  
+
+    if (this.path.split('/').length % 2) {
+      return store.doc(`${this.path}/${this.afs.createId()}`)
     } else {
-      return this.afs.doc(path)
+      return store.doc(this.path)
     }
   }
 
@@ -109,5 +132,4 @@ export class FireFormDirective implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.formSub.unsubscribe()
   }
-
 }

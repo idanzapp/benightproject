@@ -1,10 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
-9th commit (2018-10-10, ??:??)
+9th commit (2018-10-10, 20:00)
 ----------------------------
 + Weather Icons added in every app
-+ Firebase functions for login, preparing proxy for db connections
++ Admin App: Created Instances for every DB connection needed, 
++ Admin App: Added FireForm Directive
 
 7th commit (2018-10-8, 19:30)
 ----------------------------

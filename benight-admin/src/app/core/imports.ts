@@ -1,4 +1,5 @@
 // Base Modules
+import { PLATFORM_ID, NgZone } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
@@ -17,6 +18,28 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireFunctionsModule } from '@angular/fire/functions'
 import { AngularFireMessagingModule } from '@angular/fire/messaging'
 
+import { 
+    FirestoreEventService,
+    AngularFireEventFactory,
+    FirestoreAdminService,
+    AngularFireAdminFactory,
+    FirestoreTicketService,
+    AngularFireTicketFactory,
+    FunctionsEventService,
+    AngularFireFunctionsEventFactory,
+    FunctionsAdminService,
+    AngularFireFunctionsAdminFactory,
+    FunctionsTicketService,
+    AngularFireFunctionsTicketFactory ,
+    MessagingEventService,
+    AngularFireMessagingEventFactory,
+    MessagingAdminService,
+    AngularFireMessagingAdminFactory,
+    MessagingTicketService,
+    AngularFireMessagingTicketFactory    
+  } from '@bn8-services/db-extension.service'
+
+  //Login db by default
 export const FirebaseModules = [
     AngularFireModule.initializeApp(environment.firebase_login),
     AngularFirestoreModule,
@@ -26,6 +49,19 @@ export const FirebaseModules = [
 
 ]
 
+export const FirebaseProviders = [
+    { provide: FirestoreEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireEventFactory },
+    { provide: FirestoreAdminService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireAdminFactory },
+    { provide: FirestoreTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireTicketFactory },
+    { provide: FunctionsEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFunctionsEventFactory },
+    { provide: FunctionsAdminService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFunctionsAdminFactory },
+    { provide: FunctionsTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFunctionsTicketFactory },
+    { provide: MessagingEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMessagingEventFactory },
+    { provide: MessagingAdminService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMessagingAdminFactory },
+    { provide: MessagingTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMessagingTicketFactory },
+    
+
+]
 import { BrowserModule } from '@angular/platform-browser'
 //App Modules
 export const myAppModules = [
