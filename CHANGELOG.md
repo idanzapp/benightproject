@@ -1,7 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
-9th commit (2018-10-10, 20:00)
+new commit (2018-10-10, 22:00)
+----------------------------
++ Updated to angular@latest npm
+
+new commit (2018-10-10, 20:00)
 ----------------------------
 + Weather Icons added in every app
 + Admin App: Created Instances for every DB connection needed, 
