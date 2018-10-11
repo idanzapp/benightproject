@@ -1,6 +1,10 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-11, 19:30)
+----------------------------
++ Admin: added left join, and the base to connect with the DB
+
 new commit (2018-10-10, 22:00)
 ----------------------------
 + Updated to angular@latest npm

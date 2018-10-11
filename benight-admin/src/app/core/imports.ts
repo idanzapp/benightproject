@@ -39,6 +39,8 @@ import {
     AngularFireMessagingTicketFactory    
   } from '@bn8-services/db-extension.service'
 
+ export {FirestoreEventService, FirestoreAdminService, FirestoreTicketService} from '@bn8-services/db-extension.service'
+
   //Login db by default
 export const FirebaseModules = [
     AngularFireModule.initializeApp(environment.firebase_login),

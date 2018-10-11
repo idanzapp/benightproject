@@ -16,7 +16,7 @@ export class DetallePage implements OnInit {
   private setTabs(tabs?) {    
     var basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     //if(tabs['info'])
-      this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/detalle-info`,title:'Info'}]
+      this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/detalle-info-event`,title:'Info'}]
     //if(tabs['empleados'])
         this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/list-empleados`,title:'Empleados'}]
     //if(tabs['estadisticas'])

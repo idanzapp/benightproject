@@ -1,0 +1,72 @@
+<ion-content>
+    <form [formGroup]="myForm">    
+        <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input text-right formControlName="name"></ion-input>
+        </ion-item>   
+        <ion-item>
+            <ion-label position="floating">Descripcion</ion-label>
+            <ion-input text-right formControlName="description"></ion-input>
+        </ion-item>    
+        <ion-item>
+            <ion-label position="floating">Direccion</ion-label>
+            <ion-input text-right formControlName="adress"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Aforo</ion-label>
+            <ion-input text-right type='number' slot="end" formControlName="gaugin"></ion-input>
+        </ion-item>    
+        <ion-item>
+            <ion-label position="floating">Duracion</ion-label>
+            <ion-input text-right type='number' formControlName="duration"></ion-input>
+        </ion-item>           
+        <ion-item>
+            <ion-label>Evento Gratuito</ion-label>
+            <ion-toggle formControlName="free" checked slot="end"></ion-toggle>
+        </ion-item>    
+        <ion-item>
+            <ion-label>Activar Cuenta Atras</ion-label>
+            <ion-toggle formControlName="activateCountdown" checked slot="end"></ion-toggle>
+        </ion-item>       
+        <ion-item>
+            <ion-label>Activar Lista</ion-label>
+            <ion-toggle formControlName="enableList" checked slot="end"></ion-toggle>
+        </ion-item>   
+        <ion-item>
+            <ion-label position="floating">Foto en Lista</ion-label>
+            <ion-input text-right formControlName="eventPhotoURL"></ion-input>
+        </ion-item>   
+        <ion-item>
+            <ion-label position="floating">Foto De Cabecera</ion-label>
+            <ion-input text-right formControlName="headerPhotoURL"></ion-input>
+        </ion-item>     
+        <ion-item>
+            <ion-label>Edad Maxima</ion-label>
+            <ion-input text-right text-right type='number' slot="end" formControlName="maxAge"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label>Edad Minima</ion-label>
+            <ion-input text-right text-right type='number' slot="end" formControlName="minAge"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label>Precio</ion-label>
+            <ion-input text-right text-right type='number' slot="end" formControlName="price"></ion-input>
+        </ion-item>      
+        <ion-item *ngIf="create">
+            <ion-label position="stack">Fecha de inicio</ion-label>
+            <ion-datetime  displayFormat="D MMM YYYY H:mm" formControlName="initDate"></ion-datetime>
+        </ion-item>
+    </form>        
+    <ion-button expand="full">Listar Clubs</ion-button>
+    <ion-button expand="full">Listar Entradas</ion-button>
+    <ion-button expand="full">Listar Empleados</ion-button>
+    <ion-button expand="full">Listar Estadisticas</ion-button>
+    <ion-button expand="full">Listar Fechas</ion-button>
+    <ion-button expand="full">Listar Listas</ion-button>
+    <ion-button expand="full">Listar Propietarios</ion-button>
+    <ion-button expand="full">Listar Publico</ion-button>
+    <ion-button expand="full">Listar Requisitos</ion-button>
+    <ion-button expand="full">Listar Tags</ion-button>
+    <ion-button expand="full">Listar Traducciones</ion-button>    
+    <ion-button expand="full">Añadir Fotos</ion-button>
+</ion-content>

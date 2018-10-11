@@ -7,7 +7,7 @@ const routes: Routes = [
       path: '',
       component: DetallePage,
       children: [          
-        { path: '', redirectTo: 'detalle-info', pathMatch: 'full' },
+        { path: '', redirectTo: 'detalle-info-event', pathMatch: 'full' },
         { path: 'list-entradas', loadChildren: './list-entradas/list-entradas.module#ListEntradasPageModule' },
         { path: 'list-clubs', loadChildren: './list-clubs/list-clubs.module#ListClubsPageModule' },
         { path: 'list-propietarios', loadChildren: './list-propietarios/list-propietarios.module#ListPropietariosPageModule' },
@@ -20,7 +20,7 @@ const routes: Routes = [
         { path: 'list-empleados', loadChildren: './list-empleados/list-empleados.module#ListEmpleadosPageModule' },
         { path: 'list-publico', loadChildren: './list-publico/list-publico.module#ListPublicoPageModule' },
         { path: 'list-tags', loadChildren: './list-tags/list-tags.module#ListTagsPageModule' },     
-        { path: 'detalle-info', loadChildren: './detalle-info/detalle-info.module#DetalleInfoPageModule' },
+        { path: 'detalle-info-event', loadChildren: './detalle-info-event/detalle-info-event.module#DetalleInfoEventPageModule' },
         { path: '**', redirectTo: '', pathMatch: 'full' }  
       ]
     },

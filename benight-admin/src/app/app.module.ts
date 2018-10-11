@@ -7,6 +7,8 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module';
 import { FireFormDirective } from './directives/fire-form.directive'
 
+import { Facebook } from '@ionic-native/facebook/ngx'
+import { IonicStorageModule } from '@ionic/storage'
 
 @NgModule({
   declarations: [AppComponent, FireFormDirective],
@@ -14,11 +16,14 @@ import { FireFormDirective } from './directives/fire-form.directive'
   imports: [
     ...myAppModules,
     ...FirebaseModules,
-    AppRoutingModule
+    AppRoutingModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     ...myAppProviders,
-    ...FirebaseProviders
+    ...FirebaseProviders,
+    Facebook,
+    
   ],
   bootstrap: [AppComponent]
 })

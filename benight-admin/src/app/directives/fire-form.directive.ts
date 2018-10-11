@@ -66,7 +66,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
       tap(change => {
         this.state = 'modified'
       }),
-      debounceTime(2000),
+      debounceTime(5000),
       tap(change => {
         if (this.formGroup.valid && this._state === 'modified') {
           this.setDoc()
@@ -105,7 +105,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
       store = this.afs  
 
     if (this.path.split('/').length % 2) {
-      return store.doc(`${this.path}/${this.afs.createId()}`)
+      return store.doc(`${this.path}/${store.createId()}`)
     } else {
       return store.doc(this.path)
     }
