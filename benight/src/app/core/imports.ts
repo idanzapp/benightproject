@@ -1,4 +1,5 @@
 // Base Modules
+import { PLATFORM_ID, NgZone } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
@@ -17,6 +18,24 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireFunctionsModule } from '@angular/fire/functions'
 import { AngularFireMessagingModule } from '@angular/fire/messaging'
 
+import { 
+    FirestoreEventService,
+    AngularFireEventFactory,
+    FirestoreTicketService,
+    AngularFireTicketFactory,
+    FunctionsEventService,
+    AngularFireFunctionsEventFactory,
+    FunctionsTicketService,
+    AngularFireFunctionsTicketFactory ,
+    MessagingEventService,
+    AngularFireMessagingEventFactory,
+    MessagingTicketService,
+    AngularFireMessagingTicketFactory    
+  } from '@bn8-services/db-extension.service'
+
+ export {FirestoreEventService, FirestoreTicketService} from '@bn8-services/db-extension.service'
+
+  //Login db by default
 export const FirebaseModules = [
     AngularFireModule.initializeApp(environment.firebase_login),
     AngularFirestoreModule,
@@ -26,6 +45,16 @@ export const FirebaseModules = [
 
 ]
 
+export const FirebaseProviders = [
+    { provide: FirestoreEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireEventFactory },    
+    { provide: FirestoreTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireTicketFactory },
+    { provide: FunctionsEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFunctionsEventFactory },    
+    { provide: FunctionsTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFunctionsTicketFactory },
+    { provide: MessagingEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMessagingEventFactory },    
+    { provide: MessagingTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMessagingTicketFactory },
+    
+
+]
 import { BrowserModule } from '@angular/platform-browser'
 //App Modules
 export const myAppModules = [
@@ -65,34 +94,11 @@ export const coreComponents = [
     QrComponent
 ]
 
-
-/*export * from './eventos/eventos.module'
-export * from './entradas/entradas.module'
-export * from './chat/chat.module'
-export * from './notificaciones/notificaciones.module'
-export * from './perfil/perfil.module'*/
-
-/*
-// Navigator Routing
-export * from './navigator.page'
-export * from './eventos/eventos.page'
-export * from './entradas/entradas.page'
-export * from './chat/chat.page'
-export * from './notificaciones/notificaciones.page'
-export * from './perfil/perfil.page' 
-
-// Navigator Module
-import { EventosPageModule } from './eventos/eventos.module'
-import { EntradasPageModule } from './entradas/entradas.module'
-import { ChatPageModule } from './chat/chat.module'
-import { NotificacionesPageModule } from './notificaciones/notificaciones.module'
-import { PerfilPageModule } from './perfil/perfil.module'
-
-
-export const myPagesModules = [   
-    EventosPageModule,   
-    EntradasPageModule,
-    ChatPageModule,
-    NotificacionesPageModule,
-    PerfilPageModule
-]*/
+//Views import
+ 
+//export * from '@bn8-navigator/chat/chat.page'
+//export * from '@bn8-navigator/detalle/detalle.page'
+//export * from '@bn8-navigator/general/general.page'
+//export * from '@bn8-navigator/gestion/gestion.page'
+//export * from '@bn8-navigator/notificaciones/notificaciones.page'
+//export * from '@bn8-navigator/navigator.page'

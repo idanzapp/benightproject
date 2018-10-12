@@ -9,3 +9,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.ion-color-facebook {
+    --ion-color-base:#2d4373;
+    --ion-color-base-rgb: rgb(#2d4373);
+    --ion-color-contrast:#ffffff;
+    --ion-color-contrast-rgb: f,f,f;
+    --ion-color-shade: #283b65;
+    --ion-color-tint: #425681;
+  }
+
+.ion-color-facebook-back {
+    --ion-background-color:  linear-gradient(top, #3b5998, #2b4170);
+}

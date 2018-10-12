@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-//import { AuthService } from '@bn8-services/auth.service'
+
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FirestoreEventService, FirestoreAdminService, FirestoreTicketService } from '@bn8-core/imports'
 

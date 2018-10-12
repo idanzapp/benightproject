@@ -1,11 +1,16 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-12, 14:45)
+----------------------------
++ Added user-level.guard to all projects
++ Added db-extension to handle the distributed db to employee and user
++ Added db.service and auth.service to employee and user
+
 new commit (2018-10-12, 10:45)
 ----------------------------
 + Added login page to all projects, removed home page
 - Removed shared folder from git
-
 
 new commit (2018-10-12, 8:45)
 ----------------------------

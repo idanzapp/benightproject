@@ -42,7 +42,18 @@ export class AuthService {
     return this.user$
       .pipe(
         take(1),
-        map(u => u && u.uid)
+        map(u => u && u.uid),
+        shareReplay(1)
+      )
+      .toPromise()
+  }  
+
+  permission() {
+    return this.user$
+      .pipe(
+        take(1),
+        map(u => u && u.permissions),
+        shareReplay(1)
       )
       .toPromise()
   }
