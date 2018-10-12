@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-12, 18:45)
+----------------------------
++ Added Fully working Facebook funtionality to admin 
+- Removed @ionic/storage from admin
+
 new commit (2018-10-12, 14:45)
 ----------------------------
 + Added user-level.guard to all projects

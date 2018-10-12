@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FirestoreEventService, FirestoreAdminService, FirestoreTicketService } from '@bn8-core/imports'
 
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map , switchMap, shareReplay, reduce, scan} from 'rxjs/operators'
 
 @Injectable({
@@ -15,8 +15,7 @@ export class DbService {
     private afs: AngularFirestore,
     private afse: FirestoreEventService,
     private afsa: FirestoreAdminService,
-    private afst: FirestoreTicketService,
-    //private auth:AuthService
+    private afst: FirestoreTicketService
   ) { }
   
   private getDb(db?): AngularFirestore {
@@ -83,21 +82,22 @@ export class DbService {
     if (segments.length % 2 ) 
       return connectTO.collection(path).add(data)
     else //Add updatedAt to data Stream if doc
-      return connectTO.doc(path).set({...data,updatedAt: new Date().toISOString}, {merge: true})    
+      return connectTO.doc(path).set({...data,updatedAt: new Date()}, {merge: true})    
   }
 
   createAt(path:string, data:Object, db?:string) {
     //Add createdAt to data Stream if doc and call updatedAt
     const segments = path.split('/').filter(v => v)
     if (!(segments.length % 2))
-      this.updateAt(path,{...data,createdAt: new Date().toISOString},db)
+     data = {...data,createdAt: new Date()}
+    this.updateAt(path,data,db)  
   }
 
   delete(path:string, db?:string) {
     const segments = path.split('/').filter(v => v)
     //mark doc as deleted
     if (!(segments.length % 2))
-      this.updateAt(path,{deleted: true,deletedAt: new Date().toISOString},db)
+      this.updateAt(path,{deleted: true,deletedAt: new Date()},db)
   }
 
   ngOnInit() {

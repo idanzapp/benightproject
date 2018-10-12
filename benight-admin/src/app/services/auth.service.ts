@@ -10,9 +10,6 @@ import { DbService } from './db.service'
 import { Facebook } from '@ionic-native/facebook/ngx'
 import { Platform } from '@ionic/angular'
 
-import { LoadingController } from '@ionic/angular'
-import { Storage } from '@ionic/storage'
-
 @Injectable({
   providedIn: 'root'
 })
@@ -24,18 +21,12 @@ export class AuthService {
     private db: DbService,
     private router: Router,
     private facebook: Facebook,
-    private platform: Platform,
-    private loadingController: LoadingController,
-    private storage: Storage
+    private platform: Platform
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null))),
       shareReplay(1)
     )
-
-    if (platform.is('pwa')) {
-      this.handleRedirect()
-    }
   }
 
   uid() {
@@ -58,22 +49,14 @@ export class AuthService {
       .toPromise()
   }
 
-  async anonymousLogin() {
-    const credential = await this.afAuth.auth.signInAnonymously()
-    return await this.updateUserData(credential.user)
-  }
-
-  private updateUserData({ uid, email, displayName, photoURL, isAnonymous }) {
+  private updateUserData({ uid, email, displayName, photoURL }) {
     // Sets user data to firestore on login
-
     const path = `users/${uid}`
-
     const data = {
       uid,
       email,
       displayName,
-      photoURL,
-      isAnonymous
+      photoURL
     }
 
     return this.db.updateAt(path, data)
@@ -84,53 +67,38 @@ export class AuthService {
     return this.router.navigate(['/'])
   }
 
-  //// Facebook AUTH
-
-  setRedirect(val) {
-    this.storage.set('BN8-authRedirect', val)
-  }
-
-  async isRedirect() {
-    return await this.storage.get('BN8-authRedirect')
-  }
-
   async facebookLogin() {
     try {
       let user
-
       if (this.platform.is('cordova')) {
         user = await this.nativeFacebookLogin()
       } else {
-        await this.setRedirect(true)
         const provider = new auth.FacebookAuthProvider()
-        user = await this.afAuth.auth.signInWithRedirect(provider)
+        user = await this.afAuth.auth.signInWithPopup(provider)
+      } 
+      
+      if(user.additionalUserInfo.isNewUser) {
+        //si es un nuevo usuario, crea datos por defecto, y crea al usuario
+        user = {
+          ...user.user,
+          appear:false,
+          balance:0,
+          banned:false,
+          birthday: new Date(),//quitarlo despues de pedir cumple a face
+          gender:'chico',//pedir a face
+          permissions: [],
+          invited: [],
+          friends: []
+        }
+        await this.db.createAt(`users`, user)
+        return this.router.navigate(['/'])
+      } else {
+        await this.updateUserData(user.user)
+        return this.router.navigate(['/'])
       }
-
-      return await this.updateUserData(user)
     } catch (err) {
       console.log(err)
     }
-  }
-
-  // Handle login with redirect for web Facebook auth
-  private async handleRedirect() {
-    if ((await this.isRedirect()) !== true) {
-      return null
-    }
-    const loading = await this.loadingController.create()
-    await loading.present()
-
-    const result = await this.afAuth.auth.getRedirectResult()
-
-    if (result.user) {
-      await this.updateUserData(result.user)
-    }
-
-    await loading.dismiss()
-
-    await this.setRedirect(false)
-
-    return result
   }
 
   async nativeFacebookLogin(): Promise<any> {

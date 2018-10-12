@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { AuthService } from '@bn8-services/auth.service'
 
 @Component({
   selector: 'bn8-login',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(public auth:AuthService) { }
 
   ngOnInit() {
   }
