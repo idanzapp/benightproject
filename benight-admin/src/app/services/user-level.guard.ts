@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core'
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router'
 import { AuthService } from './auth.service'
-import { AlertController } from '@ionic/angular'
 @Injectable({
   providedIn: 'root'
 })
 export class UserLevelGuard implements CanActivate {
   constructor(
     private auth: AuthService,
-    private alertController: AlertController
+    private router: Router
     ) { }
   async canActivate(
     next: ActivatedRouteSnapshot,
@@ -19,15 +18,8 @@ export class UserLevelGuard implements CanActivate {
     const isLoggedIn = !!uid 
 
     if (!isLoggedIn) {
-      const alert = await this.alertController.create({
-        header: 'Blocked',
-        subHeader: 'Authentication required',
-        message:'You require to Log in to use Benight',
-        buttons: ['OK']
-      })
-      await alert.present() 
-    }     
-    
+      this.router.navigate(['login'])  //redirect to login
+    }         
     //Comprueba si tiene permiso
     const roles = next.data["roles"] as Array<string>
     let hasPermission = true //If roles is not created, you has permission
@@ -36,16 +28,9 @@ export class UserLevelGuard implements CanActivate {
       hasPermission= roles.filter(p => (permission.includes(p))).length>0
 
       if (!hasPermission) {
-        const alert = await this.alertController.create({
-          header: 'Blocked',
-          subHeader: 'Permission required',
-          message:'You require to upgrade your permissions to reach this Page',
-          buttons: ['OK']
-        })
-        await alert.present() 
+        this.router.navigate(['/']) //redirect to main page
       }
-    }
-    
+    }    
     return isLoggedIn && hasPermission
   }
 }
