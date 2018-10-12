@@ -26,7 +26,7 @@ export class EventosPage implements OnInit {
     this.sd.set('header', 'Eventos')
     //let user = await this.auth.user$
     let user = {uid:0}
-    this.events = await this.db.leftJoin('propietario_eventos','eventos','ownerUid','uid', user, 'event','event')
+    this.events = await this.db.leftJoin('propietario_eventos','eventos','ownerUid','uid',user.uid, 'event','event')
     //console.log(this.events)
   }
 

@@ -65,12 +65,12 @@ export class DbService {
       )
   }
 
-  async leftJoin(path1,path2,field1,field2,user,db1,db2) {
+  async leftJoin(path1,path2,field1,field2,cmp,db1,db2) {
     let query = ''
     //seek the id's that belongs to the user
-    return this.collection$(path1,ref => ref.where(field1,'==',user.uid),db1).pipe(
+    return this.collection$(path1,ref => ref.where(field1,'==',cmp),db1).pipe(
         //it makes the list of of uids separated by |
-        scan((acc,curr) => query = `${query} | ${curr['uid']}`,{}), 
+        scan((acc,curr) => query = `${query} | ${curr[field2]}`,{}), 
         switchMap( () => {          
           //substring remove the 1st ' |' of the query
           return  this.collection$(path2,ref => ref.where(field2,'==',query.substring(2, query.length)),db2)
