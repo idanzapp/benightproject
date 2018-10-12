@@ -25,9 +25,9 @@ export class EventosPage implements OnInit {
   async ngOnInit() {
     this.sd.set('header', 'Eventos')
     //let user = await this.auth.user$
-    let user = 0
-    this.events = await this.db.leftJoin('propietario_eventos','eventos','ownerUid', user, 'event','event')
-    console.log(this.events)
+    let user = {uid:0}
+    this.events = await this.db.leftJoin('propietario_eventos','eventos','ownerUid','uid', user, 'event','event')
+    //console.log(this.events)
   }
 
   trackById(idx, todo) {
