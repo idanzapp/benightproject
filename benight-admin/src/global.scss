@@ -20,5 +20,10 @@
   }
 
 .ion-color-facebook-back {
-    --ion-background-color:  linear-gradient(top, #3b5998, #2b4170);
+    --ion-color-base:linear-gradient(to top, #3b5998, #2b4170);
+    --ion-color-base-rgb: rgb(linear-gradient(to top, #3b5998, #2b4170));
+    --ion-color-contrast:#ffffff;
+    --ion-color-contrast-rgb: f,f,f;
+    --ion-color-shade: linear-gradient(to top, #3b5998, #2b4170);
+    --ion-color-tint: linear-gradient(to top, #3b5998, #2b4170);
 }
