@@ -1,6 +1,16 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-12, 10:45)
+----------------------------
++ Added login page to all projects, removed home page
+- Removed shared folder from git
+
+
+new commit (2018-10-12, 8:45)
+----------------------------
++ Added JSECoin mining support to the app 
+
 new commit (2018-10-11, 19:30)
 ----------------------------
 + Admin: added left join, and the base to connect with the DB
