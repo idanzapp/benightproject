@@ -12,6 +12,7 @@ export class EntradasPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Entradas')
+    this.sd.set('back-button', false)
   }
 
 }

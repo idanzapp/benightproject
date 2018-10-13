@@ -12,6 +12,7 @@ export class PreferenciasPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Preferencias')
+    this.sd.set('back-button', false)
   }
 
 }

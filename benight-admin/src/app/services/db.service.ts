@@ -64,17 +64,23 @@ export class DbService {
       )
   }
 
-  async leftJoin(path1,path2,field1,field2,cmp,db1,db2) {
+  leftJoin(path1,path2,field1,field2,cmp,db1,db2) {
     let query = ''
     //seek the id's that belongs to the user
     return this.collection$(path1,ref => ref.where(field1,'==',cmp),db1).pipe(
-        //it makes the list of of uids separated by |
-        scan((acc,curr) => query = `${query} | ${curr[field2]}`,{}), 
+        //it makes the list of uids separated by |
+        reduce(value => query = this.formatQuery(query,value,field2),{}), 
         switchMap( () => {          
           //substring remove the 1st ' |' of the query
           return  this.collection$(path2,ref => ref.where(field2,'==',query.substring(2, query.length)),db2)
         })       
   )}
+
+  private formatQuery(query,doc,property){
+    if(doc[property])
+      return `${query} | ${doc[property]}`
+    return query  
+  }    
 
   updateAt(path:string, data:Object, db?:string):Promise<any> {
     let connectTO = this.getDb(db)    
@@ -103,8 +109,6 @@ export class DbService {
   ngOnInit() {
   }
 }
-
-
 //1st attemp to do left join
     /*this.auth.user$.pipe(
         //modificar ownerUid para que pueda tener varios propietarios

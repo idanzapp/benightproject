@@ -1,3 +1,4 @@
+import { DetalleInfoEventPage } from './../../detalle/detalle-info-event/detalle-info-event.page'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { EventosPage } from './eventos.page'
@@ -8,7 +9,17 @@ const routes: Routes = [
       path: '',
       component: EventosPage,
       canActivate: [UserLevelGuard]
-    }
+    },    
+    {
+      path:'crear',
+      component: DetalleInfoEventPage
+    },
+    {
+      path:'editar',
+      component: DetalleInfoEventPage
+    }, 
+    {path:'**',redirectTo:'',pathMatch:'full'},
+
 ]
 
 @NgModule({

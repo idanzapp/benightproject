@@ -11,6 +11,7 @@ export class InfoPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Info')
+    this.sd.set('back-button', false)
   }
 
 }

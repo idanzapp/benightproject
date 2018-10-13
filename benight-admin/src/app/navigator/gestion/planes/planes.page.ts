@@ -12,6 +12,7 @@ export class PlanesPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Planes')
+    this.sd.set('back-button', false)
   }
 
 }

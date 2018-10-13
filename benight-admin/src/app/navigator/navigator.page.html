@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons *ngIf="sd.get('back-button')" slot="start">
+      <ion-button (click)="sd.set('back-button',false)" [routerLink]="[sd.get('back-url')]">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>{{sd.get('header')}}</ion-title>
   </ion-toolbar>
 </ion-header>

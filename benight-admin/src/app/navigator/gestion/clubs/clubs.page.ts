@@ -12,6 +12,7 @@ export class ClubsPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Clubs')
+    this.sd.set('back-button', false)
   }
 
 }

@@ -12,6 +12,7 @@ export class NotificacionesPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Notificaciones')
+    this.sd.set('back-button', false)
   }
 
 }

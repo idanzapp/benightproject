@@ -12,6 +12,7 @@ export class EstadisticasPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Estadisticas')
+    this.sd.set('back-button', false)
   }
 
 }

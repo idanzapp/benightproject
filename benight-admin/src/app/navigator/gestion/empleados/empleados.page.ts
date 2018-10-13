@@ -12,6 +12,7 @@ export class EmpleadosPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Empleados')
+    this.sd.set('back-button', false)
   }
 
 }

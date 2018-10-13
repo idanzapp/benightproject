@@ -12,6 +12,7 @@ export class ChatPage implements OnInit {
   }
 
   ngOnInit() {
-    this.sd.set('header', 'Chat')   
+    this.sd.set('header', 'Chat')
+    this.sd.set('back-button', false)   
   }
 }

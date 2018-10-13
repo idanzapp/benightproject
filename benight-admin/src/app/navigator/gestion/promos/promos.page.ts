@@ -11,7 +11,8 @@ export class PromosPage implements OnInit {
   constructor(private sd: SharedDataService) { }
 
   ngOnInit() {
-    this.sd.set('header', 'Planes')
+    this.sd.set('header', 'Promos')    
+    this.sd.set('back-button', false)
   }
 
 }

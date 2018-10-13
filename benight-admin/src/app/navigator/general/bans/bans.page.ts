@@ -12,6 +12,7 @@ export class BansPage implements OnInit {
 
   ngOnInit() {
     this.sd.set('header', 'Bans')
+    this.sd.set('back-button', false)
   }
 
 }
