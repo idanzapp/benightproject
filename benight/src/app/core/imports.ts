@@ -95,7 +95,13 @@ export const coreComponents = [
 ]
 
 //Views import
- 
+
+
+
+//GeoQuery
+export * from '@bn8-geoquery/point'
+export * from '@bn8-geoquery/interfaces'
+export * from '@bn8-geoquery/collection'
 //export * from '@bn8-navigator/chat/chat.page'
 //export * from '@bn8-navigator/detalle/detalle.page'
 //export * from '@bn8-navigator/general/general.page'

@@ -102,3 +102,8 @@ export const coreComponents = [
 //export * from '@bn8-navigator/gestion/gestion.page'
 //export * from '@bn8-navigator/notificaciones/notificaciones.page'
 //export * from '@bn8-navigator/navigator.page'
+
+//GeoQuery
+export * from '@bn8-geoquery/point'
+export * from '@bn8-geoquery/interfaces'
+export * from '@bn8-geoquery/collection'

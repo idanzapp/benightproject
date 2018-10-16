@@ -4,7 +4,7 @@ import { auth } from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth'
 
 import { Observable, of } from 'rxjs'
-import { switchMap, take, map , shareReplay} from 'rxjs/operators'
+import { switchMap, take, map, shareReplay } from 'rxjs/operators'
 import { DbService } from './db.service'
 
 import { Facebook } from '@ionic-native/facebook/ngx'
@@ -37,7 +37,7 @@ export class AuthService {
         shareReplay(1)
       )
       .toPromise()
-  }  
+  }
 
   permission() {
     return this.user$
@@ -50,16 +50,11 @@ export class AuthService {
   }
 
   private updateUserData({ uid, email, displayName, photoURL }) {
-    // Sets user data to firestore on login
-    const path = `users/${uid}`
-    const data = {
-      uid,
-      email,
-      displayName,
-      photoURL
-    }
+    return this.db.updateAt(`users/${uid}`, { uid, email, displayName, photoURL })
+  }
 
-    return this.db.updateAt(path, data)
+  private createUser({ uid, email, displayName, photoURL }) {
+    return this.db.createAt(`users/${uid}`, { ...defaultUser, uid, email, displayName, photoURL })
   }
 
   async signOut() {
@@ -75,24 +70,14 @@ export class AuthService {
       } else {
         const provider = new auth.FacebookAuthProvider()
         user = await this.afAuth.auth.signInWithPopup(provider)
-      } 
-      
-      if(user.additionalUserInfo.isNewUser) {
-        //si es un nuevo usuario, crea datos por defecto, y crea al usuario
-        user = {
-          ...user.user,
-          appear:false,
-          balance:0,
-          banned:false,
-          birthday: new Date(),//quitarlo despues de pedir cumple a face
-          gender:'chico',//pedir a face
-          permissions: [],
-          invited: [],
-          friends: []
-        }
-        await this.db.createAt(`users`, user)
+      }
+
+      if (user.additionalUserInfo.isNewUser) {
+        //Nuevo Usuario       
+        await this.createUser(user)
         return this.router.navigate(['/'])
       } else {
+        //mantiene los datos 
         await this.updateUserData(user.user)
         return this.router.navigate(['/'])
       }
@@ -103,9 +88,20 @@ export class AuthService {
 
   async nativeFacebookLogin(): Promise<any> {
     const facebook = await this.facebook.login(["email", "public_profile"])
-  
+
     return await this.afAuth.auth.signInWithCredential(
-      auth.FacebookAuthProvider.credential( facebook.authResponse.accessToken)
+      auth.FacebookAuthProvider.credential(facebook.authResponse.accessToken)
     )
   }
+}
+
+const defaultUser = {
+  appear: false,
+  balance: 0,
+  banned: false,
+  birthday: new Date(),//quitarlo despues de pedir cumple a face
+  gender: 'chico',//pedir a face
+  permissions: [],
+  invited: [],
+  friends: []
 }

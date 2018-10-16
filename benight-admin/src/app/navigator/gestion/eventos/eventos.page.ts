@@ -1,8 +1,6 @@
-
 import { Component, OnInit } from '@angular/core'
 import { SharedDataService } from '@bn8-services/shared-data.service'
-import { DbService } from '@bn8-services/db.service'
-import { AuthService } from '@bn8-services/auth.service'
+import { database } from '@bn8-database/interfaces'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 
@@ -17,8 +15,6 @@ export class EventosPage implements OnInit {
 
   constructor(
     private sd: SharedDataService,
-    private db:DbService,
-    private auth:AuthService,
     private router: Router
   ) {}
 
@@ -26,11 +22,9 @@ export class EventosPage implements OnInit {
   public default  
 
   async ngOnInit() {
-    this.sd.set('header', 'Eventos')
-    this.sd.set('back-button', false)
-    let user = 0
-    user = await this.auth.uid() as any 
-    this.events = await this.db.leftJoin('propietario_eventos','eventos','ownerUid','uid', user, 'event','event')
+    this.sd.set(database.VAR_HEADER, 'Eventos')
+    this.sd.set(database.VAR_BACK, false)
+    this.events = await this.sd.get(database.VAR_EVENTS)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.createDefault()
   }
@@ -39,11 +33,9 @@ export class EventosPage implements OnInit {
     return {}
   }
 
-  goto(path,data) {
-    this.sd.set('eventos', data)    
-    this.sd.set('back-button', true)
-    this.sd.set('back-url',`${this.basehref}/eventos`)
-       
+  goto(path,data) {    
+    this.sd.set(database.VAR_BACK, true)
+    this.sd.set(database.VAR_BACK_URL,`${this.basehref}/eventos`)       
     
     this.router.navigate([`${this.basehref}/eventos/${path}`])
   }

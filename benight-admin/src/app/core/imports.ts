@@ -112,6 +112,12 @@ export * from '@bn8-navigator/gestion/gestion.page'
 export * from '@bn8-navigator/notificaciones/notificaciones.page'
 export * from '@bn8-navigator/navigator.page'
 
+
+//GeoQuery
+export * from '@bn8-geoquery/point'
+export * from '@bn8-geoquery/interfaces'
+export * from '@bn8-geoquery/collection'
+
 /*import {ChatPage} from '@bn8-navigator/chat/chat.page'
 import {GeneralPage} from '@bn8-navigator/general/general.page'
 import {GestionPage} from '@bn8-navigator/gestion/gestion.page'

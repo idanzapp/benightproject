@@ -18,7 +18,8 @@
       "@bn8-environments/*":["environments/*"],
       "@bn8-services/*":["app/services/*"],
       "@bn8-detalle/*":["app/navigator/detalle/*"],
-      "@bn8-navigator/*":["app/navigator/*"]
+      "@bn8-navigator/*":["app/navigator/*"],
+      "@bn8-geoquery/*":["app/core/geofire/*"]
     }
   }
 }

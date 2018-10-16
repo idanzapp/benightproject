@@ -1,6 +1,18 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-16, 20:00)
+----------------------------
++ FULL database Handling was change, now all data is available via shared-data module
+and database got his handler in firestore-client, since every element(events,plans,etc) got his handler
+inside services/database
+
+- db.service & db-extension.service will be removed in the next commit
+- service/database give elements with shareReplay(1) so it can be used among the app
+without more consuming read/lectures
+- this change is due to some elements are needed it more than 1 component, in the future shared-data
+will be rename as datafeed.service
+
 new commit (2018-10-12, 18:45)
 ----------------------------
 + Added Fully working Facebook funtionality to admin 
