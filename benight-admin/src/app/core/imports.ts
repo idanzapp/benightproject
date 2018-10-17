@@ -9,12 +9,6 @@ export const myBaseModules = [
     IonicModule
 ]
 
-export { AngularFireModule } from '@angular/fire'
-export { AngularFirestore } from '@angular/fire/firestore'
-export { AngularFireAuth } from '@angular/fire/auth'
-export { AngularFireFunctions } from '@angular/fire/functions'
-export { AngularFireMessaging } from '@angular/fire/messaging'
-
 import { BrowserModule } from '@angular/platform-browser'
 //App Modules
 export const myAppModules = [

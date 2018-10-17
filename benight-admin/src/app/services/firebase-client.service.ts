@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core'
 
 import { environment } from '@bn8-environments/environment'
 
-import { AngularFireModule,  AngularFirestore, AngularFireAuth, AngularFireMessaging, AngularFireFunctions} from '@bn8-core/imports'
+import { AngularFireModule } from '@angular/fire'
+import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFireAuth } from '@angular/fire/auth'
+import { AngularFireFunctions } from '@angular/fire/functions'
+import { AngularFireMessaging } from '@angular/fire/messaging'
+
 
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
@@ -52,7 +57,8 @@ export class FirebaseClient  {
     }
 
     afAuth(db?:string) {
-        return ( this.connection[db ? db:database.DB_CON_LOGIN].auth() as AngularFireAuth)
+        console.log(`mis ultimas palabras son: ${db}`)        
+        return (this.connection[db ? db:database.DB_CON_LOGIN].auth() as AngularFireAuth)
     }
 
     afFun(db?:string) {
