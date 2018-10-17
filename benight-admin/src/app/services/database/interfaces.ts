@@ -12,24 +12,6 @@ export namespace firestore {
   }
 }
 
-//Database Functions
-import { ChatDatabase } from '@bn8-database/chat.database'
-import { ClubsDatabase } from '@bn8-database/clubs.database'
-import { DateDatabase } from '@bn8-database/date.database'
-import { EmployeeDatabase } from '@bn8-database/employee.database'
-import { EventsDatabase } from '@bn8-database/events.database'
-import { FileBucket } from '@bn8-database/file.bucket'
-import { ListsDatabase } from '@bn8-database/lists.database'
-import { NotificationsDatabase } from '@bn8-database/notifications.database'
-import { OwnersDatabase } from '@bn8-database/owners.database'
-import { PlansDatabase } from '@bn8-database/plans.database'
-import { PromosDatabase } from '@bn8-database/promos.database'
-import { PublicRulesDatabase } from '@bn8-database/public-rules.database'
-import { RequirementsDatabase } from '@bn8-database/requirements.database'
-import { StatisticsDatabase } from '@bn8-database/statistics.database'
-import { TagsDatabase } from '@bn8-database/tags.database'
-import { TicketDatabase } from '@bn8-database/ticket.database'
-
 export namespace database { 
   //VARIABLES map
   export const DB_CON_EVENTS = 'events'
@@ -59,24 +41,6 @@ export namespace database {
   export const VAR_TABS = 17
   export const VAR_BACK = 18
   export const VAR_BACK_URL = 19
-
-
-  export const FN_CHAT = ChatDatabase
-  export const FN_CLUBS = ClubsDatabase
-  export const FN_DATE = DateDatabase
-  export const FN_EMPLOYEE = EmployeeDatabase
-  export const FN_EVENTS = EventsDatabase
-  export const FN_FILE = FileBucket
-  export const FN_LISTS = ListsDatabase
-  export const FN_NOTIFICATIONS = NotificationsDatabase
-  export const FN_OWNERS = OwnersDatabase
-  export const FN_PLANS = PlansDatabase
-  export const FN_PROMOS = PromosDatabase
-  export const FN_PUBLIC_RULES = PublicRulesDatabase
-  export const FN_REQUIREMENTS = RequirementsDatabase
-  export const FN_STATISTICS = StatisticsDatabase
-  export const FN_TAGS = TagsDatabase
-  export const FN_TICKET = TicketDatabase
 }
 
 export namespace languages {

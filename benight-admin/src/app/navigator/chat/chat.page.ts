@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '@bn8-services/shared-data.service'
+import { DataFeedService,database } from '@bn8-services/data-feed.service'
 
 @Component({
   selector: 'chat',
@@ -8,11 +8,11 @@ import { SharedDataService } from '@bn8-services/shared-data.service'
 })
 export class ChatPage implements OnInit {
 
-  constructor(public sd: SharedDataService) { 
+  constructor(public sd: DataFeedService) { 
   }
 
   ngOnInit() {
-    this.sd.set('header', 'Chat')
-    this.sd.set('back-button', false)   
+    this.sd.next(database.VAR_HEADER, 'Chat')
+    this.sd.next(database.VAR_BACK, false)   
   }
 }

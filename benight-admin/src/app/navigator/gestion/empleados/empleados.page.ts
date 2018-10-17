@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '@bn8-services/shared-data.service'
+import { DataFeedService, database } from '@bn8-services/data-feed.service'
 
 @Component({
   selector: 'gestion-empleados',
@@ -8,11 +8,11 @@ import { SharedDataService } from '@bn8-services/shared-data.service'
 })
 export class EmpleadosPage implements OnInit {
 
-  constructor(private sd: SharedDataService) { }
+  constructor(private feed: DataFeedService) { }
 
   ngOnInit() {
-    this.sd.set('header', 'Empleados')
-    this.sd.set('back-button', false)
+    this.feed.next(database.VAR_HEADER, 'Empleados')
+    this.feed.next(database.VAR_BACK, false)
   }
 
 }

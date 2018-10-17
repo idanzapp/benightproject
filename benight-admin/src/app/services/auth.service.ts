@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { auth } from 'firebase/app'
@@ -5,7 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth'
 
 import { Observable, of } from 'rxjs'
 import { switchMap, take, map, shareReplay } from 'rxjs/operators'
-import { DbService } from './db.service'
+import { FirebaseClient } from '@bn8-services/firebase-client.service'
+import { database } from '@bn8-database/interfaces'
 
 import { Facebook } from '@ionic-native/facebook/ngx'
 import { Platform } from '@ionic/angular'
@@ -16,15 +18,17 @@ import { Platform } from '@ionic/angular'
 export class AuthService {
   user$: Observable<any>
 
+  afAuth: AngularFireAuth
+
   constructor(
-    private afAuth: AngularFireAuth,
-    private db: DbService,
+    private fireclient: FirebaseClient,
     private router: Router,
     private facebook: Facebook,
     private platform: Platform
   ) {
+    this.afAuth = fireclient.afAuth(database.DB_CON_LOGIN)
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => (user ? db.doc$(`users/${user.uid}`) : of(null))),
+      switchMap(user => (user ? fireclient.doc$(`users/${user.uid}`) : of(null))),
       shareReplay(1)
     )
   }
@@ -50,11 +54,11 @@ export class AuthService {
   }
 
   private updateUserData({ uid, email, displayName, photoURL }) {
-    return this.db.updateAt(`users/${uid}`, { uid, email, displayName, photoURL })
+    return this.fireclient.updateAt(`users/${uid}`, { uid, email, displayName, photoURL })
   }
 
   private createUser({ uid, email, displayName, photoURL }) {
-    return this.db.createAt(`users/${uid}`, { ...defaultUser, uid, email, displayName, photoURL })
+    return this.fireclient.createAt(`users/${uid}`, { ...defaultUser, uid, email, displayName, photoURL })
   }
 
   async signOut() {

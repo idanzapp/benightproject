@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing'
 
-import { SharedDataService } from './shared-data.service'
+import { DataFeedService } from './data-feed.service'
 
-describe('SharedDataService', () => {
+describe('DataFeedService', () => {
   beforeEach(() => TestBed.configureTestingModule({}))
 
   it('should be created', () => {
-    const service: SharedDataService = TestBed.get(SharedDataService)
+    const service: DataFeedService = TestBed.get(DataFeedService)
     expect(service).toBeTruthy()
   })
 })

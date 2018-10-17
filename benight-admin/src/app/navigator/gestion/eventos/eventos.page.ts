@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '@bn8-services/shared-data.service'
-import { database } from '@bn8-database/interfaces'
+import { DataFeedService, database } from '@bn8-services/data-feed.service'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 
@@ -14,7 +13,7 @@ export class EventosPage implements OnInit {
   events: Observable<any>
 
   constructor(
-    private sd: SharedDataService,
+    private feed: DataFeedService,
     private router: Router
   ) {}
 
@@ -22,9 +21,9 @@ export class EventosPage implements OnInit {
   public default  
 
   async ngOnInit() {
-    this.sd.set(database.VAR_HEADER, 'Eventos')
-    this.sd.set(database.VAR_BACK, false)
-    this.events = await this.sd.get(database.VAR_EVENTS)
+    this.feed.next(database.VAR_HEADER, 'Eventos')
+    this.feed.next(database.VAR_BACK, false)
+    this.events = await this.feed.get(database.VAR_EVENTS)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.createDefault()
   }
@@ -34,8 +33,8 @@ export class EventosPage implements OnInit {
   }
 
   goto(path,data) {    
-    this.sd.set(database.VAR_BACK, true)
-    this.sd.set(database.VAR_BACK_URL,`${this.basehref}/eventos`)       
+    this.feed.next(database.VAR_BACK, true)
+    this.feed.next(database.VAR_BACK_URL,`${this.basehref}/eventos`)       
     
     this.router.navigate([`${this.basehref}/eventos/${path}`])
   }

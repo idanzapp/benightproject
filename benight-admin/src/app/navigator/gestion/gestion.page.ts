@@ -20,13 +20,4 @@ export class GestionPage implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {}
-
- /* showActive(event) {
-    console.log(event,this.router)//`activo gestion: ${event}`,this.router.url)
-  }*/
-
- /* showDeactive(event) {
-    console.log(event)//`desactivo gestion: ${event}`,this.router.url)
-  }*/
-
 }

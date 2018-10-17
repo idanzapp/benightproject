@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons *ngIf="sd.get('back-button')" slot="start">
-      <ion-button (click)="sd.set('back-button',false)" [routerLink]="[sd.get('back-url')]">
+    <ion-buttons *ngIf="feed.get(database.VAR_BACK)" slot="start">
+      <ion-button (click)="feed.next(database.VAR_BACK,false)" [routerLink]="[feed.get(database.VAR_BACK_URL)]">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{sd.get('header')}}</ion-title>
+    <ion-title>{{feed.get('header')}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>

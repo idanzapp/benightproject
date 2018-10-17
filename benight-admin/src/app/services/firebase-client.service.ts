@@ -1,9 +1,9 @@
-import { OnInit, Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 
 import { environment } from '@bn8-environments/environment'
 
-import { AngularFireModule } from '@angular/fire'
-import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFireModule,  AngularFirestore, AngularFireAuth, AngularFireMessaging, AngularFireFunctions} from '@bn8-core/imports'
+
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
 
@@ -13,11 +13,13 @@ import { firestore, database, languages } from '@bn8-database/interfaces'
 @Injectable({
     providedIn: 'root'
 })
-export class FirebaseClient implements OnInit {
+export class FirebaseClient  {
 
     private connection: Object
 
-    ngOnInit() {
+    constructor() {}
+
+    initializeApp() {
         let events
         if (navigator.language)
             switch (navigator.language) {
@@ -42,10 +44,23 @@ export class FirebaseClient implements OnInit {
             ticket: AngularFireModule.initializeApp(environment.firebase_ticket,  database.DB_CON_TICKET),
             markers: geofirex.init(AngularFireModule.initializeApp(environment.firebase_base,  database.DB_CON_MARKERS) as firestore.FirebaseApp)
         }
+        console.log('initialized')
     }
 
     afs(db?:string) {
         return (this.connection[db ? db:database.DB_CON_LOGIN].firestore() as AngularFirestore)
+    }
+
+    afAuth(db?:string) {
+        return ( this.connection[db ? db:database.DB_CON_LOGIN].auth() as AngularFireAuth)
+    }
+
+    afFun(db?:string) {
+        return (this.connection[db ? db:database.DB_CON_LOGIN].functions() as AngularFireFunctions)
+    }
+
+    afm(db?:string) {  
+        return (this.connection[db ? db:database.DB_CON_LOGIN].messaging() as AngularFireMessaging)
     }
 
     formatQuery(query, doc, property) {
@@ -74,6 +89,10 @@ export class FirebaseClient implements OnInit {
                     return { id: doc.payload.id, ...doc.payload.data() }
                 })
             )
+    }
+
+    createId(db) {
+        return this.afs(db).createId()
     }
 
     leftJoin(path1, path2, field1, field2, cmp, db1, db2) {
@@ -111,5 +130,4 @@ export class FirebaseClient implements OnInit {
         if (!(segments.length % 2))
             this.updateAt(path, { deleted: true, deletedAt: new Date() }, db)
     }
-
 }

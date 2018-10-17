@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '@bn8-services/shared-data.service';
 
 @Component({
   selector: 'app-general',

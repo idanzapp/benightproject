@@ -1,5 +1,6 @@
+
 import { Component, OnInit } from '@angular/core'
-import { SharedDataService } from '@bn8-services/shared-data.service'
+import { DataFeedService, database } from '@bn8-services/data-feed.service'
 
 @Component({
   selector: 'navigator',
@@ -16,7 +17,8 @@ export class NavigatorPage implements OnInit {
     //{href:'/navigator/detalle',icon:'book',title:'Detalle'}
   ] 
 
-  constructor(public sd: SharedDataService) { }
-
+  constructor(public feed: DataFeedService) { }
+  //database = database
+  
   ngOnInit() {}  
 }

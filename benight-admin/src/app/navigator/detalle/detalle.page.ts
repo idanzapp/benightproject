@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { SharedDataService } from '@bn8-services/shared-data.service'
+import { DataFeedService } from '@bn8-services/data-feed.service'
 
 @Component({
   selector: 'detalle',
@@ -11,7 +11,7 @@ export class DetallePage implements OnInit {
   
   detalleTabs = []
 
-  constructor(private router: Router,private sd: SharedDataService) { }
+  constructor(private router: Router,private feed: DataFeedService) { }
 
   private setTabs(tabs?) {    
     var basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))

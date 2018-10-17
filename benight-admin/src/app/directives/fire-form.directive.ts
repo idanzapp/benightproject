@@ -3,7 +3,9 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { FormGroup } from '@angular/forms'
 import { tap,  take, debounceTime } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
-import { FirestoreAdminService, FirestoreEventService, FirestoreTicketService } from '@bn8-services/db-extension.service'
+import { FirebaseClient } from '@bn8-services/firebase-client.service'
+import { database } from '@bn8-services/data-feed.service'
+//import { FirestoreAdminService, FirestoreEventService, FirestoreTicketService } from '@bn8-services/db-extension.service'
 
 @Directive({
   selector: '[fireForm]'
@@ -29,10 +31,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
   private formSub: Subscription
   //Firestore  
   constructor(
-    private afs: AngularFirestore,
-    private afsAdmin: FirestoreAdminService,
-    private afsTicket: FirestoreTicketService,
-    private afsEvent: FirestoreEventService,
+    private afs: FirebaseClient
     ) { }
 
   ngOnInit() {
@@ -85,29 +84,11 @@ export class FireFormDirective implements OnInit, OnDestroy {
 
   // Determines if path is a collection or document
   getDocRef(): any {    
-    let store
-    if  (this.dbRef) 
-      switch (this.dbRef) {
-        case 'admin':
-          store = this.afsAdmin
-          break
-        case 'ticket':
-          store = this.afsTicket
-          break
-        case 'event':
-          store = this.afsEvent
-          break    
-        default:
-          store = this.afs
-          break
-      }
-    else  
-      store = this.afs  
-
+    let store = this.dbRef ? this.dbRef : database.DB_CON_LOGIN
     if (this.path.split('/').length % 2) {
-      return store.doc(`${this.path}/${store.createId()}`)
+      return this.afs.doc$(`${this.path}/${this.afs.createId(store)}`,store)
     } else {
-      return store.doc(this.path)
+      return this.afs.doc$(this.path)
     }
   }
 

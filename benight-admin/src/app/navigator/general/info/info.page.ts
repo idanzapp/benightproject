@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { SharedDataService } from '@bn8-services/shared-data.service'
+import { Component, OnInit } from '@angular/core'
+import { DataFeedService, database } from '@bn8-services/data-feed.service'
+
 @Component({
   selector: 'general-info',
   templateUrl: './info.page.html',
@@ -7,11 +8,11 @@ import { SharedDataService } from '@bn8-services/shared-data.service'
 })
 export class InfoPage implements OnInit {
 
-  constructor(private sd: SharedDataService) { }
+  constructor(private feed: DataFeedService) { }
 
   ngOnInit() {
-    this.sd.set('header', 'Info')
-    this.sd.set('back-button', false)
+    this.feed.next(database.VAR_HEADER, 'Info')
+    this.feed.next(database.VAR_BACK, false)
   }
 
 }
