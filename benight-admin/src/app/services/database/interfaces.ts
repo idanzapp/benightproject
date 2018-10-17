@@ -1,14 +1,22 @@
-import * as types from '@firebase/firestore-types'
+import * as ftypes from '@firebase/firestore-types'
+import * as atypes from '@firebase/auth-types'
+import * as mtypes from '@firebase/messaging-types'
+import * as funtypes from '@firebase/functions-types'
+import * as stypes from '@firebase/storage-types'
 
 export namespace firestore {
-  export interface CollectionReference extends types.CollectionReference {}
-  export interface Query extends types.Query {}
-  export interface QuerySnapshot extends types.QuerySnapshot {}
-  export interface GeoPoint extends types.GeoPoint {}
-  export interface DocumentReference extends types.DocumentReference {}
-  export interface Firestore extends types.FirebaseFirestore {}
+  export interface CollectionReference extends ftypes.CollectionReference {}
+  export interface Query extends ftypes.Query {}
+  export interface QuerySnapshot extends ftypes.QuerySnapshot {}
+  export interface GeoPoint extends ftypes.GeoPoint {}
+  export interface DocumentReference extends ftypes.DocumentReference {}
+  export interface Firestore extends ftypes.FirebaseFirestore {}
   export interface FirebaseApp {
-    firestore?(): types.FirebaseFirestore
+    firestore?(): ftypes.FirebaseFirestore,
+    auth?(): atypes.FirebaseAuth,
+    messaging?(): mtypes.FirebaseMessaging,
+    functions?(): funtypes.FirebaseFunctions,
+    storage?(): stypes.FirebaseStorage,
   }
 }
 

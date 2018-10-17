@@ -8,6 +8,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFireFunctions } from '@angular/fire/functions'
 import { AngularFireMessaging } from '@angular/fire/messaging'
 
+import * as firebase from 'firebase/app'
 
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
@@ -43,21 +44,25 @@ export class FirebaseClient  {
         else
             events = environment.firebase_en_EN
         this.connection = {
-            login: AngularFireModule.initializeApp(environment.firebase_login),
-            events: AngularFireModule.initializeApp(events, database.DB_CON_EVENTS),
+            login: AngularFireModule.initializeApp(environment.firebase_login) ,
+            events: AngularFireModule.initializeApp(events, database.DB_CON_EVENTS) ,
             admin: AngularFireModule.initializeApp(environment.firebase_base,  database.DB_CON_ADMIN),
             ticket: AngularFireModule.initializeApp(environment.firebase_ticket,  database.DB_CON_TICKET),
-            markers: geofirex.init(AngularFireModule.initializeApp(environment.firebase_base,  database.DB_CON_MARKERS) as firestore.FirebaseApp)
+            markers: geofirex.init(firebase.initializeApp(environment.firebase_base,  database.DB_CON_MARKERS) /*as firestore.FirebaseApp*/)
         }
         console.log('initialized')
-    }
+        let eventsAux = firebase.initializeApp(environment.firebase_base, "events")
+        let eventsAuth = eventsAux.auth()
+        console.log(eventsAuth)
+    }    
 
     afs(db?:string) {
+        //console.log('hola?')
         return (this.connection[db ? db:database.DB_CON_LOGIN].firestore() as AngularFirestore)
     }
 
-    afAuth(db?:string) {
-        console.log(`mis ultimas palabras son: ${db}`)        
+    afAuth(db?:string) {        
+        console.log(`mis ultimas palabras son: ${db}`, JSON.stringify(this.connection['ticket'], null, 4))              
         return (this.connection[db ? db:database.DB_CON_LOGIN].auth() as AngularFireAuth)
     }
 
