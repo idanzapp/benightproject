@@ -32,6 +32,48 @@ export const myAppProviders = [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 ]
 
+import { environment } from '@bn8-environments/environment'
+import { languages, database } from '@bn8-database/interfaces'
+import { AngularFireModule } from '@angular/fire'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireFunctionsModule } from '@angular/fire/functions'
+import { AngularFireMessagingModule } from '@angular/fire/messaging'
+
+import * as firebase from 'firebase/app'
+import * as geofirex from 'geofirex'
+firebase.initializeApp(environment.firebase_markers,database.DB_CON_MARKERS)
+
+let events
+        if (navigator.language)
+            switch (navigator.language) {
+                case languages.es:
+                    events = environment.firebase_es_ES
+                    break
+                case languages.fr:
+                    events = environment.firebase_fr_FR
+                    break
+                case languages.pt:
+                    events = environment.firebase_pt_PT
+                    break
+                default:
+                    events = environment.firebase_en_EN
+            }
+        else
+            events = environment.firebase_en_EN
+
+export const FirebaseModules = [
+    AngularFireModule.initializeApp(environment.firebase_login, database.DB_CON_LOGIN),
+    AngularFireModule.initializeApp(events, database.DB_CON_EVENTS),
+    AngularFireModule.initializeApp(environment.firebase_login,database.DB_CON_ADMIN),
+    AngularFireModule.initializeApp(environment.firebase_login,database.DB_CON_TICKET),
+    geofirex.init(firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
+    AngularFireMessagingModule
+]
+
 //Core Imports
 
 import { ProfileComponent } from './profile/profile.component'

@@ -9,9 +9,9 @@ import { FirebaseClient } from '@bn8-services/firebase-client.service'
 
 import { Facebook } from '@ionic-native/facebook/ngx'
 
-function init_client(loadClient: FirebaseClient) {
+/*function init_client(loadClient: FirebaseClient) {
   return () => loadClient.initializeApp()
-}
+}*/
 
 @NgModule({
   declarations: [AppComponent, FireFormDirective],
@@ -23,8 +23,8 @@ function init_client(loadClient: FirebaseClient) {
   ],
   providers: [
     ...myAppProviders,
-    FirebaseClient,
-    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },
+    /*FirebaseClient,
+    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },*/
     Facebook,
     
   ],

@@ -42,7 +42,6 @@ export const FirebaseModules = [
     AngularFireAuthModule,
     AngularFireFunctionsModule,
     AngularFireMessagingModule
-
 ]
 
 export const FirebaseProviders = [

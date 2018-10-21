@@ -67,7 +67,15 @@ export const environment = {
     projectId: "bn8-ticket",
     storageBucket: "bn8-ticket.appspot.com",
     messagingSenderId: "642996909727"
-  }
+  },
+  firebase_markers: {
+    apiKey: "AIzaSyBg4TocQ9sc5J9gK0R-lscskz-GGsQrJu0",
+    authDomain: "bn8-base.firebaseapp.com",
+    databaseURL: "https://bn8-base.firebaseio.com",
+    projectId: "bn8-base",
+    storageBucket: "bn8-base.appspot.com",
+    messagingSenderId: "416342334394"
+ }
 }
 /*
  * In development mode, to ignore zone related error stack frames such as
