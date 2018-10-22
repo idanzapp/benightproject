@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit } from '@angular/core'
 
 @Component({
   selector: 'app-general',
   templateUrl: './general.page.html',
   styleUrls: ['./general.page.scss'],
 })
-export class GeneralPage implements OnInit {
+export class GeneralPage implements AfterViewInit {
   
   generalTabs = [
     {href:'/navigator/general/info',title:'Info'},
@@ -16,6 +16,6 @@ export class GeneralPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {} 
+  ngAfterViewInit() {} 
 
 }

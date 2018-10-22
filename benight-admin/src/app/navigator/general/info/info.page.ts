@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit } from '@angular/core'
 import { DataFeedService, database } from '@bn8-services/data-feed.service'
 
 @Component({
@@ -6,11 +6,11 @@ import { DataFeedService, database } from '@bn8-services/data-feed.service'
   templateUrl: './info.page.html',
   styleUrls: ['./info.page.scss'],
 })
-export class InfoPage implements OnInit {
+export class InfoPage implements AfterViewInit {
 
   constructor(private feed: DataFeedService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.feed.next(database.VAR_HEADER, 'Info')
     this.feed.next(database.VAR_BACK, false)
   }

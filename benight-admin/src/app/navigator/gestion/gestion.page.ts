@@ -1,12 +1,12 @@
 import { Router } from '@angular/router'
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit } from '@angular/core'
 
 @Component({
   selector: 'app-gestion',
   templateUrl: './gestion.page.html',
   styleUrls: ['./gestion.page.scss'],
 })
-export class GestionPage implements OnInit {
+export class GestionPage implements AfterViewInit {
   
   gestionTabs = [
     {href:'/navigator/gestion/eventos',title:'Eventos'},
@@ -19,5 +19,5 @@ export class GestionPage implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {}
+  ngAfterViewInit() {}
 }

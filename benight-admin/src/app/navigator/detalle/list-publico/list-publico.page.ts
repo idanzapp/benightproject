@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit } from '@angular/core'
 
 @Component({
   selector: 'detalle-list-publico',
   templateUrl: './list-publico.page.html',
   styleUrls: ['./list-publico.page.scss'],
 })
-export class ListPublicoPage implements OnInit {
+export class ListPublicoPage implements AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
   }
 
 }

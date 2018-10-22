@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, AfterViewInit  } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
   templateUrl: './detalle-info-event.page.html',
   styleUrls: ['./detalle-info-event.page.scss'],
 })
-export class DetalleInfoEventPage implements OnInit {
+export class DetalleInfoEventPage implements AfterViewInit {
 
   myForm: FormGroup
   create: boolean = true
@@ -14,7 +14,7 @@ export class DetalleInfoEventPage implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     const actualDate: string = new Date().toISOString()
     this.minDate = actualDate
     this.myForm = this.fb.group({
