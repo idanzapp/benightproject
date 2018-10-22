@@ -12,7 +12,7 @@ export class PromosPage implements OnInit {
 
   ngOnInit() {
     this.feed.next(database.VAR_HEADER, 'Promos')    
-    this.feed.next(database.VAR_HEADER, false)
+    this.feed.next(database.VAR_BACK, false)
   }
 
 }

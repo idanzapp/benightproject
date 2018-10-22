@@ -104,7 +104,7 @@ export class DataFeedService{
       if (!this.accesed[variable])
         this.accesed[variable] = true
     } 
-    console.log(this.static$,variable,database.VAR_OBSERVER_LONG - 1,data,)
+    
   }
 
   get(variable) {

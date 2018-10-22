@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core'
-
-import { myBaseModules, GeneralPage} from '@bn8-core/imports'
-
+import { myBaseModules } from '@bn8-imports/imports.main'
+import { GeneralPage} from '@bn8-imports/imports.views'
 import { GeneralRoutingModule } from './general-routing.module'
-import { CoreModule } from '@bn8-core/core.module'
-import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [
     ...myBaseModules,
-    CoreModule,
-    RouterModule,
     GeneralRoutingModule
   ],
   declarations: [GeneralPage]

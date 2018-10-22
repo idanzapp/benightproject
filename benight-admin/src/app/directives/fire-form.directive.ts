@@ -1,11 +1,10 @@
 import { Directive, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core'
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
+import { AngularFirestoreDocument } from '@angular/fire/firestore'
 import { FormGroup } from '@angular/forms'
 import { tap,  take, debounceTime } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-services/data-feed.service'
-//import { FirestoreAdminService, FirestoreEventService, FirestoreTicketService } from '@bn8-services/db-extension.service'
 
 @Directive({
   selector: '[fireForm]'

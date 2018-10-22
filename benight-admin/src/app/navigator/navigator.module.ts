@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core'
 
 import { NavigatorRoutingModule } from './navigator-routing.module'
-
-import { myBaseModules, NavigatorPage} from '@bn8-core/imports'
-import { CoreModule} from '@bn8-core/core.module'
+import { myBaseModules } from '@bn8-imports/imports.main'
+import { NavigatorPage} from '@bn8-imports/imports.views'
 
 @NgModule({
   imports: [
     ...myBaseModules,
-    CoreModule, 
     NavigatorRoutingModule,
   ],
   declarations: [NavigatorPage]

@@ -31,8 +31,6 @@ import {
     MessagingMarkersService
   } from '@bn8-database/db-connection.database'
 
-
-
 @Injectable({
     providedIn: 'root'
 })
@@ -64,7 +62,6 @@ export class FirebaseClient  {
     ) {}
 
     initializeApp() {
-        console.log('init')
         this.connection = {
             FSlogin: this.alfs,
             FSevents: this.aefs,

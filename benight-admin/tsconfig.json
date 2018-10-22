@@ -15,6 +15,8 @@
     "baseUrl": "src",
     "paths": {
       "@bn8-core/*":["app/core/*"],
+      "@bn8-imports/*":["app/core/imports/*"],
+      "@bn8-directives/*":["app/directives/*"],
       "@bn8-environments/*":["environments/*"],
       "@bn8-services/*":["app/services/*"],
       "@bn8-detalle/*":["app/navigator/detalle/*"],

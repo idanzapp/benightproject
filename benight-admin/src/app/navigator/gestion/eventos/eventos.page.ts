@@ -36,7 +36,7 @@ export class EventosPage implements OnInit {
     this.feed.next(database.VAR_BACK, true)
     this.feed.next(database.VAR_BACK_URL,`${this.basehref}/eventos`)       
     
-    this.router.navigate([`${this.basehref}/eventos/${path}`])
+    this.router.navigate([`${this.basehref}/eventos/${path}`,data])
   }
 
   trackById(idx, todo) {

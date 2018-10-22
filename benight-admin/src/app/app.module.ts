@@ -1,34 +1,22 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core'
-
-import { myAppProviders, myAppModules,/* FirebaseModules, FirebaseProviders*/} from '@bn8-core/imports'
+import { NgModule } from '@angular/core'
 
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { FireFormDirective } from './directives/fire-form.directive'
-import { FirebaseClient } from '@bn8-services/firebase-client.service'
-import { FirebaseProviders } from '@bn8-database/db-connection.database'
-
-import { Facebook } from '@ionic-native/facebook/ngx'
-
-function init_client(loadClient: FirebaseClient) {
-  return () => loadClient.initializeApp()
-}
+import { FireFormDirective ,FirebaseProviders, ClientProvider} from '@bn8-imports/imports.database'
+import { myAppModules } from '@bn8-imports/imports.main'
+import { myAppProviders } from '@bn8-imports/imports.providers'
 
 @NgModule({
   declarations: [AppComponent, FireFormDirective],
   entryComponents: [],
   imports: [
     ...myAppModules,
-    //...FirebaseModules,
     AppRoutingModule
   ],
   providers: [
     ...myAppProviders,
-    ...FirebaseProviders,
-    FirebaseClient,
-    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },
-    Facebook,
-    
+    ...ClientProvider,
+    ...FirebaseProviders    
   ],
   bootstrap: [AppComponent]
 })
