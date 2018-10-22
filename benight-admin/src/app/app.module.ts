@@ -6,12 +6,13 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { FireFormDirective } from './directives/fire-form.directive'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
+import { FirebaseProviders } from '@bn8-database/db-connection.database'
 
 import { Facebook } from '@ionic-native/facebook/ngx'
 
-/*function init_client(loadClient: FirebaseClient) {
+function init_client(loadClient: FirebaseClient) {
   return () => loadClient.initializeApp()
-}*/
+}
 
 @NgModule({
   declarations: [AppComponent, FireFormDirective],
@@ -23,8 +24,9 @@ import { Facebook } from '@ionic-native/facebook/ngx'
   ],
   providers: [
     ...myAppProviders,
-    /*FirebaseClient,
-    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },*/
+    ...FirebaseProviders,
+    FirebaseClient,
+    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },
     Facebook,
     
   ],

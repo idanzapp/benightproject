@@ -27,6 +27,7 @@ export namespace database {
   export const DB_CON_TICKET = 'ticket'
   export const DB_CON_LOGIN = 'login'
   export const DB_CON_MARKERS = 'markers'
+  export const DB_CON_GEOMARKERS = 'geomarkers'
   
   //Accesed list map
   export const VAR_CHAT  = 0
@@ -49,6 +50,7 @@ export namespace database {
   export const VAR_TABS = 17
   export const VAR_BACK = 18
   export const VAR_BACK_URL = 19
+  export const VAR_OBSERVER_LONG  = 16
 }
 
 export namespace languages {

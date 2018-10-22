@@ -31,11 +31,12 @@ export { database } from '@bn8-database/interfaces'
 export class DataFeedService{
   private accesed: boolean[] = []
   private observable$: Observable<any>[] = []
+  private static$: any[] = []
 
   constructor(private db: FirebaseClient, private auth: AuthService) {
     //array fill accesed with 20 false elements
     let _size = 20
-    while (_size--)  this.accesed.push(false) 
+    while (_size--)  this.accesed.push(false)
   }
   
   private setObservable$(index:number) {
@@ -90,30 +91,35 @@ export class DataFeedService{
         break
       default:
         //Asigna el observador null
-        this.observable$[index] = of(null)
+        this.static$[index-database.VAR_OBSERVER_LONG] = null
         break
     }        
     this.accesed[index] = true
   }
 
   next(variable,data) {
-    // > 16 son los observables no obtenidos de la BD sino generados por la APP
-    if (variable > 16) {
-      this.observable$[variable] = this.observable$[variable] ? data ? of(data) : this.observable$[variable] : of(null)
+    //Only for non observers    
+    if (variable > database.VAR_OBSERVER_LONG - 1) {
+      this.static$[variable-database.VAR_OBSERVER_LONG] =  data ? data : null
       if (!this.accesed[variable])
         this.accesed[variable] = true
-    }
+    } 
+    console.log(this.static$,variable,database.VAR_OBSERVER_LONG - 1,data,)
   }
 
   get(variable) {
     if (!this.accesed[variable]) 
       this.setObservable$(variable)     
-    return this.observable$[variable]      
+    if (variable > database.VAR_OBSERVER_LONG - 1)
+      return this.static$[variable-database.VAR_OBSERVER_LONG]
+    else
+      return this.observable$[variable]         
   }
 
   getItem(variable,id) {
-        if (variable && id && this.accesed[variable])
-          return this.observable$[variable].pipe(filter(item => item.uid === id))
-        return of(null)
+    //only for Observer
+    if (variable && id && this.accesed[variable] && variable < database.VAR_OBSERVER_LONG )
+      return this.observable$[variable].pipe(filter(item => item.uid === id))
+    return of(null)
   }
 }

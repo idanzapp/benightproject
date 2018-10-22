@@ -1,20 +1,37 @@
 import { Injectable } from '@angular/core'
-
-import { environment } from '@bn8-environments/environment'
-
-import { AngularFireModule } from '@angular/fire'
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore'
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth'
-import { AngularFireFunctions, AngularFireFunctionsModule } from '@angular/fire/functions'
-import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/messaging'
-
-import * as firebase from 'firebase'
+import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFireAuth } from '@angular/fire/auth'
+import { AngularFireFunctions } from '@angular/fire/functions'
+import { AngularFireMessaging } from '@angular/fire/messaging'
 
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
 
-import * as geofirex from 'geofirex'
-import { firestore, database, languages } from '@bn8-database/interfaces'
+import { database } from '@bn8-database/interfaces'
+import { 
+    FirestoreEventService,
+    FirestoreAdminService,
+    FirestoreTicketService,
+    FirestoreLoginService,
+    FirestoreMarkersService,
+    AuthEventService,
+    AuthAdminService,
+    AuthTicketService,
+    AuthLoginService,
+    AuthMarkersService,
+    FunctionsEventService,
+    FunctionsAdminService,
+    FunctionsTicketService,
+    FunctionsLoginService,
+    FunctionsMarkersService,
+    MessagingEventService,
+    MessagingAdminService,
+    MessagingTicketService,
+    MessagingLoginService,
+    MessagingMarkersService
+  } from '@bn8-database/db-connection.database'
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -23,58 +40,72 @@ export class FirebaseClient  {
 
     private connection: Object
 
-    constructor() {}
+    constructor(
+        private aefs:FirestoreEventService,
+        private aafs:FirestoreAdminService,
+        private atfs:FirestoreTicketService,
+        private alfs:FirestoreLoginService,
+        private amfs:FirestoreMarkersService,
+        private aeas:AuthEventService,
+        private aaas:AuthAdminService,
+        private atas:AuthTicketService,
+        private alas:AuthLoginService,
+        private amas:AuthMarkersService,
+        private aefun:FunctionsEventService,
+        private aafun:FunctionsAdminService,
+        private atfun:FunctionsTicketService,
+        private alfun:FunctionsLoginService,
+        private amfun:FunctionsMarkersService,
+        private aems:MessagingEventService,
+        private aams:MessagingAdminService,
+        private atms:MessagingTicketService,
+        private alms:MessagingLoginService,
+        private amms:MessagingMarkersService
+    ) {}
 
-    /*initializeApp() {
-        let events
-        if (navigator.language)
-            switch (navigator.language) {
-                case languages.es:
-                    events = environment.firebase_es_ES
-                    break
-                case languages.fr:
-                    events = environment.firebase_fr_FR
-                    break
-                case languages.pt:
-                    events = environment.firebase_pt_PT
-                    break
-                default:
-                    events = environment.firebase_en_EN
-            }
-        else
-            events = environment.firebase_en_EN
-       /* this.connection = {
-            login: AngularFireModule.initializeApp(environment.firebase_login) ,
-            events: AngularFireModule.initializeApp(events, database.DB_CON_EVENTS) ,
-            admin: AngularFireModule.initializeApp(environment.firebase_base,  database.DB_CON_ADMIN),
-            ticket: AngularFireModule.initializeApp(environment.firebase_ticket,  database.DB_CON_TICKET),
-            markers: geofirex.init(firebase.initializeApp(environment.firebase_base,  database.DB_CON_MARKERS) /*as firestore.FirebaseApp)
+    initializeApp() {
+        console.log('init')
+        this.connection = {
+            FSlogin: this.alfs,
+            FSevents: this.aefs,
+            FSadmin: this.aafs,
+            FSticket: this.atfs,
+            FSmarkers: this.amfs,
+            Authlogin: this.alas,
+            Authevents: this.aeas,
+            Authadmin: this.aaas,
+            Authticket: this.atas,
+            Authmarkers: this.amas,
+            Funlogin: this.alfun,
+            Funevents: this.aefun,
+            Funadmin: this.aafun,
+            Funticket: this.atfun,
+            Funmarkers: this.amfun,
+            MSlogin: this.alms,
+            MSevents: this.aems,
+            MSadmin: this.aams,
+            MSticket: this.atms,
+            MSmarkers: this.amms,
         }
-        //console.log('initialized')
-        //let eventsAux = AngularFireModule.initializeApp(environment.firebase_base, "lilili") as firestore.FirebaseApp
-        //let eventsAuth = eventsAux.firestore() as AngularFirestore
-        //console.log(eventsAuth)
-} */  
+    } 
 
     afs(db?:string) {
-        //console.log('hola?')
-        return (this.connection[db ? db:database.DB_CON_LOGIN].firestore() as AngularFirestore)
+        return (this.connection[`FS${db ? db:database.DB_CON_LOGIN}`] as AngularFirestore)
     }
 
-    afAuth(db?:string) {        
-        console.log(`mis ultimas palabras son: ${db}`, JSON.stringify(this.connection['ticket'], null, 4))              
-        return (this.connection[db ? db:database.DB_CON_LOGIN].auth() as AngularFireAuth)
+    afAuth(db?:string) {                
+        return (this.connection[`Auth${db ? db:database.DB_CON_LOGIN}`] as AngularFireAuth)
     }
 
     afFun(db?:string) {
-        return (this.connection[db ? db:database.DB_CON_LOGIN].functions() as AngularFireFunctions)
+        return (this.connection[`Fun${db ? db:database.DB_CON_LOGIN}`] as AngularFireFunctions)
     }
 
     afm(db?:string) {  
-        return (this.connection[db ? db:database.DB_CON_LOGIN].messaging() as AngularFireMessaging)
+        return (this.connection[`MS${db ? db:database.DB_CON_LOGIN}`] as AngularFireMessaging)
     }
 
-    formatQuery(query, doc, property) {
+    private formatQuery(query, doc, property) {
         return doc[property] ? `${query} | ${doc[property]}` : query
     }
 

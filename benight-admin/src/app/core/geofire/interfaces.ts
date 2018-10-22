@@ -1,6 +1,5 @@
 import * as types from '@firebase/firestore-types'
 
-
 export namespace firestore {
   export interface CollectionReference extends types.CollectionReference {}
   export interface Query extends types.Query {}
@@ -10,7 +9,6 @@ export namespace firestore {
   export interface Firestore extends types.FirebaseFirestore {}
   export interface FirebaseApp {
     firestore?(): types.FirebaseFirestore
-
   }
 }
 
