@@ -1,6 +1,15 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-22, 18:00)
+----------------------------
+Admin:
++ Imports refactor
++ Interfaces refactor
++ Firebase Client now correctly handles all firebase connection
++ Data-feed now controles all the app data-workflow
++ Removing geofire from core 
+
 new commit (2018-10-16, 20:00)
 ----------------------------
 + FULL database Handling was change, now all data is available via shared-data module
