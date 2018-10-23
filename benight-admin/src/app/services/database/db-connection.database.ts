@@ -36,9 +36,9 @@ export class MessagingTicketService extends AngularFireMessaging {}
 export class MessagingMarkersService extends AngularFireMessaging {}
 
 //Firestore Factory
-function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.DB_CON_LOGIN, false, null, platformId, zone)}
-function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.DB_CON_ADMIN, false, null, platformId, zone)}
-function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.DB_CON_TICKET, false, null, platformId, zone)}
+function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.DB_CON_LOGIN, false, null, platformId, zone,{})}
+function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.DB_CON_ADMIN, false, null, platformId, zone,{})}
+function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.DB_CON_TICKET, false, null, platformId, zone,{})}
 function AngularFireMarkersFactory() { return geofirex.init(firebase.initializeApp(environment.firebase_base,  database.DB_CON_GEOMARKERS))}
 function AngularFireEventFactory(platformId: Object, zone: NgZone) {
   let events
@@ -56,7 +56,7 @@ function AngularFireEventFactory(platformId: Object, zone: NgZone) {
           default:
               events = environment.firebase_en_EN
       }
-  return new AngularFirestore(events, database.DB_CON_EVENTS, false, null, platformId, zone)
+  return new AngularFirestore(events, database.DB_CON_EVENTS, false, null, platformId, zone,{})
 }
 
 //Auth Factory
@@ -84,10 +84,10 @@ function AngularAuthEventFactory(platformId: Object, zone: NgZone) {
 }
 
 //Functions Factory
-function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.DB_CON_LOGIN, platformId, zone)}
-function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.DB_CON_ADMIN, platformId, zone)}
-function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.DB_CON_TICKET, platformId, zone)}
-function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.DB_CON_MARKERS, platformId, zone)}
+function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.DB_CON_LOGIN, platformId, zone,'')}
+function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.DB_CON_ADMIN, platformId, zone,'')}
+function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.DB_CON_TICKET, platformId, zone,'')}
+function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.DB_CON_MARKERS, platformId, zone,'')}
 function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {
   let events
   if (navigator.language)
@@ -104,7 +104,7 @@ function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {
           default:
               events = environment.firebase_en_EN
       }
-  return new AngularFireFunctions(events, database.DB_CON_EVENTS, platformId, zone)
+  return new AngularFireFunctions(events, database.DB_CON_EVENTS, platformId, zone,'')
 }
 
 //Functions Factory

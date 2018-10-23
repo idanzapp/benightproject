@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-interfaces/interfaces.database'
+import { Router, ActivationStart } from '@angular/router'
+import { filter} from 'rxjs/operators'
 
 @Component({
   selector: 'navigator',
@@ -18,27 +20,35 @@ export class NavigatorPage implements OnInit {
   ] 
   
   database = database
+  title:string = "Eventos"
+  back:boolean = false
 
-  constructor(public feed: DataFeedService) { }
+  constructor(public feed: DataFeedService, private router: Router) { }
   
   ngOnInit() {
-    this.deactiveBack()
-  } 
+    //Handle Title
+    this.router.events.pipe( 
+      filter(event => event instanceof ActivationStart) )
+      .subscribe(event => { 
+        this.back = event['snapshot'].data['back']
+        this.title = event['snapshot'].data['header']
+      })
+  }
   
   isBackActive(){
-    return this.feed.get(database.VAR_BACK)
+    return this.back
   }
   
   header(){
-    return this.feed.get(database.VAR_HEADER)  
+    return this.title  
   }
   
   backUrl(){
     return this.feed.get(database.VAR_BACK_URL)
   }
   
-  deactiveBack(){
+  /*deactiveBack(){
     return this.feed.next(database.VAR_BACK,false)
-  }
+  }*/
 
 }

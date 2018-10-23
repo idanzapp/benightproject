@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { PromosPage } from './promos.page'
+import { PromosPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
     {
       path: '',
-      component: PromosPage
+      component: PromosPage,
+      data:{
+        header:'Promos',
+        back:false
+      },
     }
 ]
 

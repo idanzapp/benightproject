@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { FilePickerPage } from './file-picker.page'
+import { FilePickerPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
   {
     path: '',
-    component: FilePickerPage
+    component: FilePickerPage,
+    data:{
+      header:'Seleccion de Archivo',
+      back:true
+    }
   }
 ]
 

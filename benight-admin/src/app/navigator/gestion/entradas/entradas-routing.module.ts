@@ -7,6 +7,10 @@ const routes: Routes = [
     {
       path: '',
       component: EntradasPage,
+      data:{
+        header:'Entradas',
+        back:false
+      },
       canActivate: [UserLevelGuard]
     }
 ]

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { GestionPage } from './gestion.page'
+import { GestionPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
     {

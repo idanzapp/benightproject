@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { ListListasPage } from './list-listas.page'
+import { ListListasPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
   {
     path: '',
-    component: ListListasPage
+    component: ListListasPage,
+    data:{
+      header:'Listas',
+      back:false
+    }
   }
 ]
 

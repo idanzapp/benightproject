@@ -7,6 +7,10 @@ const routes: Routes = [
     {
       path: '',
       component: EmpleadosPage,
+      data:{
+        header:'Empleados',
+        back:false
+      },
       canActivate: [UserLevelGuard]
     }
 ]

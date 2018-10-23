@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { DetalleInfoEventPage } from './detalle-info-event.page'
+import { DetalleInfoEventPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
   {
     path: '',
-    component: DetalleInfoEventPage
+    component: DetalleInfoEventPage,
+    data:{
+      header:'Evento',
+      back:true
+    }
   }
 ]
 

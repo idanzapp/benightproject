@@ -24,15 +24,12 @@ export class EventosPage implements AfterViewInit {
   public default  
 
   async ngAfterViewInit() {
-    this.feed.next(database.VAR_HEADER, 'Eventos')
-    this.feed.next(database.VAR_BACK, false)
     this.events = await this.feed.get(database.VAR_EVENTS)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }
 
   goto(path,data) {    
-    this.feed.next(database.VAR_BACK, true)
     this.feed.next(database.VAR_BACK_URL,`${this.basehref}/eventos`)       
     //If default, renew id
     if (data = this.default)

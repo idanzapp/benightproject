@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { ListTagsPage } from './list-tags.page'
+import { ListTagsPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
   {
     path: '',
-    component: ListTagsPage
+    component: ListTagsPage,
+    data:{
+      header:'Tags',
+      back:false
+    }
   }
 ]
 

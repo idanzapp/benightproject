@@ -24,9 +24,7 @@ export namespace database {
     export const VAR_STATISTICS  = 13
     export const VAR_TAGS  = 14
     export const VAR_TICKET  = 15
-    export const VAR_HEADER = 16
     export const VAR_TABS = 17
-    export const VAR_BACK = 18
     export const VAR_BACK_URL = 19
     export const VAR_OBSERVER_LONG  = 16
   }

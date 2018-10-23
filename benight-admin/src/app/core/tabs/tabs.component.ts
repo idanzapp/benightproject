@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'tabs',
@@ -10,8 +11,7 @@ export class TabsComponent implements OnInit {
 
   @Input() tabs: any
 
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngOnInit() {}
-
 }

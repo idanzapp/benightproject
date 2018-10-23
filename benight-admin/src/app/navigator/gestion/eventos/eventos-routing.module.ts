@@ -1,21 +1,32 @@
-import { DetalleInfoEventPage } from './../../detalle/detalle-info-event/detalle-info-event.page'
+import { EventosPage, DetalleInfoEventPage } from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { EventosPage } from './eventos.page'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [
     {
       path: '',
       component: EventosPage,
+      data:{
+        header:'Eventos',
+        back:false
+      },
       canActivate: [UserLevelGuard]
     },    
     {
       path:'crear',
-      component: DetalleInfoEventPage
+      component: DetalleInfoEventPage,
+      data:{
+        header:'Crear Evento',
+        back:true
+      }
     },
     {
       path:'editar',
+      data:{
+        header:'Editar Evento',
+        back:true
+      },
       component: DetalleInfoEventPage
     }, 
     {path:'**',redirectTo:'',pathMatch:'full'},

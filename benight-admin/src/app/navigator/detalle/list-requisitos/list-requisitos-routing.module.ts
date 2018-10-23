@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { ListRequisitosPage } from './list-requisitos.page'
+import { ListRequisitosPage } from '@bn8-imports/imports.views'
 
 const routes: Routes = [
   {
     path: '',
-    component: ListRequisitosPage
+    component: ListRequisitosPage,
+    data:{
+      header:'Requisitos',
+      back:false
+    }
   }
 ]
 
