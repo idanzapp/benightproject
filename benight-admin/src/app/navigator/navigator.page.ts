@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { DataFeedService, database } from '@bn8-services/data-feed.service'
+import { DataFeedService } from '@bn8-services/data-feed.service'
+import { database } from '@bn8-interfaces/interfaces.database'
 
 @Component({
   selector: 'navigator',

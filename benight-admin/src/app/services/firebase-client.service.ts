@@ -7,7 +7,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging'
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
 
-import { database } from '@bn8-database/interfaces'
+import { database } from '@bn8-interfaces/interfaces.database'
 import { 
     FirestoreEventService,
     FirestoreAdminService,
@@ -29,7 +29,7 @@ import {
     MessagingTicketService,
     MessagingLoginService,
     MessagingMarkersService
-  } from '@bn8-database/db-connection.database'
+} from '@bn8-database/db-connection.database'
 
 @Injectable({
     providedIn: 'root'

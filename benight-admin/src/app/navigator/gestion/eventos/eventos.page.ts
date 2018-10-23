@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core'
-import { DataFeedService, database } from '@bn8-services/data-feed.service'
+import { DataFeedService } from '@bn8-services/data-feed.service'
+import { database } from '@bn8-interfaces/interfaces.database'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'

@@ -1,6 +1,7 @@
 import { APP_INITIALIZER } from '@angular/core'
 import { environment } from '@bn8-environments/environment'
-import { languages, database } from '@bn8-database/interfaces'
+import { database } from '@bn8-interfaces/interfaces.database'
+import { languages } from '@bn8-interfaces/interfaces.languages'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule } from '@angular/fire/auth'

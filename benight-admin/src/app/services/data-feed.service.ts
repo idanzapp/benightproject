@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
-import { database } from '@bn8-database/interfaces'
+import { database } from '@bn8-interfaces/interfaces.database'
 
 //Database imports Functions
 import { ChatDatabase as FN_CHAT } from '@bn8-database/chat.database'
@@ -22,8 +22,6 @@ import { RequirementsDatabase as FN_REQUIREMENTS} from '@bn8-database/requiremen
 import { StatisticsDatabase as FN_STATISTICS} from '@bn8-database/statistics.database'
 import { TagsDatabase as FN_TAGS} from '@bn8-database/tags.database'
 import { TicketDatabase as FN_TICKET} from '@bn8-database/ticket.database'
-
-export { database } from '@bn8-database/interfaces'
 
 @Injectable({
   providedIn: 'root'

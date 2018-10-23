@@ -4,9 +4,9 @@ import { AngularFireFunctions } from '@angular/fire/functions'
 import { AngularFireMessaging } from '@angular/fire/messaging'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { environment } from '@bn8-environments/environment'
-import { languages } from '@bn8-database/interfaces'
+import { languages } from '@bn8-interfaces/interfaces.languages'
 //
-import { database} from '@bn8-database/interfaces'
+import { database} from '@bn8-interfaces/interfaces.database'
 import * as firebase from 'firebase/app'
 import * as geofirex from 'geofirex'
 

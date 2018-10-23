@@ -16,12 +16,13 @@
     "paths": {
       "@bn8-core/*":["app/core/*"],
       "@bn8-imports/*":["app/core/imports/*"],
+      "@bn8-interfaces/*":["app/core/interfaces/*"],
       "@bn8-directives/*":["app/directives/*"],
       "@bn8-environments/*":["environments/*"],
       "@bn8-services/*":["app/services/*"],
       "@bn8-detalle/*":["app/navigator/detalle/*"],
       "@bn8-navigator/*":["app/navigator/*"],
-      "@bn8-geoquery/*":["app/core/geofire/*"],
+      //"@bn8-geoquery/*":["app/core/geofire/*"],
       "@bn8-database/*":["app/services/database/*"]
     }
   }
