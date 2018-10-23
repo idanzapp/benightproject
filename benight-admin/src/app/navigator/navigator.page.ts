@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-interfaces/interfaces.database'
+import { tabs } from '@bn8-interfaces/interfaces.tabs'
 import { Router, ActivationStart } from '@angular/router'
 import { filter} from 'rxjs/operators'
 
@@ -11,17 +12,19 @@ import { filter} from 'rxjs/operators'
 })
 export class NavigatorPage implements OnInit {
 
-  mainTabs = [
-    {href:'/navigator/gestion/eventos',icon:'play',title:'Gestion'},
-    {href:'/navigator/chat',icon:'list',title:'Chat'},
-    {href:'/navigator/notificaciones',icon:'list',title:'Notificaciones'},
-    {href:'/navigator/general',icon:'book',title:'General'},
-    //{href:'/navigator/detalle',icon:'book',title:'Detalle'}
-  ] 
+  mainTabs = tabs.mainTabs
+  gestionTabs = tabs.gestionTabs
+  generalTabs = tabs.generalTabs
   
   database = database
   title:string = "Eventos"
   back:boolean = false
+
+  empty:boolean = true
+  tabs: number = tabs.gestion
+
+  general = tabs.general
+  gestion = tabs.gestion
 
   constructor(public feed: DataFeedService, private router: Router) { }
   
@@ -30,11 +33,22 @@ export class NavigatorPage implements OnInit {
     this.router.events.pipe( 
       filter(event => event instanceof ActivationStart) )
       .subscribe(event => { 
+        console.log(event['snapshot'].data['tabs'])
         this.back = event['snapshot'].data['back']
         this.title = event['snapshot'].data['header']
+        this.tabs = event['snapshot'].data['tabs']
+        this.empty = this.tabs === this.gestion || this.tabs === this.general        
       })
   }
   
+  generalTabActive() {    
+    return this.tabs === this.general
+  }  
+  
+  gestionTabActive() {
+    return this.tabs === this.gestion
+  }
+
   isBackActive(){
     return this.back
   }
@@ -46,9 +60,5 @@ export class NavigatorPage implements OnInit {
   backUrl(){
     return this.feed.get(database.VAR_BACK_URL)
   }
-  
-  /*deactiveBack(){
-    return this.feed.next(database.VAR_BACK,false)
-  }*/
 
 }

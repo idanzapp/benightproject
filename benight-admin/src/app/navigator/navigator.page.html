@@ -1,16 +1,43 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons *ngIf="isBackActive()" slot="start">
-      <ion-button (click)="deactiveBack()" [routerLink]="[backUrl()]">
+      <ion-button [routerLink]="[backUrl()]">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>{{ header()}}</ion-title>
+  </ion-toolbar>  
+  <ion-toolbar *ngIf='empty'>
+    <ion-tabs *ngIf='tabs === general'>
+      <ion-tab 
+      *ngFor='let tab of generalTabs'
+        href="{{tab['href']}}" 
+        label="{{tab['title']}}"
+         icon="{{tab['icon']}}">
+      </ion-tab>    
+    </ion-tabs>
+    <ion-tabs *ngIf='tabs === gestion'>
+      <ion-tab 
+      *ngFor='let tab of gestionTabs'
+        href="{{tab['href']}}" 
+        label="{{tab['title']}}"
+         icon="{{tab['icon']}}">
+      </ion-tab>    
+    </ion-tabs>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
   <router-outlet></router-outlet>
 </ion-content>
 <ion-footer>
-  <tabs [tabs]=mainTabs></tabs>
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab 
+      *ngFor='let tab of mainTabs'
+        href="{{tab.href}}" 
+        label="{{tab.title}}"
+         icon="{{tab.icon}}">
+      </ion-tab>    
+    </ion-tabs>
+  </ion-toolbar>
 </ion-footer>

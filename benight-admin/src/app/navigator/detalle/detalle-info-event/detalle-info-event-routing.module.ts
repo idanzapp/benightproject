@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { DetalleInfoEventPage } from '@bn8-imports/imports.views'
+import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [
   {
@@ -9,7 +10,8 @@ const routes: Routes = [
     data:{
       header:'Evento',
       back:true
-    }
+    },
+    canActivate: [UserLevelGuard]
   }
 ]
 
