@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons *ngIf="isBackActive()" slot="start">
+    <ion-buttons *ngIf="back" slot="start">
       <ion-button [routerLink]="[backUrl()]">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ header()}}</ion-title>
+    <ion-title>{{header}}</ion-title>
   </ion-toolbar>  
   <ion-toolbar *ngIf='empty'>
     <ion-tabs *ngIf='tabs === general'>
