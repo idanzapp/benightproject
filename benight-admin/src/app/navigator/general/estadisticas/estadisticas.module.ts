@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { EstadisticasPage } from './estadisticas.page'
-import { EstadisticasRoutingModule } from './estadisticas-routing.module'
+import { EstadisticasPage } from '@bn8-imports/imports.views'
+import { EstadisticasRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

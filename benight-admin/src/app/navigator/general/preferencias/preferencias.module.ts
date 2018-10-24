@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { PreferenciasPage } from './preferencias.page'
-import { PreferenciasRoutingModule } from './preferencias-routing.module'
+import { PreferenciasPage } from '@bn8-imports/imports.views'
+import { PreferenciasRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

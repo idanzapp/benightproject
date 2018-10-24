@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListEntradasPage } from './list-entradas.page'
-import { ListEntradasRoutingModule } from './list-entradas-routing.module'
+import { ListEntradasPage } from '@bn8-imports/imports.views'
+import { ListEntradasRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

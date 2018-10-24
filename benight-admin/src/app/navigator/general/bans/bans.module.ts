@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { BansPage } from './bans.page'
-import { BansRoutingModule } from './bans-routing.module'
+import { BansPage } from '@bn8-imports/imports.views'
+import { BansRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

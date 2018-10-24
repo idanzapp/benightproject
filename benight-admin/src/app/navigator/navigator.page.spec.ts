@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { NavigatorPage } from './navigator.page'
+import { NavigatorPage } from '@bn8-imports/imports.views'
 
 describe('NavigatorPage', () => {
   let component: NavigatorPage

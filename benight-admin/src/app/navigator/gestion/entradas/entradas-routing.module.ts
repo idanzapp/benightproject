@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { EntradasPage } from './entradas.page'
+import { EntradasPage, DetalleInfoEntradaPage } from '@bn8-imports/imports.views'
 import { tabs } from '@bn8-interfaces/interfaces.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
@@ -14,7 +14,24 @@ const routes: Routes = [
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
-    }
+    },    
+    {
+      path:'crear/:id',
+      component: DetalleInfoEntradaPage,
+      data:{
+        header:'Crear Entrada',
+        back:true
+      }
+    },
+    {
+      path:'editar/:id',
+      data:{
+        header:'Editar Entrada',
+        back:true
+      },
+      component: DetalleInfoEntradaPage
+    }, 
+    {path:'**',redirectTo:'',pathMatch:'full'}
 ]
 
 @NgModule({

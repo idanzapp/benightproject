@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { GestionPage } from './gestion.page'
+import { GestionPage } from '@bn8-imports/imports.views'
 
 describe('GestionPage', () => {
   let component: GestionPage

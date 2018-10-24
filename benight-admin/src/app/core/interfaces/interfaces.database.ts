@@ -1,4 +1,7 @@
 export namespace database { 
+    //Editar y Crear
+    export const ACTION_CREATE = 'crear'
+    export const ACTION_EDIT  = 'editar'
     //CONNECTION map
     export const DB_CON_EVENTS = 'events'
     export const DB_CON_ADMIN = 'admin'

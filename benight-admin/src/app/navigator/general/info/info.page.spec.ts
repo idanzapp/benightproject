@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { InfoPage } from './info.page'
+import { InfoPage } from '@bn8-imports/imports.views'
 
 describe('InfoPage', () => {
   let component: InfoPage

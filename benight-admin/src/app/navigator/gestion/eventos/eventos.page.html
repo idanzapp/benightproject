@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-item (click)="goto('crear',default)" color="secondary">	
+  <ion-item (click)="goto(create,default)" color="secondary">	
     <ion-avatar slot="start">
       <ion-img src="assets/icon/favicon.png"></ion-img>
     </ion-avatar>
@@ -9,7 +9,7 @@
     <ion-icon color="primary" name="add-circle"></ion-icon>
   </ion-item>
   <ion-virtual-scroll [items]="events | async" virtualTrackBy="trackById">
-    <ion-item (click)="goto('editar',event.uid)" *virtualItem="let event">
+    <ion-item (click)="goto(edit,event.uid)" *virtualItem="let event">
       <ion-label>{{event.name}}</ion-label>
     </ion-item>
   </ion-virtual-scroll> 

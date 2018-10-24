@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PreferenciasPage } from './preferencias.page'
+import { PreferenciasPage } from '@bn8-imports/imports.views'
 
 describe('PreferenciasPage', () => {
   let component: PreferenciasPage

@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ListFechasPage } from './list-fechas.page'
+import { ListFechasPage } from '@bn8-imports/imports.views'
 
 describe('ListFechasPage', () => {
   let component: ListFechasPage

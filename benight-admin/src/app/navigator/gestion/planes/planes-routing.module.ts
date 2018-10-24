@@ -1,6 +1,6 @@
+import { PlanesPage, DetalleInfoPlanPage } from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { PlanesPage } from '@bn8-imports/imports.views'
 import { tabs } from '@bn8-interfaces/interfaces.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
@@ -14,7 +14,24 @@ const routes: Routes = [
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
-    }
+    }  , 
+    {
+      path:'crear/:id',
+      component: DetalleInfoPlanPage,
+      data:{
+        header:'Crear Plan',
+        back:true
+      }
+    },
+    {
+      path:'editar/:id',
+      data:{
+        header:'Editar Plan',
+        back:true
+      },
+      component: DetalleInfoPlanPage
+    }, 
+    {path:'**',redirectTo:'',pathMatch:'full'} 
 ]
 
 @NgModule({

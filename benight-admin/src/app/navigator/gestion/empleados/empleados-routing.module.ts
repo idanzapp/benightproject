@@ -1,6 +1,6 @@
+import { EmpleadosPage, DetalleInfoEmpleadoPage} from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { EmpleadosPage } from './empleados.page'
 import { tabs } from '@bn8-interfaces/interfaces.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
@@ -14,7 +14,24 @@ const routes: Routes = [
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
-    }
+    },    
+    {
+      path:'crear/:id',
+      component: DetalleInfoEmpleadoPage,
+      data:{
+        header:'Crear Empleado',
+        back:true
+      }
+    },
+    {
+      path:'editar/:id',
+      data:{
+        header:'Editar Empleado',
+        back:true
+      },
+      component: DetalleInfoEmpleadoPage
+    }, 
+    {path:'**',redirectTo:'',pathMatch:'full'}
 ]
 
 @NgModule({

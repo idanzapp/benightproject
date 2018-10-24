@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListRequisitosPage } from './list-requisitos.page'
-import { ListRequisitosRoutingModule } from './list-requisitos-routing.module'
+import { ListRequisitosPage } from '@bn8-imports/imports.views'
+import { ListRequisitosRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

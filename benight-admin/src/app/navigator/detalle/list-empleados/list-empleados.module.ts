@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListEmpleadosPage } from './list-empleados.page'
-import { ListEmpleadosRoutingModule } from './list-empleados-routing.module'
+import { ListEmpleadosPage } from '@bn8-imports/imports.views'
+import { ListEmpleadosRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

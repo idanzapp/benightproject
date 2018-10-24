@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { FilePickerPage } from './file-picker.page'
-import { FilePickerRoutingModule } from './file-picker-routing.module'
+import { FilePickerPage } from '@bn8-imports/imports.views'
+import { FilePickerRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

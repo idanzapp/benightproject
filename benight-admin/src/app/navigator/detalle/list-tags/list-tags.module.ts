@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListTagsPage } from './list-tags.page'
-import { ListTagsRoutingModule } from './list-tags-routing.module'
+import { ListTagsPage } from '@bn8-imports/imports.views'
+import { ListTagsRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

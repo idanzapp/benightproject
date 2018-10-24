@@ -23,7 +23,9 @@
       "@bn8-detalle/*":["app/navigator/detalle/*"],
       "@bn8-navigator/*":["app/navigator/*"],
       //"@bn8-geoquery/*":["app/core/geofire/*"],
-      "@bn8-database/*":["app/services/database/*"]
+      "@bn8-database/*":["app/services/database/*"],
+      "@bn8-style/*":["app/core/style-injector/*"],
+
     }
   }
 }

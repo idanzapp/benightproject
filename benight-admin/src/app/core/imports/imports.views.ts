@@ -3,10 +3,11 @@ export * from '@bn8-navigator/detalle/detalle.page'
 export * from '@bn8-navigator/general/general.page'
 export * from '@bn8-navigator/gestion/gestion.page'
 export * from '@bn8-navigator/navigator.page'
+export * from '@bn8-navigator/notificaciones/notificaciones.page'
+export * from '@bn8-navigator/chat/chat.page'
 
 //Sub Views-exports
-//Chat  Exports
-export * from '@bn8-navigator/chat/chat.page'
+
 //General  Exports
 export * from '@bn8-navigator/general/bans/bans.page'
 export * from '@bn8-navigator/general/estadisticas/estadisticas.page'
@@ -19,11 +20,14 @@ export * from '@bn8-navigator/gestion/entradas/entradas.page'
 export * from '@bn8-navigator/gestion/eventos/eventos.page'
 export * from '@bn8-navigator/gestion/planes/planes.page'
 export * from '@bn8-navigator/gestion/promos/promos.page'
-//Notificaciones  Exports
-export * from '@bn8-navigator/notificaciones/notificaciones.page'
 
 //Detalle Exports
 export * from '@bn8-detalle/detalle-info-event/detalle-info-event.page'
+export * from '@bn8-detalle/detalle-info-plan/detalle-info-plan.page'
+export * from '@bn8-detalle/detalle-info-promo/detalle-info-promo.page'
+export * from '@bn8-detalle/detalle-info-club/detalle-info-club.page'
+export * from '@bn8-detalle/detalle-info-empleado/detalle-info-empleado.page'
+export * from '@bn8-detalle/detalle-info-entrada/detalle-info-entrada.page'
 export * from '@bn8-detalle/file-picker/file-picker.page'
 export * from '@bn8-detalle/list-clubs/list-clubs.page'
 export * from '@bn8-detalle/list-empleados/list-empleados.page'

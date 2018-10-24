@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListTraduccionesPage } from './list-traducciones.page'
-import { ListTraduccionesRoutingModule } from './list-traducciones-routing.module'
+import { ListTraduccionesPage } from '@bn8-imports/imports.views'
+import { ListTraduccionesRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

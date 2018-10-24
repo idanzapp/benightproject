@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { DetalleInfoEventPage } from './detalle-info-event.page'
-import { DetalleInfoEventRoutingModule } from './detalle-info-event-routing.module'
+import { DetalleInfoEventPage } from '@bn8-imports/imports.views'
+import { DetalleInfoEventRoutingModule } from '@bn8-imports/imports.routing'
 
 import { ReactiveFormsModule } from '@angular/forms'
 

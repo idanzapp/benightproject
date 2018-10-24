@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ListFechasPage } from './list-fechas.page'
-import { ListFechasRoutingModule } from './list-fechas-routing.module'
+import { ListFechasPage } from '@bn8-imports/imports.views'
+import { ListFechasRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

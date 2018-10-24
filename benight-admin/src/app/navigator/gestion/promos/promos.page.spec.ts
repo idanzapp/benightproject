@@ -1,27 +1,27 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PromosPage } from './promos.page';
+import { PromosPage } from '@bn8-imports/imports.views'
 
 describe('PromosPage', () => {
-  let component: PromosPage;
-  let fixture: ComponentFixture<PromosPage>;
+  let component: PromosPage
+  let fixture: ComponentFixture<PromosPage>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PromosPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
-  }));
+    .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PromosPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PromosPage)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

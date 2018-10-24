@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { ChatPage } from './chat.page'
-import { ChatRoutingModule } from './chat-routing.module'
+import { ChatPage } from '@bn8-imports/imports.views'
+import { ChatRoutingModule } from '@bn8-imports/imports.routing'
 
 @NgModule({
   imports: [

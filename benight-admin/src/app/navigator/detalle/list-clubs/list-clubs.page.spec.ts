@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ListClubsPage } from './list-clubs.page'
+import { ListClubsPage } from '@bn8-imports/imports.views'
 
 describe('ListClubsPage', () => {
   let component: ListClubsPage

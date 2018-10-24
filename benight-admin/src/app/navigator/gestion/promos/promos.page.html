@@ -1,3 +1,16 @@
-<p>
-  promos works!
-</p>
+<ion-content>
+  <ion-item (click)="goto(create,default)" color="secondary">	
+    <ion-avatar slot="start">
+      <ion-img src="assets/icon/favicon.png"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2>Crear Nueva Promo</h2>
+    </ion-label>
+    <ion-icon color="primary" name="add-circle"></ion-icon>
+  </ion-item>
+  <ion-virtual-scroll [items]="promos | async" virtualTrackBy="trackById">
+    <ion-item (click)="goto(edit,promo.uid)" *virtualItem="let promo">
+      <ion-label>{{promo.name}}</ion-label>
+    </ion-item>
+  </ion-virtual-scroll> 
+</ion-content>

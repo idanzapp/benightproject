@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { DetalleInfoEventPage } from './detalle-info-event.page'
+import { DetalleInfoEventPage } from '@bn8-imports/imports.views'
 
 describe('DetalleInfoEventPage', () => {
   let component: DetalleInfoEventPage
