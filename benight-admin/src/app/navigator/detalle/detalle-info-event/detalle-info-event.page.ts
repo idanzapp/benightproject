@@ -23,6 +23,7 @@ export class DetalleInfoEventPage implements OnInit {
       assistants: 0,
       description: '',
       duration: '',
+      enableEvent: false,
       enableList: false,
       eventPhotoURL: '',
       free: false,

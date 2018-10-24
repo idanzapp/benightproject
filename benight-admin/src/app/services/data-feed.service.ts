@@ -29,6 +29,7 @@ import { TicketDatabase as FN_TICKET} from '@bn8-database/ticket.database'
 export class DataFeedService{
   private accesed: boolean[] = []
   private observable$: Observable<any>[] = []
+  private connection: any[]
   private static$: any[] = []
 
   constructor(private db: FirebaseClient, private auth: AuthService) {
@@ -37,55 +38,55 @@ export class DataFeedService{
     while (_size--)  this.accesed.push(false)
   }
   
-  private setObservable$(index:number) {
+  private setConnection(index:number) {
     switch (index) {
       case database.VAR_CHAT:
-        this.observable$[index] = (new FN_CHAT(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_CHAT(this.db, this.auth))
         break
       case database.VAR_CLUBS:
-        this.observable$[index] = (new FN_CLUBS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_CLUBS(this.db, this.auth))
         break
       case database.VAR_DATE:
-        this.observable$[index] = (new FN_DATE(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_DATE(this.db, this.auth))
         break
       case database.VAR_EMPLOYEE:
-        this.observable$[index] = (new FN_EMPLOYEE(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_EMPLOYEE(this.db, this.auth))
         break
       case database.VAR_EVENTS:
-        this.observable$[index] = (new FN_EVENTS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_EVENTS(this.db, this.auth))
         break
       case database.VAR_FILE:
-        this.observable$[index] = (new FN_FILE(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_FILE(this.db, this.auth))
         break
       case database.VAR_LISTS:
-        this.observable$[index] = (new FN_LISTS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_LISTS(this.db, this.auth))
         break
       case database.VAR_NOTIFICATIONS:
-        this.observable$[index] = (new FN_NOTIFICATIONS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_NOTIFICATIONS(this.db, this.auth))
         break
       case database.VAR_OWNERS:
-        this.observable$[index] = (new FN_OWNERS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_OWNERS(this.db, this.auth))
         break
       case database.VAR_PLANS:
-        this.observable$[index] = (new FN_PLANS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_PLANS(this.db, this.auth))
         break
       case database.VAR_PROMOS:
-        this.observable$[index] = (new FN_PROMOS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_PROMOS(this.db, this.auth))
         break
       case database.VAR_PUBLIC_RULES:
-        this.observable$[index] = (new FN_PUBLIC_RULES(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_PUBLIC_RULES(this.db, this.auth))
         break
       case database.VAR_REQUIREMENTS:
-        this.observable$[index] = (new FN_REQUIREMENTS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_REQUIREMENTS(this.db, this.auth))
         break
       case database.VAR_STATISTICS:
-        this.observable$[index] = (new FN_STATISTICS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_STATISTICS(this.db, this.auth))
         break
       case database.VAR_TAGS:
-        this.observable$[index] = (new FN_TAGS(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_TAGS(this.db, this.auth))
         break
       case database.VAR_TICKET:
-        this.observable$[index] = (new FN_TICKET(this.db, this.auth)).fetch()
+        this.connection[index] = (new FN_TICKET(this.db, this.auth))
         break
       default:
         //Asigna el observador null
@@ -101,23 +102,33 @@ export class DataFeedService{
       this.static$[variable-database.VAR_OBSERVER_LONG] =  data ? data : null
       if (!this.accesed[variable])
         this.accesed[variable] = true
-    } 
-    
+    }    
   }
 
   get(variable) {
     if (!this.accesed[variable]) 
-      this.setObservable$(variable)     
+      this.setConnection(variable)     
     if (variable > database.VAR_OBSERVER_LONG - 1)
       return this.static$[variable-database.VAR_OBSERVER_LONG]
     else
-      return this.observable$[variable]         
+      return this.connection[variable].fetch()         
   }
 
   getItem(variable,id) {
     //only for Observer
     if (variable && id && this.accesed[variable] && variable < database.VAR_OBSERVER_LONG )
-      return this.observable$[variable].pipe(filter(item => item.uid === id))
+      return (this.connection[variable].fetch() as Observable<any>).pipe(filter(item => item.uid === id))
     return of(null)
+  }
+
+
+  create(variable) {
+    if (!this.accesed[variable]) 
+      this.setConnection(variable)     
+    if (variable > database.VAR_OBSERVER_LONG - 1)
+      return this.static$[variable-database.VAR_OBSERVER_LONG]
+    else
+      return this.connection[variable].create()
+
   }
 }
