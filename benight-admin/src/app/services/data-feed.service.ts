@@ -29,7 +29,7 @@ import { TicketDatabase as FN_TICKET} from '@bn8-database/ticket.database'
 export class DataFeedService{
   private accesed: boolean[] = []
   private observable$: Observable<any>[] = []
-  private connection: any[]
+  private connection: any[] = []
   private static$: any[] = []
 
   constructor(private db: FirebaseClient, private auth: AuthService) {
@@ -41,52 +41,52 @@ export class DataFeedService{
   private setConnection(index:number) {
     switch (index) {
       case database.VAR_CHAT:
-        this.connection[index] = (new FN_CHAT(this.db, this.auth))
+        this.connection[index] = new FN_CHAT(this.db, this.auth)
         break
       case database.VAR_CLUBS:
-        this.connection[index] = (new FN_CLUBS(this.db, this.auth))
+        this.connection[index] = new FN_CLUBS(this.db, this.auth)
         break
       case database.VAR_DATE:
-        this.connection[index] = (new FN_DATE(this.db, this.auth))
+        this.connection[index] = new FN_DATE(this.db, this.auth)
         break
       case database.VAR_EMPLOYEE:
-        this.connection[index] = (new FN_EMPLOYEE(this.db, this.auth))
+        this.connection[index] = new FN_EMPLOYEE(this.db, this.auth)
         break
       case database.VAR_EVENTS:
-        this.connection[index] = (new FN_EVENTS(this.db, this.auth))
+        this.connection[index] = new FN_EVENTS(this.db, this.auth)
         break
       case database.VAR_FILE:
-        this.connection[index] = (new FN_FILE(this.db, this.auth))
+        this.connection[index] = new FN_FILE(this.db, this.auth)
         break
       case database.VAR_LISTS:
-        this.connection[index] = (new FN_LISTS(this.db, this.auth))
+        this.connection[index] = new FN_LISTS(this.db, this.auth)
         break
       case database.VAR_NOTIFICATIONS:
-        this.connection[index] = (new FN_NOTIFICATIONS(this.db, this.auth))
+        this.connection[index] = new FN_NOTIFICATIONS(this.db, this.auth)
         break
       case database.VAR_OWNERS:
-        this.connection[index] = (new FN_OWNERS(this.db, this.auth))
+        this.connection[index] = new FN_OWNERS(this.db, this.auth)
         break
       case database.VAR_PLANS:
-        this.connection[index] = (new FN_PLANS(this.db, this.auth))
+        this.connection[index] = new FN_PLANS(this.db, this.auth)
         break
       case database.VAR_PROMOS:
-        this.connection[index] = (new FN_PROMOS(this.db, this.auth))
+        this.connection[index] = new FN_PROMOS(this.db, this.auth)
         break
       case database.VAR_PUBLIC_RULES:
-        this.connection[index] = (new FN_PUBLIC_RULES(this.db, this.auth))
+        this.connection[index] = new FN_PUBLIC_RULES(this.db, this.auth)
         break
       case database.VAR_REQUIREMENTS:
-        this.connection[index] = (new FN_REQUIREMENTS(this.db, this.auth))
+        this.connection[index] = new FN_REQUIREMENTS(this.db, this.auth)
         break
       case database.VAR_STATISTICS:
-        this.connection[index] = (new FN_STATISTICS(this.db, this.auth))
+        this.connection[index] = new FN_STATISTICS(this.db, this.auth)
         break
       case database.VAR_TAGS:
-        this.connection[index] = (new FN_TAGS(this.db, this.auth))
+        this.connection[index] = new FN_TAGS(this.db, this.auth)
         break
       case database.VAR_TICKET:
-        this.connection[index] = (new FN_TICKET(this.db, this.auth))
+        this.connection[index] = new FN_TICKET(this.db, this.auth)
         break
       default:
         //Asigna el observador null
@@ -105,9 +105,10 @@ export class DataFeedService{
     }    
   }
 
-  get(variable) {
+  async get(variable) {
+    //Charge data on Demand
     if (!this.accesed[variable]) 
-      this.setConnection(variable)     
+      await this.setConnection(variable)     
     if (variable > database.VAR_OBSERVER_LONG - 1)
       return this.static$[variable-database.VAR_OBSERVER_LONG]
     else
@@ -122,9 +123,10 @@ export class DataFeedService{
   }
 
 
-  create(variable) {
+  async create(variable) {
+    //Charge data on Demand
     if (!this.accesed[variable]) 
-      this.setConnection(variable)     
+      await this.setConnection(variable)     
     if (variable > database.VAR_OBSERVER_LONG - 1)
       return this.static$[variable-database.VAR_OBSERVER_LONG]
     else
