@@ -6,7 +6,7 @@
         </ion-item>   
         <ion-item>
             <ion-label text-center position="floating">Descripcion</ion-label>
-            <ion-input text-center formControlName="description"></ion-input>
+            <ion-textarea text-center formControlName="description"></ion-textarea>
         </ion-item>    
         <ion-item>
             <ion-label text-center position="floating">Direccion</ion-label>
@@ -83,6 +83,9 @@
         </ion-fab-button>
         <ion-fab-button >
           <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="presentModal()">
+          <ion-icon name="eye" ></ion-icon>
         </ion-fab-button>
       </ion-fab-list>
     </ion-fab>

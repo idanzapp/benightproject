@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar text-center>
+        <ion-title>Vista Previa</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    preview eventos works!    
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="light" class="e2eFabBottomRight" >
+            <ion-title>{{selected}}</ion-title>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+          <ion-fab-button (click)="selectLanguage(language)" *ngFor="let language of list">
+            <ion-title>{{language}}</ion-title>
+          </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

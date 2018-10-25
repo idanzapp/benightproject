@@ -38,3 +38,4 @@ export * from '@bn8-detalle/detalle-info-plan/detalle-info-plan-routing.module'
 export * from '@bn8-detalle/list-traducciones/list-traducciones-routing.module'
 export * from '@bn8-detalle/detalle-info-event/detalle-info-event-routing.module'
 export * from '@bn8-detalle/list-tags/list-tags-routing.module'
+

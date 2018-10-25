@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-25, 17:00)
+----------------------------
++ Added preview of events in a modal
+
+
 new commit (2018-10-23, 14:20)
 ----------------------------
 + Fixed header name and back variable change
