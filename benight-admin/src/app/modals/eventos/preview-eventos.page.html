@@ -4,14 +4,50 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    preview eventos works!    
+    <ion-toolbar color="medium"> 
+        <ion-buttons slot="end" class="up">
+            <ion-button>
+                <ion-icon slot="icon-only" name="share"></ion-icon>
+            </ion-button>
+            <ion-button>
+                <ion-icon slot="icon-only" name="star"></ion-icon>
+            </ion-button>                 
+        </ion-buttons>        
+        <br><br><br><br><br>
+        <ion-buttons>
+            <ion-button shape="round" disabled fill="outline" color="light">#REQ1</ion-button>
+            <ion-button shape="round" disabled fill="outline" color="light">#REQ2</ion-button>
+        </ion-buttons>        
+    </ion-toolbar>
+    <!--<ion-fab vertical="top" horizontal="end" slot="fixed" edge>
+        <ion-fab-button color="light" class="e2eFabTopRight" >
+            <ion-title>PRUEBA</ion-title>
+        </ion-fab-button>
+        
+    </ion-fab>-->
+    
+    <!--<ion-card>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>ion-item in a card, icon left, button right</ion-label>
+          <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
+      
+        <ion-card-content>
+          <img src="/assets/img/choque.jpg" width="100%" height="100%"/>
+          This is content, without any paragraph or header tags,
+          within an ion-card-content element.
+        </ion-card-content>
+    </ion-card> -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="light" class="e2eFabBottomRight" >
-            <ion-title>{{selected}}</ion-title>
+            <!--<ion-title>{{selected}}</ion-title>-->
+            <ion-img src="{{selected}}"></ion-img>
         </ion-fab-button>
         <ion-fab-list side="top">
           <ion-fab-button (click)="selectLanguage(language)" *ngFor="let language of list">
-            <ion-title>{{language}}</ion-title>
+            <!--<ion-title>{{language}}</ion-title>-->
+            <ion-img src="{{language}}"></ion-img>
           </ion-fab-button>
         </ion-fab-list>
     </ion-fab>

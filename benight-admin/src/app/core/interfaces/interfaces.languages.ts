@@ -5,6 +5,11 @@ export namespace languages {
     export const pt = 'pt-PT'
     export const en = 'en-EN'
     
-    export const language_list = ['Es','En','Fr','Pt']
+    export const language_list = [
+      'assets/icon/Es.png',
+      'assets/icon/En.png',
+      'assets/icon/Fr.png',
+      'assets/icon/Pt.png'
+    ]
   
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Input } from '@angular/core'
 import { languages } from '@bn8-interfaces/interfaces.languages'
 
 @Component({
@@ -10,12 +10,12 @@ export class PreviewEventosPage implements OnInit {
 
   list: string[] = languages.language_list
   selected = ''
+  @Input() event: any
 
   constructor() { }
 
   ngOnInit() {
     let idx
-    console.log(navigator.language)
     switch (navigator.language) {
       case languages.es:
         idx = 0
@@ -27,9 +27,9 @@ export class PreviewEventosPage implements OnInit {
         idx = 3
         break
       default:
-        idx = 1  
-    }
-    this.selected = this.list[idx]    
+        idx = 1 
+    }  
+    this.selected = this.list[idx]
   }
 
   selectLanguage(language) {
