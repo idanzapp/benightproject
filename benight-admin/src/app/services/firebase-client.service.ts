@@ -102,10 +102,6 @@ export class FirebaseClient  {
         return (this.connection[`MS${db ? db:database.DB_CON_LOGIN}`] as AngularFireMessaging)
     }
 
-    /*private formatQuery(query, doc, property) {
-        return doc[property] ? `${query} | ${doc[property]}` : query
-    }*/
-
     collection$(path: string, query?, db?: string) {
         return this.afs(db)
             .collection(path, query)
@@ -149,7 +145,6 @@ export class FirebaseClient  {
             }),
             //create the second query
             reduce((value,current) => `${value} | ${current}` ),
-            //reduce(value => query = this.formatQuery(query, value, field2), {}),
             switchMap(() => {
                 return this.collection$(path2, ref => ref.where(field2, '==', query, db2))
             })
