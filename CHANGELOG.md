@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-26, 14:30)
+----------------------------
++ Preview working
++ Added 66 optimized images to assets
+
 new commit (2018-10-25, 17:00)
 ----------------------------
 + Added preview of events in a modal

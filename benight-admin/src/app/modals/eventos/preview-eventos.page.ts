@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core'
+import { ToastController } from '@ionic/angular'
 import { languages } from '@bn8-interfaces/interfaces.languages'
+import { DataFeedService } from '@bn8-services/data-feed.service'
+import { database } from '@bn8-core/interfaces/interfaces.database'
 
 @Component({
   selector: 'preview-eventos',
@@ -10,11 +13,12 @@ export class PreviewEventosPage implements OnInit {
 
   list: string[] = languages.language_list
   selected = ''
-  @Input() event: any
+  event: any = {requisites:[]}
+  @Input() id: any
 
-  constructor() { }
+  constructor(private feed: DataFeedService,private toast: ToastController ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     let idx
     switch (navigator.language) {
       case languages.es:
@@ -29,11 +33,28 @@ export class PreviewEventosPage implements OnInit {
       default:
         idx = 1 
     }  
-    this.selected = this.list[idx]
-  }
+    this.selected = this.list[idx]    
+    this.getEvent()
+  }  
 
+  private async getEvent(){
+    this.event = await this.feed.getItem(database.VAR_EVENTS,this.id)
+    console.log(this.event)
+  }
   selectLanguage(language) {
     this.selected = language
+  }
+
+  async presentToast() {
+    let message = this.event.requisites.reduce( (val,current) => {
+      return  `${val} ${current}`
+    })
+    const toast = await this.toast.create({
+      message: message,
+      position: 'top',
+      duration: 3000
+    })
+    toast.present()
   }
 
 }

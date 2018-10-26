@@ -1,7 +1,23 @@
 ion-toolbar {
-    --ion-color-medium: url("assets/img/choque.jpg") center / 100%
+    --ion-color-medium: url("assets/img/choque.jpg") center / 100%;
 }
 
 ion-buttons.up {
-    margin-top: -4em
+    margin-top: -4em;
+}
+
+ion-badge {
+    margin-left: 5px;
+}
+
+.transform{
+   position:relative
+}
+
+ion-avatar {
+    margin: auto;
+}
+
+ion-footer {
+    background-color: var(--ion-color-primary)
 }
