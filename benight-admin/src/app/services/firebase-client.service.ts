@@ -102,9 +102,9 @@ export class FirebaseClient  {
         return (this.connection[`MS${db ? db:database.DB_CON_LOGIN}`] as AngularFireMessaging)
     }
 
-    private formatQuery(query, doc, property) {
+    /*private formatQuery(query, doc, property) {
         return doc[property] ? `${query} | ${doc[property]}` : query
-    }
+    }*/
 
     collection$(path: string, query?, db?: string) {
         return this.afs(db)
@@ -139,10 +139,19 @@ export class FirebaseClient  {
         //seek the id's that belongs to the user
         return this.collection$(path1, ref => ref.where(field1, '==', cmp), db1).pipe(
             //it makes the list of uids separated by |
-            reduce(value => query = this.formatQuery(query, value, field2), {}),
+            switchMap((value) => {
+                //transform all {id:string}[] Object into a string[]
+                let table 
+                table.push(value.forEach(element => {
+                    return element[field2]
+                }))
+                return table
+            }),
+            //create the second query
+            reduce((value,current) => `${value} | ${current}` ),
+            //reduce(value => query = this.formatQuery(query, value, field2), {}),
             switchMap(() => {
-                //substring remove the 1st ' |' of the query
-                return this.collection$(path2, ref => ref.where(field2, '==', query.substring(2, query.length)), db2)
+                return this.collection$(path2, ref => ref.where(field2, '==', query, db2))
             })
         )
     }
