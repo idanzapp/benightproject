@@ -5,23 +5,21 @@
         <ion-icon slot="start" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{header}}</ion-title>
+    <ion-title text-center>{{header}}</ion-title>
   </ion-toolbar>  
   <ion-toolbar *ngIf='empty'>
     <ion-tabs *ngIf='tabs === general'>
       <ion-tab 
       *ngFor='let tab of generalTabs'
         href="{{tab['href']}}" 
-        label="{{tab['title']}}"
-         icon="{{tab['icon']}}">
+        label="{{tab['title']}}" >
       </ion-tab>    
     </ion-tabs>
     <ion-tabs *ngIf='tabs === gestion'>
       <ion-tab 
       *ngFor='let tab of gestionTabs'
         href="{{tab['href']}}" 
-        label="{{tab['title']}}"
-         icon="{{tab['icon']}}">
+        label="{{tab['title']}}">
       </ion-tab>    
     </ion-tabs>
   </ion-toolbar>

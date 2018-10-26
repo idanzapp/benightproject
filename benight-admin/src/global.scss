@@ -27,3 +27,12 @@
     --ion-color-shade: linear-gradient(to top, #3b5998, #2b4170);
     --ion-color-tint: linear-gradient(to top, #3b5998, #2b4170);
 }
+
+.ion-color-black {
+    --ion-color-base:linear-gradient(to right, #485563 0%, #29323c 51%, #485563 100%);
+    --ion-color-base-rgb: rgb(linear-gradient(to right, #485563 0%, #29323c 51%, #485563 100%));
+    --ion-color-contrast:#b4bfbf;
+    --ion-color-contrast-rgb: rgb(#b4bfbf);
+    --ion-color-shade: linear-gradient(155deg, #3f4b57 0%, #242c35 100%);
+    --ion-color-tint: linear-gradient(155deg, #5a6673 0%, #3e4750 100%);
+  }
