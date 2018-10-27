@@ -12,19 +12,19 @@ import { filter} from 'rxjs/operators'
 })
 export class NavigatorPage implements OnInit {
 
-  mainTabs = tabs.mainTabs
-  gestionTabs = tabs.gestionTabs
-  generalTabs = tabs.generalTabs
+  mainTabs:{href:string,title:string}[] = tabs.mainTabs
+  gestionTabs:{href:string,title:string}[] = tabs.gestionTabs
+  generalTabs:{href:string,title:string}[] = tabs.generalTabs
   
-  database = database
+  database:any = database
   header:string = "Eventos"
   back:boolean = false
 
   empty:boolean = true
   tabs: number = tabs.gestion
 
-  general = tabs.general
-  gestion = tabs.gestion
+  general: number = tabs.general
+  gestion: number = tabs.gestion
 
   constructor(public feed: DataFeedService, private router: Router) { }
   
@@ -33,9 +33,9 @@ export class NavigatorPage implements OnInit {
     this.router.events.pipe( 
       filter(event => event instanceof ActivationStart) )
       .subscribe(event => { 
-        this.back = event['snapshot'].data['back']
-        this.header = event['snapshot'].data['header']
-        this.tabs = event['snapshot'].data['tabs']
+        this.back = (event as any)['snapshot'] .data['back']
+        this.header = (event as any)['snapshot'].data['header']
+        this.tabs = (event as any)['snapshot'].data['tabs']
         this.empty = this.tabs === this.gestion || this.tabs === this.general        
       })
   }

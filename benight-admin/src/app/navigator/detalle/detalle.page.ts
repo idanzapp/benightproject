@@ -9,11 +9,11 @@ import { DataFeedService } from '@bn8-services/data-feed.service'
 })
 export class DetallePage implements OnInit {
   
-  detalleTabs = []
+  detalleTabs = [{}]
 
   constructor(private router: Router,private feed: DataFeedService) { }
 
-  private setTabs(tabs?) {    
+  private setTabs(tabs?:{href:string,title:string}) {    
     var basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     //if(tabs['info'])
       this.detalleTabs = [...this.detalleTabs, {href:`${basehref}/detalle-info-event`,title:'Info'}]

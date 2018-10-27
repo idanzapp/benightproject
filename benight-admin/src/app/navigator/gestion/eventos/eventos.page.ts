@@ -18,17 +18,17 @@ export class EventosPage implements OnInit {
     private router: Router
   ) {}
 
-  private basehref
-  public default = ' '
-  public create = database.ACTION_CREATE
-  public edit = database.ACTION_EDIT
+  private basehref:string = ''
+  public default:string = ''
+  public create:string = database.ACTION_CREATE
+  public edit:string = database.ACTION_EDIT
 
   async ngOnInit() {
     this.events = await this.feed.get(database.VAR_EVENTS)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
-  async goto(path, id) {
+  async goto(path:string, id:string) {
     this.feed.next(database.VAR_BACK_URL, `${this.basehref}/eventos`)
     //If default, renew id    
     if (path  === this.create)
@@ -36,7 +36,7 @@ export class EventosPage implements OnInit {
     this.router.navigate([`${this.basehref}/eventos/${this.edit}`, id])
   }
 
-  trackById(idx, todo) {
+  trackById(idx:number, todo:any) {
     return todo.id
   }
 }

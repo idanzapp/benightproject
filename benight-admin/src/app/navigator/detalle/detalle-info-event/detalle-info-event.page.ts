@@ -13,11 +13,11 @@ import { database } from '@bn8-core/interfaces/interfaces.database'
 })
 export class DetalleInfoEventPage implements OnInit {
 
-  myForm: FormGroup
+  myForm: FormGroup = {} as FormGroup
   create: boolean = true
-  minDate: string
-  event: any
-  id: any
+  minDate: string  = ''
+  event: any = {}
+  id: string = ''
 
   constructor(private fb: FormBuilder,
     private feed: DataFeedService, 

@@ -12,21 +12,25 @@ import {
     FirestoreEventService,
     FirestoreAdminService,
     FirestoreTicketService,
+    FirestoreChatService,
     FirestoreLoginService,
     FirestoreMarkersService,
     AuthEventService,
     AuthAdminService,
     AuthTicketService,
+    AuthChatService,
     AuthLoginService,
     AuthMarkersService,
     FunctionsEventService,
     FunctionsAdminService,
     FunctionsTicketService,
+    FunctionsChatService,
     FunctionsLoginService,
     FunctionsMarkersService,
     MessagingEventService,
     MessagingAdminService,
     MessagingTicketService,
+    MessagingChatService,
     MessagingLoginService,
     MessagingMarkersService
 } from '@bn8-database/db-connection.database'
@@ -36,27 +40,31 @@ import {
 })
 export class FirebaseClient  {
 
-    private connection: Object
+    private connection: any
 
     constructor(
         private aefs:FirestoreEventService,
         private aafs:FirestoreAdminService,
         private atfs:FirestoreTicketService,
+        private acfs:FirestoreChatService,
         private alfs:FirestoreLoginService,
         private amfs:FirestoreMarkersService,
         private aeas:AuthEventService,
         private aaas:AuthAdminService,
         private atas:AuthTicketService,
+        private acas:AuthChatService,
         private alas:AuthLoginService,
         private amas:AuthMarkersService,
         private aefun:FunctionsEventService,
         private aafun:FunctionsAdminService,
         private atfun:FunctionsTicketService,
+        private acfun:FunctionsChatService,
         private alfun:FunctionsLoginService,
         private amfun:FunctionsMarkersService,
         private aems:MessagingEventService,
         private aams:MessagingAdminService,
         private atms:MessagingTicketService,
+        private acms:MessagingChatService,
         private alms:MessagingLoginService,
         private amms:MessagingMarkersService
     ) {}
@@ -67,21 +75,25 @@ export class FirebaseClient  {
             FSevents: this.aefs,
             FSadmin: this.aafs,
             FSticket: this.atfs,
+            FSchat: this.acfs,
             FSmarkers: this.amfs,
             Authlogin: this.alas,
             Authevents: this.aeas,
             Authadmin: this.aaas,
             Authticket: this.atas,
+            Authchat: this.acas,
             Authmarkers: this.amas,
             Funlogin: this.alfun,
             Funevents: this.aefun,
             Funadmin: this.aafun,
             Funticket: this.atfun,
+            Funchat: this.acfun,
             Funmarkers: this.amfun,
             MSlogin: this.alms,
             MSevents: this.aems,
             MSadmin: this.aams,
             MSticket: this.atms,
+            MSchat: this.acms,
             MSmarkers: this.amms,
         }
     } 
@@ -102,7 +114,7 @@ export class FirebaseClient  {
         return (this.connection[`MS${db ? db:database.DB_CON_LOGIN}`] as AngularFireMessaging)
     }
 
-    collection$(path: string, query?, db?: string) {
+    collection$(path, query?, db?: string) {
         return this.afs(db)
             .collection(path, query)
             .snapshotChanges()
@@ -126,27 +138,24 @@ export class FirebaseClient  {
             )
     }
 
-    createId(db) {
+    createId(db:string) {
         return this.afs(db).createId()
     }
 
-    leftJoin(path1, path2, field1, field2, cmp, db1, db2) {
-        let query = ''
-        //seek the id's that belongs to the user
-        return this.collection$(path1, ref => ref.where(field1, '==', cmp), db1).pipe(
-            //it makes the list of uids separated by |
+    leftJoin(path1:string,ref1:any,db1:string,path2:string,db2:string,commonField:string,op:string){
+        let conn1 = db1 ? db1 : database.DB_CON_LOGIN
+        let conn2 = db2 ? db2 : database.DB_CON_LOGIN
+        return this.collection$(path1, ref1, conn1).pipe(
             switchMap((value) => {
-                //transform all {id:string}[] Object into a string[]
-                let table 
+                let table
                 table.push(value.forEach(element => {
-                    return element[field2]
+                    return element[commonField]
                 }))
                 return table
             }),
-            //create the second query
             reduce((value,current) => `${value} | ${current}` ),
-            switchMap(() => {
-                return this.collection$(path2, ref => ref.where(field2, '==', query, db2))
+            switchMap((value) => {
+                return this.collection$(path2, ref => ref.where(commonField,op,value), conn2)
             })
         )
     }

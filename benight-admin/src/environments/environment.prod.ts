@@ -71,5 +71,13 @@ export const environment = {
     projectId: "bn8-base",
     storageBucket: "bn8-base.appspot.com",
     messagingSenderId: "416342334394"
+ },
+ firebase_chat: {
+    apiKey: "AIzaSyCcxjfL8LD_Pb-L3hO2LkxfAFQGPmLy0pw",
+    authDomain: "bn8-chat.firebaseapp.com",
+    databaseURL: "https://bn8-chat.firebaseio.com",
+    projectId: "bn8-chat",
+    storageBucket: "",
+    messagingSenderId: "679408263252"
  }
 }

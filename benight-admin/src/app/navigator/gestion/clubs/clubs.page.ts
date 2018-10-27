@@ -20,10 +20,10 @@ export class ClubsPage implements OnInit {
     private router: Router
   ) {}
 
-  private basehref 
-  public default 
-  public create = database.ACTION_CREATE
-  public edit =  database.ACTION_EDIT  
+  private basehref:string = ''
+  public default:string = ''
+  public create:string = database.ACTION_CREATE
+  public edit:string =  database.ACTION_EDIT  
 
   async ngOnInit() {
     this.clubs = await this.feed.get(database.VAR_CLUBS)
@@ -31,7 +31,7 @@ export class ClubsPage implements OnInit {
     this.default = this.fc.afs().createId()
   }
 
-  goto(path,data) {    
+  goto(path:string,data:string) {    
     this.feed.next(database.VAR_BACK_URL,`${this.basehref}/clubs`)       
     //If default, renew id
     if (data = this.default)
@@ -39,7 +39,7 @@ export class ClubsPage implements OnInit {
     this.router.navigate([`${this.basehref}/clubs/${path}`,data])
   }
 
-  trackById(idx, todo) {
+  trackById(idx:number, todo:any) {
     return todo.id
   }
 

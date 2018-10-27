@@ -1,8 +1,8 @@
-import { database } from '@bn8-interfaces/interfaces.database';
 import { OnInit } from '@angular/core'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
+import { database, tables as tb } from '@bn8-interfaces/interfaces.database'
 import { Observable } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
 
@@ -13,7 +13,7 @@ export class EventsDatabase implements OnInit {
 
     async ngOnInit() {
         let user = await this.auth.uid()
-        this.events$ = await this.db.leftJoin('owner_events','events','ownerUid','uid', user ? user : 0, 'event','event').pipe(shareReplay(1))
+        this.events$ = await this.db.leftJoin(tb.TB_OWNER_EVENT,tb.TB_EVENT,tb.OWNER_ID_FIELD,tb.ID_FIELD, user ? user : 0, database.DB_CON_ADMIN,database.DB_CON_ADMIN).pipe(shareReplay(1))
     }
 
     fetch() {
@@ -48,7 +48,7 @@ export class EventsDatabase implements OnInit {
             uid: id
         }
         //add new event
-        await this.db.updateAt('events', data, database.DB_CON_EVENTS)        
+        await this.db.createAt(tb.TB_EVENT, data, database.DB_CON_EVENTS)        
         return id
     }
 

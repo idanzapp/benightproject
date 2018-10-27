@@ -8,9 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 })
 export class DetalleInfoPlanPage implements OnInit {
 
-  myForm: FormGroup
+  myForm: FormGroup = {} as FormGroup
   create: boolean = true
-  minDate: string  
+  minDate: string  = ''  
 
   constructor(private fb: FormBuilder) { }
 

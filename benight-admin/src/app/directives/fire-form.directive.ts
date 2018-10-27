@@ -12,22 +12,22 @@ import { database } from '@bn8-interfaces/interfaces.database'
 export class FireFormDirective implements OnInit, OnDestroy {
 
   // Inputs
-  @Input() path: string
-  @Input() formGroup: FormGroup
-  @Input() dbRef: string
+  @Input() path: string = ''
+  @Input() formGroup: FormGroup = {} as FormGroup
+  @Input() dbRef: string = ''
 
   // Internal state
-  private _state: 'loading' | 'synced' | 'modified' | 'error'
+  private _state: 'loading' | 'synced' | 'modified' | 'error' = 'loading'
 
   // Outputs
   @Output() stateChange = new EventEmitter<string>()
   @Output() formError = new EventEmitter<string>()
 
   // Firestore Document
-  private docRef: AngularFirestoreDocument
+  private docRef: AngularFirestoreDocument = {} as AngularFirestoreDocument
 
   // Subscriptions
-  private formSub: Subscription
+  private formSub: Subscription = new Subscription()
   //Firestore  
   constructor(
     private afs: FirebaseClient
@@ -76,7 +76,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
 
   // Intercept form submissions to perform the document write
   @HostListener('ngSubmit', ['$event'])
-  onSubmit(e) {
+  onSubmit(e:any) {
     this.setDoc()
   }
 
@@ -104,7 +104,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
   }
   
   // Setter for state changes
-  set state(val) {
+  set state(val:any) {
     this._state = val
     this.stateChange.emit(val)
   }

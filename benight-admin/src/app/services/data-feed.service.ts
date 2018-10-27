@@ -28,7 +28,6 @@ import { TicketDatabase as FN_TICKET} from '@bn8-database/ticket.database'
 })
 export class DataFeedService{
   private accesed: boolean[] = []
-  private observable$: Observable<any>[] = []
   private connection: any[] = []
   private static$: any[] = []
 
@@ -47,7 +46,7 @@ export class DataFeedService{
         this.connection[index] = new FN_CLUBS(this.db, this.auth)
         break
       case database.VAR_DATE:
-        this.connection[index] = new FN_DATE(this.db, this.auth)
+        this.connection[index] = new FN_DATE(this.db)
         break
       case database.VAR_EMPLOYEE:
         this.connection[index] = new FN_EMPLOYEE(this.db, this.auth)
@@ -96,7 +95,7 @@ export class DataFeedService{
     this.accesed[index] = true
   }
 
-  next(variable,data) {
+  next(variable:number,data?:any) {
     //Only for non observers    
     if (variable > database.VAR_OBSERVER_LONG - 1) {
       this.static$[variable-database.VAR_OBSERVER_LONG] =  data ? data : null
@@ -105,17 +104,24 @@ export class DataFeedService{
     }    
   }
 
-  async get(variable) {
+  async get(variable:number) {
     //Charge data on Demand
     if (!this.accesed[variable]) 
       await this.setConnection(variable)     
     if (variable > database.VAR_OBSERVER_LONG - 1)
       return this.static$[variable-database.VAR_OBSERVER_LONG]
     else
-      return this.connection[variable].fetch()         
+      if (variable != database.VAR_DATE)
+        return this.connection[variable].fetch()         
   }
 
-  getItem(variable,id) {
+  async getDate(date:string,id:string) {
+    if (!this.accesed[database.VAR_DATE]) 
+      await this.setConnection(database.VAR_DATE)
+    return this.connection[database.VAR_DATE].fetch(date,id)
+  }
+
+  getItem(variable:number,id:string) {
     //only for Observer
     /*if (variable && id && this.accesed[variable] && variable < database.VAR_OBSERVER_LONG )
       return (this.connection[variable].fetch() as Observable<any>).pipe(filter(item => item.uid === id))
@@ -179,7 +185,7 @@ export class DataFeedService{
   }
 
 
-  async create(variable) {
+  async create(variable:number) {
     //Charge data on Demand
     if (!this.accesed[variable]) 
       await this.setConnection(variable)     

@@ -39,14 +39,13 @@ export class PreviewEventosPage implements OnInit {
 
   private async getEvent(){
     this.event = await this.feed.getItem(database.VAR_EVENTS,this.id)
-    console.log(this.event)
   }
-  selectLanguage(language) {
+  selectLanguage(language:string) {
     this.selected = language
   }
 
   async presentToast() {
-    let message = this.event.requisites.reduce( (val,current) => {
+    let message = this.event.requisites.reduce( (val:string,current:string) => {
       return  `${val} ${current}`
     })
     const toast = await this.toast.create({

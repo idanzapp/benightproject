@@ -8,6 +8,7 @@ export namespace database {
     export const DB_CON_TICKET = 'ticket'
     export const DB_CON_LOGIN = 'login'
     export const DB_CON_MARKERS = 'markers'
+    export const DB_CON_CHAT = 'chat'
     export const DB_CON_GEOMARKERS = 'geomarkers'
     
     //VARIABLES map
@@ -32,7 +33,7 @@ export namespace database {
     export const VAR_OBSERVER_LONG  = 16
   }
 
-  export namespace tables {
+  export namespace tables {    
     //Main tables
     export const TB_EVENT = 'events'
     export const TB_PLANS = 'plans'
@@ -40,13 +41,33 @@ export namespace database {
     export const TB_TICKET = 'tickets'
     export const TB_EMPLOYEE = 'employees'
     export const TB_PROMO = 'promos'
+    export const TB_CHAT = 'chats'
     //Cross tables
+    //OWNER
     export const TB_OWNER_EVENT = 'owner_events'
     export const TB_OWNER_PLANS = 'owner_plans'
     export const TB_OWNER_CLUB = 'owner_clubs'
     export const TB_OWNER_TICKET = 'owner_tickets'
     export const TB_OWNER_EMPLOYEE = 'owner_employees'
     export const TB_OWNER_PROMO = 'owner_promos'
+    //DATE
+    export const TB_DATE_EVENT = 'date_events'
+    export const TB_DATE_PLANS = 'date_plans'
+    export const TB_DATE_TICKET = 'date_tickets'
+    //CHAT
+    export const TB_USER_CHAT = 'user_chat'
+    export const TB_CHAT_USER = 'chat_user'
+    export const TB_CHATROOM = 'chatroom'
+    export const TB_USER_ALIAS = 'user_alias'
+    export const TB_USER_SPAM = 'user_chat_spam'
+    export const USER_CHAT_FIELD = 'id'
+    export const CHAT_USER_FIELD = 'id'
+    export const SPAM_FIELD = 'uid'
+    export const CHATROOM_FIELD = 'uid'
+    export const CHATROOM_ISOPEN_FIELD = 'open'
+    export const CHATROOM_OPENON_FIELD = 'openDate'
+    export const CHATROOM_NUM_MESSAGES_FIELD = 'numMessages'
+
     //List Tables
     //EVENTS    
     export const TB_LIST_EVENT_CLUB = 'event_clubs'
@@ -76,8 +97,14 @@ export namespace database {
     //ENTRADAS
     //EMPLEADOS
 
-
+    //Operations
+    export const OP_EQUAL = '=='
+    export const OP_GREATER = '>'
+    export const OP_GREATEROREQ = '>='
+    export const OP_LOWEROREQ = '<='
+    export const OP_LOWER = '<'
     //Fields
     export const OWNER_ID_FIELD = 'ownerUid'
+    export const DATE_ID_FIELD = 'id'
     export const ID_FIELD = 'uid'
   }
