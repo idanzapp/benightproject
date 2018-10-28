@@ -22,6 +22,7 @@
       "@bn8-environments/*":["environments/*"],
       "@bn8-services/*":["app/services/*"],
       "@bn8-detalle/*":["app/navigator/detalle/*"],
+      "@bn8-login/*":["app/login/*"],
       "@bn8-preview/*":["app/modals/*"],
       "@bn8-navigator/*":["app/navigator/*"],
       "@bn8-database/*":["app/services/database/*"],
