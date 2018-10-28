@@ -1,6 +1,10 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-28, 21:30)
+----------------------------
++ Added all interfaces but public-rules and promos, needed a second revision of it
+
 new commit (2018-10-28, 10:00)
 ----------------------------
 + Add constants to core

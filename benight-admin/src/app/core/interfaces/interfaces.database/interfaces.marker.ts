@@ -12,7 +12,7 @@ export interface UserInfo {
 }
 
 export interface Info {
-    //required fields
+    //required fields ML
     //
     //
     //

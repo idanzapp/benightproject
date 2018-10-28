@@ -16,13 +16,16 @@ export interface UserChat {
     chatList:any
 }
 
-
 //relacion
 export interface ChatUser {
     uid:string //idChat
     userList:any
 }
 
+export interface ChatEvent {
+    uid:string //idChat
+    id:string //idEvent
+}
 export interface Alias {
     id:string //idUser
     alias:string

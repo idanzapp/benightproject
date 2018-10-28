@@ -11,10 +11,12 @@ export interface User {
     displayName: string
     email: string
     friendList:any
+    //numFriends:number
     gender: boolean
     permissionsList: any
     photoURL: string
     referralList: any
+    //numReferrals:number
     uid: string
     updatedAt: Date
 }
@@ -83,4 +85,40 @@ export interface AdminUpgrades {
     general: boolean
     tax:number
     fixed:number
+}
+
+export interface AdminVipItem {
+    uid:string //idUser
+    createdAt:string
+}
+export interface AdminVip {
+    uid: string //idAdmin
+    listVip:any
+}
+
+export interface adminSilencedItem {
+    uid: string //idEvent
+    createdAt:Date
+}
+
+export interface UserSilencedAdmin {
+    uid: string //idUser
+    eventList
+}
+
+export interface adminBanItem {
+    uid: string //idUser
+    createdAt:Date
+    expiresAt:Date
+    expires:boolean
+}
+
+export interface AdminBanUser {
+    uid: string //idAdmin
+    banList
+}
+
+export interface SuperAdminBan {
+    uid: string //idAdmin
+    banList
 }
