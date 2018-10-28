@@ -1,7 +1,7 @@
 import { ClubsPage, DetalleInfoClubPage} from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { tabs } from '@bn8-interfaces/interfaces.tabs'
+import { tabs } from '@bn8-constants/constants.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [

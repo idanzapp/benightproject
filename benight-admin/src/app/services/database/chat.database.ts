@@ -1,10 +1,19 @@
 import { OnInit } from '@angular/core'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
-import { database, tables as tb} from '@bn8-interfaces/interfaces.database'
+import { database, tables as tb} from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
 import { shareReplay, mapTo, merge, switchMap, reduce, filter } from 'rxjs/operators'
+
+interface Chat {
+    closedAt?: Date,
+    messages:any,
+    name?:string,
+    numMessages:number,
+    open:boolean,
+    openDate?: Date
+}
 
 export class ChatDatabase implements OnInit {
     chats$: Observable<any>
@@ -44,7 +53,7 @@ export class ChatDatabase implements OnInit {
             reduce((value,current) => `${value} | ${current}` ),
             //Get all the open chats of the user
             switchMap((value) => {
-                return this.db.collection$(tb.TB_CHAT, ref => ref
+                return this.db.collection$(tb.TB_CHATROOM, ref => ref
                     .where(tb.CHATROOM_FIELD,tb.OP_EQUAL,value)                    
                     .where(tb.CHATROOM_ISOPEN_FIELD,tb.OP_EQUAL, true )
                     , database.DB_CON_CHAT)
@@ -69,7 +78,9 @@ export class ChatDatabase implements OnInit {
         return this.spam$ 
     }
 
-    private createChat() {}
+    createChat(data: Chat) {        
+        this.db.createAt(tb.TB_CHATROOM,data,database.DB_CON_CHAT)
+    }
 
 }
 

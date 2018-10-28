@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { database } from '@bn8-interfaces/interfaces.database'
-import { tabs } from '@bn8-interfaces/interfaces.tabs'
+import { database } from '@bn8-constants/constants.database'
+import { tabs } from '@bn8-constants/constants.tabs'
 import { Router, ActivationStart } from '@angular/router'
 import { filter} from 'rxjs/operators'
 

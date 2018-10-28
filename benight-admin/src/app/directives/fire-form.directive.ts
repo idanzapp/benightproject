@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms'
 import { tap,  take, debounceTime } from 'rxjs/operators'
 import { Subscription } from 'rxjs'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
-import { database } from '@bn8-interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 
 @Directive({
   selector: '[fireForm]'

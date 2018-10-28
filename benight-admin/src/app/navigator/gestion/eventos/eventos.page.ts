@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { database } from '@bn8-interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 

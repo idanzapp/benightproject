@@ -41,7 +41,6 @@ export namespace database {
     export const TB_TICKET = 'tickets'
     export const TB_EMPLOYEE = 'employees'
     export const TB_PROMO = 'promos'
-    export const TB_CHAT = 'chats'
     //Cross tables
     //OWNER
     export const TB_OWNER_EVENT = 'owner_events'

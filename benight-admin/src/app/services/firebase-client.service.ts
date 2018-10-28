@@ -7,7 +7,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging'
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
 
-import { database } from '@bn8-interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 import { 
     FirestoreEventService,
     FirestoreAdminService,

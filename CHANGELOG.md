@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+new commit (2018-10-28, 10:00)
+----------------------------
++ Add constants to core
++ Some logic Added to DB logic
+
 new commit (2018-10-26, 15:30)
 ----------------------------
 + Improved left Join

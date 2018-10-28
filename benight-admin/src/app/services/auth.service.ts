@@ -7,7 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { Observable, of } from 'rxjs'
 import { switchMap, take, map, shareReplay } from 'rxjs/operators'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
-import { database } from '@bn8-interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 
 import { Facebook } from '@ionic-native/facebook/ngx'
 import { Platform } from '@ionic/angular'

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
-import { database } from '@bn8-interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 
 //Database imports Functions
 import { ChatDatabase as FN_CHAT } from '@bn8-database/chat.database'

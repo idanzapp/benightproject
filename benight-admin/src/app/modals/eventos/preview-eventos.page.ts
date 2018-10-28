@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { ToastController } from '@ionic/angular'
-import { languages } from '@bn8-interfaces/interfaces.languages'
+import { languages } from '@bn8-constants/constants.languages'
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { database } from '@bn8-core/interfaces/interfaces.database'
+import { database } from '@bn8-constants/constants.database'
 
 @Component({
   selector: 'preview-eventos',

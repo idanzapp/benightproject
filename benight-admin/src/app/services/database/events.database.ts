@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
-import { database, tables as tb } from '@bn8-interfaces/interfaces.database'
+import { database, tables as tb } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
 import { shareReplay } from 'rxjs/operators'
 
