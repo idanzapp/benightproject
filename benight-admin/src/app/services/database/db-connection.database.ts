@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { AngularFireFunctions } from '@angular/fire/functions'
 import { AngularFireMessaging } from '@angular/fire/messaging'
 import { AngularFireAuth } from '@angular/fire/auth'
+import { languageEnvironment } from '@bn8-constants/constants.languages'
 import { environment } from '@bn8-environments/environment'
-import { languages } from '@bn8-constants/constants.languages'
 //
 import { database} from '@bn8-constants/constants.database'
 import * as firebase from 'firebase/app'
@@ -39,105 +39,40 @@ export class MessagingTicketService extends AngularFireMessaging {}
 export class MessagingMarkersService extends AngularFireMessaging {}
 export class MessagingChatService extends AngularFireMessaging {}
 
+//get language
+
 //Firestore Factory
-function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.DB_CON_LOGIN, false, null, platformId, zone,{})}
-function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.DB_CON_ADMIN, false, null, platformId, zone,{})}
-function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.DB_CON_TICKET, false, null, platformId, zone,{})}
-function AngularFireChatFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_chat, database.DB_CON_CHAT, false, null, platformId, zone,{})}
-function AngularFireMarkersFactory() { return geofirex.init(firebase.initializeApp(environment.firebase_base,  database.DB_CON_GEOMARKERS))}
-function AngularFireEventFactory(platformId: Object, zone: NgZone) {
-  let events
-  if (navigator.language)
-      switch (navigator.language) {
-          case languages.es:
-              events = environment.firebase_es_ES
-              break
-          case languages.fr:
-              events = environment.firebase_fr_FR
-              break
-          case languages.pt:
-              events = environment.firebase_pt_PT
-              break
-          default:
-              events = environment.firebase_en_EN
-      }
-  return new AngularFirestore(events, database.DB_CON_EVENTS, false, null, platformId, zone,{})
+function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.connections.login, false, null, platformId, zone,{})}
+function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.connections.admin, false, null, platformId, zone,{})}
+function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.connections.ticket, false, null, platformId, zone,{})}
+function AngularFireChatFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_chat, database.connections.chat, false, null, platformId, zone,{})}
+function AngularFireMarkersFactory() { return geofirex.init(firebase.initializeApp(environment.firebase_base, database.connections.geomarkers))}
+function AngularFireEventFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.events, false, null, platformId, zone,{})
 }
 
 //Auth Factory
-function AngularAuthLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(environment.firebase_login, database.DB_CON_LOGIN, platformId, zone)}
-function AngularAuthAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_base, database.DB_CON_ADMIN, platformId, zone)}
-function AngularAuthTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_ticket, database.DB_CON_TICKET, platformId, zone)}
-function AngularAuthChatFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.DB_CON_CHAT, platformId, zone)}
-function AngularAuthMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_markers, database.DB_CON_MARKERS, platformId, zone)}
-function AngularAuthEventFactory(platformId: Object, zone: NgZone) {
-  let events
-  if (navigator.language)
-      switch (navigator.language) {
-          case languages.es:
-              events = environment.firebase_es_ES
-              break
-          case languages.fr:
-              events = environment.firebase_fr_FR
-              break
-          case languages.pt:
-              events = environment.firebase_pt_PT
-              break
-          default:
-              events = environment.firebase_en_EN
-      }
-  return new AngularFireAuth(events, database.DB_CON_EVENTS, platformId, zone)
-}
+function AngularAuthLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(environment.firebase_login, database.connections.login, platformId, zone)}
+function AngularAuthAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_base, database.connections.admin, platformId, zone)}
+function AngularAuthTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_ticket, database.connections.ticket, platformId, zone)}
+function AngularAuthChatFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.connections.chat, platformId, zone)}
+function AngularAuthMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_markers, database.connections.markers, platformId, zone)}
+function AngularAuthEventFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.events, platformId, zone)}
 
 //Functions Factory
-function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.DB_CON_LOGIN, platformId, zone,'')}
-function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.DB_CON_ADMIN, platformId, zone,'')}
-function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.DB_CON_TICKET, platformId, zone,'')}
-function AngularFunctionsChatFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_chat, database.DB_CON_CHAT, platformId, zone,'')}
-function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.DB_CON_MARKERS, platformId, zone,'')}
-function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {
-  let events
-  if (navigator.language)
-      switch (navigator.language) {
-          case languages.es:
-              events = environment.firebase_es_ES
-              break
-          case languages.fr:
-              events = environment.firebase_fr_FR
-              break
-          case languages.pt:
-              events = environment.firebase_pt_PT
-              break
-          default:
-              events = environment.firebase_en_EN
-      }
-  return new AngularFireFunctions(events, database.DB_CON_EVENTS, platformId, zone,'')
-}
+function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.connections.login, platformId, zone,'')}
+function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.connections.admin, platformId, zone,'')}
+function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.connections.ticket, platformId, zone,'')}
+function AngularFunctionsChatFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_chat, database.connections.chat, platformId, zone,'')}
+function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.connections.markers, platformId, zone,'')}
+function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.events, platformId, zone,'')}
 
 //Functions Factory
-export function AngularMessagingLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireMessaging(environment.firebase_login, database.DB_CON_LOGIN, platformId, zone)}
-export function AngularMessagingAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_base, database.DB_CON_ADMIN, platformId, zone)}
-export function AngularMessagingTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_ticket, database.DB_CON_TICKET, platformId, zone)}
-export function AngularMessagingChatFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_chat, database.DB_CON_CHAT, platformId, zone)}
-export function AngularMessagingMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_markers, database.DB_CON_MARKERS, platformId, zone)}
-export function AngularMessagingEventFactory(platformId: Object, zone: NgZone) {
-  let events
-  if (navigator.language)
-      switch (navigator.language) {
-          case languages.es:
-              events = environment.firebase_es_ES
-              break
-          case languages.fr:
-              events = environment.firebase_fr_FR
-              break
-          case languages.pt:
-              events = environment.firebase_pt_PT
-              break
-          default:
-              events = environment.firebase_en_EN
-      }
-  return new AngularFireMessaging(events, database.DB_CON_EVENTS, platformId, zone)
-}
+export function AngularMessagingLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireMessaging(environment.firebase_login, database.connections.login, platformId, zone)}
+export function AngularMessagingAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_base, database.connections.admin, platformId, zone)}
+export function AngularMessagingTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_ticket, database.connections.ticket, platformId, zone)}
+export function AngularMessagingChatFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_chat, database.connections.chat, platformId, zone)}
+export function AngularMessagingMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(environment.firebase_markers, database.connections.markers, platformId, zone)}
+export function AngularMessagingEventFactory(platformId: Object, zone: NgZone) {return new AngularFireMessaging(languageEnvironment[navigator.language.slice(0,2)]  || languageEnvironment.en, database.connections.events, platformId, zone)}
 
 export const FirebaseProviders = [
     { provide: FirestoreEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireEventFactory },

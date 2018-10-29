@@ -10,6 +10,7 @@ const routes: Routes = [
       component: EstadisticasPage,
       data:{
         header:'Estadisticas',
+        hasTop:true,
         back:false,
         tabs: tabs.general
       },

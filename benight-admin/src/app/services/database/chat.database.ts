@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
-import { database, tables as tb} from '@bn8-constants/constants.database'
+import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
 import { shareReplay, mapTo, merge, switchMap, reduce, filter } from 'rxjs/operators'
@@ -24,7 +24,7 @@ export class ChatDatabase implements OnInit {
 
     async ngOnInit() {
         //Check if you are banned for spam
-        this.spam$ = await this.db.collection$(tb.TB_USER_SPAM, ref => ref.where(tb.SPAM_FIELD , tb.OP_EQUAL, this.auth.uid()), database.DB_CON_CHAT)
+        this.spam$ = await this.db.collection$(database.tables.users.relations.spam.name, ref => ref.where(database.tables.users.relations.spam.fields.relation , database.operations.equal, this.auth.uid()), database.connections.chat)
         .pipe(
             mapTo( value => {
                 if (value) 
@@ -33,19 +33,22 @@ export class ChatDatabase implements OnInit {
                     return false
             }),
             shareReplay(1))
-        this.alias$ = await this.db.collection$(tb.TB_USER_ALIAS,ref => ref.where(tb.SPAM_FIELD , tb.OP_EQUAL, this.auth.uid()), database.DB_CON_CHAT)
+        this.alias$ = await this.db.collection$(database.tables.alias.name,ref => ref.where(database.tables.alias.externalId , database.operations.equal, this.auth.uid()), database.connections.chat)
         .pipe(shareReplay(1))
         this.chats$ = await this.getChats()               
     }
 
     private getChats() {
-        return this.db.collection$(tb.TB_USER_CHAT, ref => ref.where(tb.USER_CHAT_FIELD,tb.OP_EQUAL,this.auth.uid()), database.DB_CON_CHAT)
+        return this.db.collection$(
+            database.tables.users.relations.chat.name,
+            ref => ref.where(database.tables.users.relations.chat.fields.relation,database.operations.equal,this.auth.uid()), 
+            database.connections.chat)
         .pipe(
             //transform collection into id[]
             switchMap((value) => {
                 let table
                 table.push(value.forEach(element => {
-                    return element[tb.CHATROOM_FIELD]
+                    return element[database.tables.chats.internalId]
                 }))
                 return table
             }),
@@ -53,13 +56,13 @@ export class ChatDatabase implements OnInit {
             reduce((value,current) => `${value} | ${current}` ),
             //Get all the open chats of the user
             switchMap((value) => {
-                return this.db.collection$(tb.TB_CHATROOM, ref => ref
-                    .where(tb.CHATROOM_FIELD,tb.OP_EQUAL,value)                    
-                    .where(tb.CHATROOM_ISOPEN_FIELD,tb.OP_EQUAL, true )
-                    , database.DB_CON_CHAT)
+                return this.db.collection$(database.tables.chats.name, ref => ref
+                    .where(database.tables.chats.internalId,database.operations.equal,value)                    
+                    .where(database.tables.chats.fields.isOpen,database.operations.equal, true )
+                    , database.connections.chat)
             }),
             //Filters the chat if they started
-            filter((collection) => collection[tb.CHATROOM_OPENON_FIELD] <= Date()),
+            filter((collection) => collection[database.tables.chats.fields.openOn] <= Date()),
             //Check if you are a Spammer  
             merge(this.spam$),            
             shareReplay(1)
@@ -79,7 +82,7 @@ export class ChatDatabase implements OnInit {
     }
 
     createChat(data: Chat) {        
-        this.db.createAt(tb.TB_CHATROOM,data,database.DB_CON_CHAT)
+        this.db.createAt(database.tables.chats.name,data,database.connections.chat)
     }
 
 }

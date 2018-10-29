@@ -6,7 +6,7 @@ export interface User {
     balance: number
     banned: boolean
     birthday: Date
-    createddAt: Date
+    createdAt: Date
     deleted: boolean
     displayName: string
     email: string
@@ -104,6 +104,10 @@ export interface adminSilencedItem {
 export interface UserSilencedAdmin {
     uid: string //idUser
     eventList
+}
+
+export interface UserSpam {
+    uid: string //idUser
 }
 
 export interface adminBanItem {

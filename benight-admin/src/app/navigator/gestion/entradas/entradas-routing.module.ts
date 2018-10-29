@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Entradas',
         back:false,
+        hasTop:true,
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
@@ -20,6 +21,7 @@ const routes: Routes = [
       component: DetalleInfoEntradaPage,
       data:{
         header:'Crear Entrada',
+        hasTop:false,
         back:true
       }
     },
@@ -27,6 +29,7 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Entrada',
+        hasTop:false,
         back:true
       },
       component: DetalleInfoEntradaPage

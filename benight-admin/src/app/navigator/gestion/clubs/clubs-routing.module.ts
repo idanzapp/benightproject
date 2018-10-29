@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Clubs',
         back:false,
+        hasTop:true,
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
@@ -20,6 +21,7 @@ const routes: Routes = [
       component: DetalleInfoClubPage,
       data:{
         header:'Crear Club',
+        hasTop:false,
         back:true
       }
     },
@@ -27,6 +29,7 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Club',
+        hasTop:false,
         back:true
       },
       component: DetalleInfoClubPage

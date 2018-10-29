@@ -7,7 +7,16 @@
     </ion-buttons>
     <ion-title text-center>{{header}}</ion-title>
   </ion-toolbar>  
-  <ion-toolbar *ngIf='empty'>
+  <ion-toolbar *ngIf='hasTop'>
+      <ion-tabs>
+        <ion-tab 
+        *ngFor='let tab of topTabs'
+          href="{{tab['href']}}" 
+          label="{{tab['title']}}" >
+        </ion-tab>    
+      </ion-tabs>
+  </ion-toolbar>  
+  <!--<ion-toolbar *ngIf='empty'>
     <ion-tabs *ngIf='tabs === general'>
       <ion-tab 
       *ngFor='let tab of generalTabs'
@@ -22,7 +31,7 @@
         label="{{tab['title']}}">
       </ion-tab>    
     </ion-tabs>
-  </ion-toolbar>
+  </ion-toolbar>-->
 </ion-header>
 <ion-content padding>
   <router-outlet></router-outlet>

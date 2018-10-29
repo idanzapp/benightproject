@@ -1,6 +1,10 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+2018-10-29, 21:30
+----------------------------
++ Swaping all constants and switches for object literall (half done, no compiling version)
+
 new commit (2018-10-28, 21:30)
 ----------------------------
 + Added all interfaces but public-rules and promos, needed a second revision of it
@@ -154,4 +158,3 @@ Benight-Admin:
 
 Benight-Employee:
 + Blank Template - NPM UPDATE
-

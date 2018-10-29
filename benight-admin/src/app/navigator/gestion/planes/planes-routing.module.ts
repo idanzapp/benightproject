@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Planes',
         back:false,
+        hasTop:true,
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
@@ -20,6 +21,7 @@ const routes: Routes = [
       component: DetalleInfoPlanPage,
       data:{
         header:'Crear Plan',
+        hasTop:false,
         back:true
       }
     },
@@ -27,6 +29,7 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Plan',
+        hasTop:false,
         back:true
       },
       component: DetalleInfoPlanPage

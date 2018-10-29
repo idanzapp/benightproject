@@ -12,19 +12,23 @@ import { filter} from 'rxjs/operators'
 })
 export class NavigatorPage implements OnInit {
 
-  mainTabs:{href:string,title:string}[] = tabs.mainTabs
-  gestionTabs:{href:string,title:string}[] = tabs.gestionTabs
-  generalTabs:{href:string,title:string}[] = tabs.generalTabs
+  /*mainTabs:{href:string,title:string}[] = tabs.main
+  gestionTabs:{href:string,title:string}[] = tabs.gestion
+  generalTabs:{href:string,title:string}[] = tabs.general*/
   
-  database:any = database
+  botTabs:{href:string,title:string,icon:string}[] = tabs.main
+  topTabs:{href:string,title:string}[] = tabs.gestion
+
+  //database:any = database
   header:string = "Eventos"
   back:boolean = false
+  hasTop:boolean = true
 
-  empty:boolean = true
+  /*empty:boolean = true
   tabs: number = tabs.gestion
 
   general: number = tabs.general
-  gestion: number = tabs.gestion
+  gestion: number = tabs.gestion*/
 
   constructor(public feed: DataFeedService, private router: Router) { }
   
@@ -34,14 +38,10 @@ export class NavigatorPage implements OnInit {
       filter(event => event instanceof ActivationStart) )
       .subscribe(event => { 
         this.back = (event as any)['snapshot'] .data['back']
-        this.header = (event as any)['snapshot'].data['header']
-        this.tabs = (event as any)['snapshot'].data['tabs']
-        this.empty = this.tabs === this.gestion || this.tabs === this.general        
+        this.header = (event as any)['snapshot'].data['header']        
+        this.hasTop = (event as any)['snapshot'].data['hasTop']        
+        this.topTabs = (event as any)['snapshot'].data['tabs']        
       })
-  }
-  
-  backUrl(){
-    return this.feed.get(database.VAR_BACK_URL)
   }
 
 }

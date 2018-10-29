@@ -1,4 +1,4 @@
-export namespace database { 
+/*export namespace database { 
     //Editar y Crear
     export const ACTION_CREATE = 'crear'
     export const ACTION_EDIT  = 'editar'
@@ -106,4 +106,292 @@ export namespace database {
     export const OWNER_ID_FIELD = 'ownerUid'
     export const DATE_ID_FIELD = 'id'
     export const ID_FIELD = 'uid'
+  }*/
+export const database = {
+  connections: {
+    events: 'events',
+    admin: 'admin',
+    ticket: 'ticket',
+    login: 'login',
+    markers: 'markers',
+    chat: 'chat',
+    geomarkers: 'geomarkers'
+  },
+  actions: {
+    create: 'create',
+    edit: 'edit'
+  },
+  variables: {
+    chat: 'chat',
+    club: 'club',
+    date: 'date',
+    employee: '',
+    events: '4',
+    file: '5',
+    lists: '6',
+    notifications: '7',
+    owners: '8',
+    plans: '9',
+    promos: '10',
+    publicRules: 'publicRules',
+    requirements: 'requirements',
+    statistics: 'statistics',
+    tags: 'tags',
+    ticket: 'ticket',
+    default: 'default'
+  },
+  operations: {
+    equal: '==',
+    greater: '>',
+    lower: '<',
+    greaterOrEqual: '>=',
+    lowerOrEqual: '<='
+  },
+  tables: {
+    alias: {
+      name: 'alias',
+      internalId: 'uid',
+      externalId: 'id'
+    },
+    chats: {
+      name: 'chat',
+      internalId: 'uid',
+      fields: {
+        isOpen: 'isOpen',
+        openOn: 'openOn'
+      },
+      relations: {
+        user: {
+          name: 'chatUser',
+          fields: {
+            relation: 'id',
+            list: 'userList'
+          }
+        },
+        event: {
+          name: 'chatEvent',
+          fields: {
+            //1-by-1, so no need list
+            relation: 'id'
+          }
+        }
+      }
+    },
+    clubs: {
+      name: 'clubs',
+      internalId: 'uid',
+      relations: {
+        event: {
+          name: 'clubEvent',
+          fields: {
+            relation: 'id',
+            list: 'eventList',
+            fields: {
+              name: 'nextDate'
+            }
+          }
+        },
+        gallery: {
+          name: 'clubGallery',
+          fields: {
+            list: 'photoList'
+          }
+        }
+      }
+    },
+    events: {
+      name: 'events',
+      internalId: 'uid',
+      relations: {
+        modified: {
+          name: 'modifiedEventDates',
+          fields: {
+            relation: 'id',
+            list: 'modifiedEventList'
+          }
+        },
+        promoted: {
+          name: 'promotedEvent',
+          fields: {
+            relation: 'id',
+            list: 'promotedEventList'
+          }
+        },
+        lists: {
+          name: 'eventLists',
+          fields: {
+            relation: 'id',
+            list: 'eventListList'
+          }
+        },
+        ticket: {
+          name: 'eventTickets',
+          fields: {
+            relation: 'id',
+            list: 'eventTicketList'
+          }
+        }
+      }
+    },
+    markers: {
+      name: 'markers',
+      internalId: 'uid',
+      geo: 'coords',
+      info: 'info'
+    },
+    plans: {
+      name: 'plans',
+      internalId: 'uid',
+      relations: {
+        modified: {
+          name: 'modifiedPlanDates',
+          fields: {
+            relation: 'id',
+            list: 'modifiedPlanList'
+          }
+        },
+        promoted: {
+          name: 'promotedPlan',
+          fields: {
+            relation: 'id',
+            list: 'promotedPlanList'
+          }
+        },
+        lists: {
+          name: 'planLists',
+          fields: {
+            relation: 'id',
+            list: 'planListList'
+          }
+        },
+        ticket: {
+          name: 'planTickets',
+          fields: {
+            relation: 'id',
+            list: 'planTicketList'
+          }
+        }
+      }
+    },
+    promos: {
+      name: 'promos',
+      internalId: 'uid',
+      relations: {
+
+      }
+    },
+    publicRules: {
+      name: 'publicRules',
+      internalId: 'uid',
+      relations: {
+
+      }
+    },
+    requirements: {
+      name: 'requirements',
+      internalId: 'uid'
+    },
+    tags: {
+      name: 'tags',
+      internalId: 'uid'
+    },
+    tickets: {
+      name: 'tickets',
+      internalId: 'uid',
+      relations: {
+        user: {
+          name: 'ticketUser',
+          fields: {
+            relation: 'id',
+            list: 'transactionList',
+            fields: {
+              code: 'code', //If a code is used to buy it
+              date: 'date',
+              numTicket: 'numTicket',
+              discount: 'discount',
+              price: 'price',
+            }
+          }
+        }
+      }
+    },
+    users: {
+      name: 'users',
+      internalId: 'uid',
+      relations: {
+        info: {
+          name: 'userInfo',
+          fields: {
+            relation: 'id',
+            list: 'infoList'
+          }
+        },
+        club: {
+          name: 'userClub',
+          fields: {
+            //1-by-1, only relation
+            relation: 'id'
+          }
+        },
+        chat: {
+          name: 'userChat',
+          fields: {
+            relation: 'id',
+            list: 'chatList'
+          }
+        },
+        requirements: {
+          name: 'userRequirements',
+          fields: {
+            relation: 'id',
+            list: 'requirementsList'
+          }
+        },
+        silencedEvent: {
+          name: 'userSilencedEvent',
+          fields: {
+            relation: 'id',
+            list: 'silencedEventList'
+          }
+        },
+        spam: {
+          name: 'userSpam',
+          fields: {
+            relation:'id' //idUser
+          }
+        },
+        tag: {
+          name: 'userTag',
+          fields: {
+            relation: 'id',
+            list: 'tagList'
+          }
+        },
+        ticket: {
+          name: 'userTicket',
+          fields: {
+            relation: 'id',
+            list: 'ticketList'
+          }
+        },
+        default: {
+          name: 'userDefault',
+          fields: {
+            relation: 'id',
+            fields: {
+              club: 'club',
+              employees: 'employess',
+              event: 'event',
+              plan: 'plan',
+              publicRulesList: 'publicRulesList',
+              requirementsLit: 'requirementsList',
+              tagsList: 'tagsList',
+              ticket: 'ticket',
+              ticketList: 'ticketList'             
+            }
+          }
+        }
+      }
+    }
   }
+}

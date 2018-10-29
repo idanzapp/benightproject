@@ -8,7 +8,7 @@ export interface Marker {
 
 export interface UserInfo {
     uid: string //id del usuario
-    info: any //Lista de elementos necesarios del usuario para calcular ML
+    infoList: any //Lista de elementos necesarios del usuario para calcular ML
 }
 
 export interface Info {

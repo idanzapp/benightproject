@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Preferencias',
         back:false,
+        hasTop:true,
         tabs: tabs.general
       },
       canActivate: [UserLevelGuard]

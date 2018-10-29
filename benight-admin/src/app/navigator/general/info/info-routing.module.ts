@@ -10,6 +10,7 @@ const routes: Routes = [
       component: InfoPage,
       data:{
         header:'Info',
+        hasTop:true,
         back:false,
         tabs: tabs.general
       },

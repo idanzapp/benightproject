@@ -22,17 +22,17 @@ export class EntradasPage implements OnInit {
 
   private basehref:string = ''
   public default:string = '' 
-  public create:string = database.ACTION_CREATE
-  public edit:string =  database.ACTION_EDIT  
+  public create:string = database.actions.create
+  public edit:string =  database.actions.edit
 
   async ngOnInit() {
-    this.entradas = await this.feed.get(database.VAR_TICKET)
+    this.entradas = await this.feed.get(database.variables.ticket)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }
 
   goto(path:string,data:string) {    
-    this.feed.next(database.VAR_BACK_URL,`${this.basehref}/entradas`)       
+    //this.feed.next(database.VAR_BACK_URL,`${this.basehref}/entradas`)       
     //If default, renew id
     if (data = this.default)
       this.default = this.fc.afs().createId()

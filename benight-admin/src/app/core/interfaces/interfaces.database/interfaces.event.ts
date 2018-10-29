@@ -41,8 +41,8 @@ export interface eventDate {
     nextChat:string
     photoURL: string
     price: number
-    id:string //idEventDate
-    uid:string //idEvent
+    uid:string //idEventDate
+    id:string //idEvent
     //lista propietarios
     //lista clubs
     //lista vip
@@ -57,12 +57,12 @@ export interface modifiedEventDates {
     listModifiedDates:any
 }
 
-export interface promote {
+export interface promotedEvent {
     id:string
     uid:string //idEvent    
     budget:number
     createdAt:Date
-    type: 'on-time' | 'subscription' | 'bono'
+    type: 'one-time' | 'subscription' | 'bono'
     duration?: number //only for subscription or bono
     nextDate: Date
 }

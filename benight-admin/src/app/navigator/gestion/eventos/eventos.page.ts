@@ -20,19 +20,19 @@ export class EventosPage implements OnInit {
 
   private basehref:string = ''
   public default:string = ''
-  public create:string = database.ACTION_CREATE
-  public edit:string = database.ACTION_EDIT
+  public create:string = database.actions.create
+  public edit:string = database.actions.edit
 
   async ngOnInit() {
-    this.events = await this.feed.get(database.VAR_EVENTS)
+    this.events = await this.feed.get(database.variables.events)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(path:string, id:string) {
-    this.feed.next(database.VAR_BACK_URL, `${this.basehref}/eventos`)
+    //this.feed.next(database.VAR_BACK_URL, `${this.basehref}/eventos`)
     //If default, renew id    
     if (path  === this.create)
-      id = await this.feed.create(database.VAR_EVENTS) 
+      id = await this.feed.create(database.variables.events) 
     this.router.navigate([`${this.basehref}/eventos/${this.edit}`, id])
   }
 

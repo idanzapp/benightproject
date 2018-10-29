@@ -1,0 +1,19 @@
+export const properties = {
+    chat:'chat',
+    clubs:'clubs',
+    date:'date',
+    employee:'employee',
+    events:'events',
+    fileBucket:'fileBucket',
+    lists:'lists',
+    notifications:'notifications',
+    owners:'owners',
+    plans:'plans',
+    promos:'promos',
+    publicRules:'publicRules',
+    requirements:'requirements',
+    statistics:'statistics',
+    tags:'tags',
+    tickets:'tickets',
+    default:'default'
+}

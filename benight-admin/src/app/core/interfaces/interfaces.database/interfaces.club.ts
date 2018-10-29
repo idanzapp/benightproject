@@ -32,13 +32,8 @@ export interface ClubEvent {
     nextDate:Date
 }
 
-//Solo necesito el id
-export interface Club {
-    id: string //idClub  
-}
-
 //Solo guarda la relacion
 export interface UserClub {
     uid: string //idUser
-    clubList: any
+    id: string //idClub
 }

@@ -22,17 +22,17 @@ export class EmpleadosPage implements OnInit {
 
   private basehref:string = ''
   public default:string = ''
-  public create:string = database.ACTION_CREATE
-  public edit:string =  database.ACTION_EDIT  
+  public create:string = database.actions.create
+  public edit:string =  database.actions.create  
 
   async ngOnInit() {
-    this.empleados = await this.feed.get(database.VAR_EMPLOYEE)
+    this.empleados = await this.feed.get(database.variables.employee)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }
 
   goto(path:string,data:string) {    
-    this.feed.next(database.VAR_BACK_URL,`${this.basehref}/empleados`)       
+    //this.feed.next(database.VAR_BACK_URL,`${this.basehref}/empleados`)       
     //If default, renew id
     if (data = this.default)
       this.default = this.fc.afs().createId()

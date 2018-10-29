@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Empleados',
         back:false,
+        hasTop:true,
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
@@ -20,6 +21,7 @@ const routes: Routes = [
       component: DetalleInfoEmpleadoPage,
       data:{
         header:'Crear Empleado',
+        hasTop:false,
         back:true
       }
     },
@@ -27,6 +29,7 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Empleado',
+        hasTop:false,
         back:true
       },
       component: DetalleInfoEmpleadoPage

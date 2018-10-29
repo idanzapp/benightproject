@@ -11,6 +11,7 @@ const routes: Routes = [
       data:{
         header:'Promos',
         back:false,
+        hasTop:true,
         tabs: tabs.gestion
       },
       canActivate: [UserLevelGuard]
@@ -20,6 +21,7 @@ const routes: Routes = [
       component: DetalleInfoPromoPage,
       data:{
         header:'Crear Promo',
+        hasTop:false,
         back:true
       }
     },
@@ -27,6 +29,7 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Promo',
+        hasTop:false,
         back:true
       },
       component: DetalleInfoPromoPage

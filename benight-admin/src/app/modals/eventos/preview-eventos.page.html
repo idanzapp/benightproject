@@ -79,11 +79,11 @@
     </ion-list>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="light" class="e2eFabBottomRight" >
-            <ion-img src="{{selected}}"></ion-img>
+            <ion-img src="{{languageIcon[selected]}}"></ion-img>
         </ion-fab-button>
         <ion-fab-list side="top">
-          <ion-fab-button (click)="selectLanguage(language)" *ngFor="let language of list">
-            <ion-img src="{{language}}"></ion-img>
+          <ion-fab-button (click)="selectLanguage(key)" *ngFor="let key in language.keys()">
+            <ion-img src="{{languageIcon[key]}}"></ion-img>
           </ion-fab-button>
         </ion-fab-list>
     </ion-fab>

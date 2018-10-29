@@ -36,7 +36,7 @@ export interface ticketTransaction {
     price:number //uniraty price
 }
 
-export interface ticketUserAggregation {
+export interface userTicket {
     uid:string //idUser
     ticketTransactionList
 }

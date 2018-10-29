@@ -10,6 +10,7 @@ const routes: Routes = [
       component: BansPage,
       data:{
         header:'Bans',
+        hasTop:true,
         back:false,
         tabs: tabs.general
       },

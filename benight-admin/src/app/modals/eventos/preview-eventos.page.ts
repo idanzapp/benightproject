@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { ToastController } from '@ionic/angular'
-import { languages } from '@bn8-constants/constants.languages'
+import { language, languageIcon } from '@bn8-constants/constants.languages'
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { database } from '@bn8-constants/constants.database'
+import { properties } from '@bn8-constants/constants.datafeed'
 
 @Component({
   selector: 'preview-eventos',
@@ -10,44 +10,28 @@ import { database } from '@bn8-constants/constants.database'
   styleUrls: ['./preview-eventos.page.scss'],
 })
 export class PreviewEventosPage implements OnInit {
-
-  list: string[] = languages.language_list
-  selected = ''
+  
+  //language = language
+  //languageIcon = languageIcon
+  selected:string = navigator.language.slice(0,2)
   event: any = {requisites:[]}
   @Input() id: any
 
   constructor(private feed: DataFeedService,private toast: ToastController ) { }
 
-  ngOnInit() {    
-    let idx
-    switch (navigator.language) {
-      case languages.es:
-        idx = 0
-        break
-      case languages.fr:
-        idx = 2
-        break
-      case languages.pt:
-        idx = 3
-        break
-      default:
-        idx = 1 
-    }  
-    this.selected = this.list[idx]    
+  ngOnInit() {       
     this.getEvent()
   }  
 
   private async getEvent(){
-    this.event = await this.feed.getItem(database.VAR_EVENTS,this.id)
+    this.event = await this.feed.getItem(properties.events,this.id)
   }
-  selectLanguage(language:string) {
-    this.selected = language
+  selectLanguage(property:string) {
+    this.selected = property
   }
 
   async presentToast() {
-    let message = this.event.requisites.reduce( (val:string,current:string) => {
-      return  `${val} ${current}`
-    })
+    let message = this.event.requisites.reduce((val:string,current:string) => `${val} ${current}`)
     const toast = await this.toast.create({
       message: message,
       position: 'top',

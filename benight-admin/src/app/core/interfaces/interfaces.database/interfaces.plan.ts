@@ -58,7 +58,7 @@ export interface modifiedPlanDates {
     listModifiedDates:any
 }
 
-export interface promote {
+export interface promotePlan {
     id:string
     uid:string //idPlan    
     budget:number
