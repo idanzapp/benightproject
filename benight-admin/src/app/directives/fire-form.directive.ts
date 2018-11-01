@@ -83,7 +83,7 @@ export class FireFormDirective implements OnInit, OnDestroy {
 
   // Determines if path is a collection or document
   getDocRef(): any {    
-    let store = this.dbRef ? this.dbRef : database.DB_CON_LOGIN
+    let store = this.dbRef ? this.dbRef : database.connections.login
     if (this.path.split('/').length % 2) {
       return this.afs.doc$(`${this.path}/${this.afs.createId(store)}`,store)
     } else {

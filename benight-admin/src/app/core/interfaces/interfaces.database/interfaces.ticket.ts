@@ -4,8 +4,8 @@ export interface Ticket {
     type: 'subscription' | 'ticket' | 'bond'
     openAt: Date
     expiresAt: Date
-    duration?: 'unitary' | 'daily' | 'weekly' | 'monthly'| 'bimonthly' | 'quarterly'| 'semiannually' | 'annually' | 'unspecified'
-    gauge: number
+    interval?: 'unitary' | 'daily' | 'weekly' | 'monthly'| 'bimonthly' | 'quarterly'| 'semiannually' | 'annually' | 'unspecified'
+    gaugin: number
     nextDate: Date
     uses?: number
     uid: string

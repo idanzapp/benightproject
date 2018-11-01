@@ -1,397 +1,1158 @@
-/*export namespace database { 
-    //Editar y Crear
-    export const ACTION_CREATE = 'crear'
-    export const ACTION_EDIT  = 'editar'
-    //CONNECTION map
-    export const DB_CON_EVENTS = 'events'
-    export const DB_CON_ADMIN = 'admin'
-    export const DB_CON_TICKET = 'ticket'
-    export const DB_CON_LOGIN = 'login'
-    export const DB_CON_MARKERS = 'markers'
-    export const DB_CON_CHAT = 'chat'
-    export const DB_CON_GEOMARKERS = 'geomarkers'
-    
-    //VARIABLES map
-    export const VAR_CHAT  = 0
-    export const VAR_CLUBS  = 1
-    export const VAR_DATE  = 2
-    export const VAR_EMPLOYEE  = 3
-    export const VAR_EVENTS  = 4
-    export const VAR_FILE  = 5
-    export const VAR_LISTS  = 6
-    export const VAR_NOTIFICATIONS  = 7
-    export const VAR_OWNERS  = 8
-    export const VAR_PLANS  = 9
-    export const VAR_PROMOS  = 10
-    export const VAR_PUBLIC_RULES  = 11
-    export const VAR_REQUIREMENTS  = 12
-    export const VAR_STATISTICS  = 13
-    export const VAR_TAGS  = 14
-    export const VAR_TICKET  = 15
-    export const VAR_TABS = 17
-    export const VAR_BACK_URL = 19
-    export const VAR_OBSERVER_LONG  = 16
-  }
+/* eventChat & chatEvent its the same and its handle on chat relations*/
+const connections = {
+  admin: 'admin',
+  timedOut: 'timedOut',
+  chat: 'chat',
+  favourites: 'favourites',
+  items: 'items',
+  login: 'login',
+  markers:'markers',
+  tickets: 'tickets'
+}
 
-  export namespace tables {    
-    //Main tables
-    export const TB_EVENT = 'events'
-    export const TB_PLANS = 'plans'
-    export const TB_CLUB = 'clubs'
-    export const TB_TICKET = 'tickets'
-    export const TB_EMPLOYEE = 'employees'
-    export const TB_PROMO = 'promos'
-    //Cross tables
-    //OWNER
-    export const TB_OWNER_EVENT = 'owner_events'
-    export const TB_OWNER_PLANS = 'owner_plans'
-    export const TB_OWNER_CLUB = 'owner_clubs'
-    export const TB_OWNER_TICKET = 'owner_tickets'
-    export const TB_OWNER_EMPLOYEE = 'owner_employees'
-    export const TB_OWNER_PROMO = 'owner_promos'
-    //DATE
-    export const TB_DATE_EVENT = 'date_events'
-    export const TB_DATE_PLANS = 'date_plans'
-    export const TB_DATE_TICKET = 'date_tickets'
-    //CHAT
-    export const TB_USER_CHAT = 'user_chat'
-    export const TB_CHAT_USER = 'chat_user'
-    export const TB_CHATROOM = 'chatroom'
-    export const TB_USER_ALIAS = 'user_alias'
-    export const TB_USER_SPAM = 'user_chat_spam'
-    export const USER_CHAT_FIELD = 'id'
-    export const CHAT_USER_FIELD = 'id'
-    export const SPAM_FIELD = 'uid'
-    export const CHATROOM_FIELD = 'uid'
-    export const CHATROOM_ISOPEN_FIELD = 'open'
-    export const CHATROOM_OPENON_FIELD = 'openDate'
-    export const CHATROOM_NUM_MESSAGES_FIELD = 'numMessages'
+const defaultConf = {
+  eventConfiguration: 'eventConfiguration',
+  listConfiguration: 'listConfiguration',
+  locationConfiguration: 'locationConfiguration',
+  planConfiguration: 'planConfiguration',
+  rulesConfiguration: 'rulesConfiguration',
+  ticketConfiguration: 'ticketConfiguration',
+  moderatorConfiguration: 'moderatorConfiguration'
+}
 
-    //List Tables
-    //EVENTS    
-    export const TB_LIST_EVENT_CLUB = 'event_clubs'
-    export const TB_LIST_EVENT_TICKET = 'event_tickets'
-    export const TB_LIST_EVENT_EMPLOYEE = 'event_employees'
-    export const TB_LIST_EVENT_PROMO = 'event_promos'
-    export const TB_LIST_EVENT_DATE = 'event_date'
-    export const TB_LIST_EVENT_STATISTICS = 'event_statistics'
-    export const TB_LIST_EVENT_LISTS = 'event_lists'
-    export const TB_LIST_EVENT_PUBLIC = 'event_public'
-    export const TB_LIST_EVENT_REQUIREMENTS = 'event_requirements'
-    export const TB_LIST_EVENT_TAGS = 'event_tags'
-    export const TB_LIST_EVENT_PHOTOS = 'event_photos'
-    //PLANS    
-    export const TB_LIST_PLAN_CLUB = 'plan_clubs'
-    export const TB_LIST_PLAN_TICKET = 'plan_tickets'
-    export const TB_LIST_PLAN_EMPLOYEE = 'plan_employees'
-    export const TB_LIST_PLAN_PROMO = 'plan_promos'
-    export const TB_LIST_PLAN_DATE = 'plan_date'
-    export const TB_LIST_PLAN_STATISTICS = 'plan_statistics'
-    export const TB_LIST_PLAN_LISTS = 'plan_lists'
-    export const TB_LIST_PLAN_PUBLIC = 'plan_public'
-    export const TB_LIST_PLAN_REQUIREMENTS = 'plan_requirements'
-    export const TB_LIST_PLAN_TAGS = 'plan_tags'
-    export const TB_LIST_PLAN_PHOTOS = 'plan_photos'
-    //CLUBS
-    //ENTRADAS
-    //EMPLEADOS
+const actions = {
+  create: 'create',
+  edit: 'edit'
+}
+const variables = {
+  chat: 'chat',
+  club: 'club',
+  date: 'date',
+  employee: 'employee',
+  events: 'events',
+  file: 'file',
+  lists: 'lits',
+  notifications: 'notifications',
+  owners: 'owners',
+  plans: 'plans',
+  promos: 'promos',
+  publicRules: 'publicRules',
+  requirements: 'requirements',
+  statistics: 'statistics',
+  tags: 'tags',
+  ticket: 'ticket',
+  default: 'default',
+}
 
-    //Operations
-    export const OP_EQUAL = '=='
-    export const OP_GREATER = '>'
-    export const OP_GREATEROREQ = '>='
-    export const OP_LOWEROREQ = '<='
-    export const OP_LOWER = '<'
-    //Fields
-    export const OWNER_ID_FIELD = 'ownerUid'
-    export const DATE_ID_FIELD = 'id'
-    export const ID_FIELD = 'uid'
-  }*/
-export const database = {
-  connections: {
-    events: 'events',
-    admin: 'admin',
-    ticket: 'ticket',
-    login: 'login',
-    markers: 'markers',
-    chat: 'chat',
-    geomarkers: 'geomarkers'
-  },
-  actions: {
-    create: 'create',
-    edit: 'edit'
-  },
-  variables: {
-    chat: 'chat',
-    club: 'club',
-    date: 'date',
-    employee: '',
-    events: '4',
-    file: '5',
-    lists: '6',
-    notifications: '7',
-    owners: '8',
-    plans: '9',
-    promos: '10',
-    publicRules: 'publicRules',
-    requirements: 'requirements',
-    statistics: 'statistics',
-    tags: 'tags',
-    ticket: 'ticket',
-    default: 'default'
-  },
-  operations: {
-    equal: '==',
-    greater: '>',
-    lower: '<',
-    greaterOrEqual: '>=',
-    lowerOrEqual: '<='
-  },
-  tables: {
-    alias: {
-      name: 'alias',
-      internalId: 'uid',
-      externalId: 'id'
+const fields = {
+  internalId: 'uid',
+  externalId: 'eid',
+  creationDate: 'createdAt',
+  updateDate: 'updatedAt',
+  expireDate: 'expiresAt',
+  openDate: 'openAt',
+  finalizeDate: 'finalizeAt',
+  name: 'name',
+  displayName: 'displayName',
+  description: 'description',
+  code: 'code',
+  photoURL: 'photoURL',
+  date: 'date',
+  price: 'price',
+  address: 'address',
+  type: 'type',
+  nextDate: 'nextDate',
+  uses: 'uses',
+  general: 'general',
+  tax: 'tax',
+  fixed: 'fixed',
+  device: 'device',
+  gender: 'gender',
+  from: 'from',
+  email: 'email',
+  appear: 'appear',
+  balance: 'balance',
+  banned: 'banned',
+  birthday: 'birthday',
+  numFriends: 'numFriends',
+  numReferrals: 'numReferrals',
+  availableTest: 'availableTest',
+  interval: 'interval',
+  numMessages: 'numMessages',
+  numUsers: 'numUsers',
+  state: 'state',
+  mediaURL: 'mediaURL',
+  message: 'message',
+  isPrivate: 'isPrivate',
+  activateCountdown: 'activateCountdown',
+  enableEvent: 'enableEvent',
+  enableList: 'enableList',
+  eventPhotoURL: 'eventPhotoURL',
+  headerPhotoURL: 'headerPhotoURL',
+  finalDate: 'finalDate',
+  chat: 'chat',
+  listGaugin: 'listGaugin',
+  listFlow: 'listFlow',
+  userFlow: 'userFlow',
+  totalUserFlow: 'totalUserFlow',
+  maxAge: 'maxAge',
+  minAge: 'minAge',
+  gaugin: 'gaugin',
+  radius: 'radius',
+  assistance: 'assistance',
+  paymentAccount: 'paymentAccount',
+  adminPercentage: 'adminPercentage',
+  employeePercentage: 'employeePercentage',
+  listPhotoURL: 'listPhotoURL',
+  numPhotosGallery: 'numPhotosGallery',
+  maxPhotosGallery: 'maxPhotosGallery',
+  numTickets: 'numTickets',
+  discount: 'discount'
+}
+
+const operations = {
+  equal: '==',
+  greater: '>',
+  lower: '<',
+  greaterOrEqual: '>=',
+  lowerOrEqual: '<='
+}
+
+const tables = {
+  admins: {
+    connection: connections.login,
+    mainFields: {
+      uid: fields.internalId,
+      availableTest: fields.availableTest,
+      code: fields.code,
+      displayName: fields.displayName,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate
     },
-    chats: {
-      name: 'chat',
-      internalId: 'uid',
-      fields: {
-        isOpen: 'isOpen',
-        openOn: 'openOn'
+    listFields: {
+      permissions: {
+        uid: fields.internalId,
+        name: fields.name,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        expiresAt: fields.expireDate,
+        relativeTo: fields.updateDate
       },
-      relations: {
-        user: {
-          name: 'chatUser',
-          fields: {
-            relation: 'id',
-            list: 'userList'
-          }
+      upgrades: {
+        uid: fields.internalId,
+        name: fields.name,
+        description: fields.description,
+        price: fields.price,
+        tax: fields.tax,
+        fixed: fields.fixed,
+        interval: fields.interval,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        expiresAt: fields.expireDate,
+        relativeTo: fields.updateDate
+      },
+      default: {
+        eventConfiguration: defaultConf.eventConfiguration,
+        listConfiguration: defaultConf.listConfiguration,
+        locationConfiguration: defaultConf.locationConfiguration,
+        planConfiguration: defaultConf.planConfiguration,
+        rulesConfiguration: defaultConf.rulesConfiguration,
+        ticketConfiguration: defaultConf.ticketConfiguration,
+        moderatorConfiguration: defaultConf.moderatorConfiguration
+      },
+      ban: {
+        eid: fields.externalId,
+        name: fields.name,
+        createdAt: fields.creationDate,
+        expiresAt: fields.expireDate,
+        relativeAt: fields.creationDate
+      },
+      vip: {
+        eid: fields.externalId,
+        name: fields.name,
+        createdAt: fields.creationDate,
+      },
+      moderator: {
+        eid: fields.externalId,
+        displayName: fields.displayName,
+        photoURL: fields.photoURL,
+        createdAt: fields.creationDate
+      }
+    },
+    relations: {
+      event: {
+        connection: connections.items,
+        name: 'adminEvents',
+        mainFields: {
+          uid: fields.internalId
         },
-        event: {
-          name: 'chatEvent',
-          fields: {
-            //1-by-1, so no need list
-            relation: 'id'
+        listFields: {
+          event: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      location: {
+        connection: connections.items,
+        name: 'adminLocations',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          location: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      plan: {
+        connection: connections.items,
+        name: 'adminPlans',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          plan: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      ticket: {
+        connection: connections.items,
+        name: 'adminTickets',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          ticket: {
+            eid: fields.externalId,
+            name: fields.name,
+            price: fields.price,
+            date: fields.date
           }
         }
       }
     },
-    clubs: {
-      name: 'clubs',
-      internalId: 'uid',
-      relations: {
-        event: {
-          name: 'clubEvent',
-          fields: {
-            relation: 'id',
-            list: 'eventList',
-            fields: {
-              name: 'nextDate'
-            }
-          }
-        },
-        gallery: {
-          name: 'clubGallery',
-          fields: {
-            list: 'photoList'
-          }
-        }
-      }
-    },
-    events: {
-      name: 'events',
-      internalId: 'uid',
-      relations: {
-        modified: {
-          name: 'modifiedEventDates',
-          fields: {
-            relation: 'id',
-            list: 'modifiedEventList'
-          }
-        },
+    promotedEvents: {
+      connection: connections.items,
+      name: 'adminPromotedEvents',
+      mainFields: {
+        uid: fields.internalId
+      },
+      listFields: {
         promoted: {
-          name: 'promotedEvent',
-          fields: {
-            relation: 'id',
-            list: 'promotedEventList'
-          }
+          eid: fields.externalId,
+          name: fields.name,
+          photoURL: fields.photoURL,
+          date: fields.date
+        }
+      }
+    }
+  },
+  chats: {
+    connection: connections.chat,
+    mainFields: {
+      uid: fields.internalId,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      expiresAt: fields.expireDate,
+      openAt: fields.openDate,
+      relativeTo: fields.openDate,
+      numMessages: fields.numMessages,
+      numUsers: fields.numUsers
+    },
+    listFields: {
+      users: {
+        eid: fields.externalId, //idUser
+        name: fields.name,
+        photoURL: fields.photoURL,
+        appear: fields.appear,
+        state: fields.state
+      },
+      modertors: {
+        eid: fields.externalId, //idUser
+        name: fields.name,
+        photoURL: fields.photoURL,
+        appear: fields.appear,
+        state: fields.state
+      }
+    },
+    relations: {
+      messages: {
+        connection: connections.chat,
+        name: 'chatMessages',
+        mainFields: {
+          uid: fields.internalId
         },
-        lists: {
-          name: 'eventLists',
-          fields: {
-            relation: 'id',
-            list: 'eventListList'
+        listFields: {
+          messages: {
+            eid: fields.externalId,
+            date: fields.date,
+            mediaURL: fields.mediaURL,
+            message: fields.message
           }
+        }
+      },
+      events: {
+        connection: connections.chat,
+        name: 'chatEvent',
+        mainFields: {
+          uid: fields.internalId,
+          eid: fields.externalId
+        }
+      }
+    }
+  },
+  employees: {
+    connection: connections.login,
+    mainFields: {
+      uid: fields.internalId,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      code: fields.code,
+      displayName: fields.displayName
+    },
+    listFields: {
+      permissions: {
+        uid: fields.internalId,
+        name: fields.name,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        expiresAt: fields.expireDate,
+        relativeTo: fields.updateDate
+      }
+    },
+    relations: {
+      event: {
+        connection: connections.admin,
+        name: 'employeeEvents',
+        mainFields: {
+          uid: fields.internalId
         },
-        ticket: {
-          name: 'eventTickets',
-          fields: {
-            relation: 'id',
-            list: 'eventTicketList'
+        listFields: {
+          event: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      location: {
+        connection: connections.admin,
+        name: 'employeeLocations',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          location: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      plan: {
+        connection: connections.admin,
+        name: 'employeePlans',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          plan: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL,
+            date: fields.date
+          }
+        }
+      },
+      ticket: {
+        connection: connections.admin,
+        name: 'employeeTickets',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          plan: {
+            eid: fields.externalId,
+            name: fields.name,
+            price: fields.price,
+            date: fields.date
+          }
+        }
+      },
+      transactions: {
+        connection: connections.tickets,
+        name: 'employeeTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          property: {
+            eid: fields.externalId
+          }
+        }
+      },
+    }
+  },
+  events: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      isPrivate: fields.isPrivate,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      expiresAt: fields.expireDate,
+      relatedTo: fields.date,
+      activateCountdown: fields.activateCountdown,
+      name: fields.name,
+      description: fields.description,
+      enableEvent: fields.enableEvent,
+      enableList: fields.enableList,
+      eventPhotoURL: fields.eventPhotoURL,
+      headerPhotoURL: fields.headerPhotoURL,
+      date: fields.date,
+      nextDate: fields.nextDate,
+      finalDate: fields.finalDate,
+      chat: fields.chat,
+      price: fields.price,
+      interval: fields.interval,
+      listGaugin: fields.listGaugin,
+      listFlow: fields.listFlow,
+      userFlow: fields.userFlow,
+      totalUserFlow: fields.totalUserFlow
+    },
+    listFields: {
+      admins: {
+        eid: fields.externalId,
+        name: fields.name,
+        photoURL: fields.photoURL,
+        paymentAccount: fields.paymentAccount,
+        adminPercentage: fields.adminPercentage,
+        employeePercentage: fields.employeePercentage
+      },
+      sharedEmployees: {
+        eid: fields.externalId
+      },
+      locations: {
+        eid: fields.externalId,
+        address: fields.address,
+        name: fields.name
+      },
+      vips: {
+        eid: fields.externalId
+      },
+      bannedUsers: {
+        eid: fields.externalId
+      },
+      rules: {
+        maxAge: fields.maxAge,
+        minAge: fields.minAge,
+        gender: fields.gender,
+        gaugin: fields.gaugin,
+        device: fields.device,
+        radius: fields.radius
+      },
+      tickets: {
+        eid: fields.externalId,
+        name: fields.name,
+        description: fields.description,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        openAt: fields.openDate,
+        expiresAt: fields.expireDate,
+        type: fields.type,
+        uses: fields.uses,
+        rules: {
+          maxAge: fields.maxAge,
+          minAge: fields.minAge,
+          gender: fields.gender,
+          gaugin: fields.gaugin,
+          device: fields.device,
+          radius: fields.radius
+        }
+      },
+      list: {
+        eid: fields.externalId,
+        assistance: fields.assistance,
+        updatedAt: fields.updateDate
+      },
+      employees: {
+        eid: fields.externalId
+      },
+      tags: {
+        eid: fields.externalId,
+        name: fields.name
+      },
+      requirements: {
+        eid: fields.externalId,
+        name: fields.name
+      }
+    },
+    relations: {
+      modifiedDates: {
+        connection: connections.items,
+        name: 'eventModifiedDates',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date
+          }
+        }
+      },
+      markers: {
+        connection: connections.markers,
+        name: 'eventMarkers',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          markers: {
+            eid: fields.externalId
+          }
+        }
+      },
+      transactions: {
+        connection: connections.tickets,
+        name: 'eventTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          transactions: {
+            eid: fields.externalId
           }
         }
       }
+    }
+  },
+  locations: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      name: fields.name,
+      description: fields.description,
+      nextDate: fields.nextDate,
+      headerPhotoURL: fields.headerPhotoURL,
+      listPhotoURL: fields.listPhotoURL,
+      numPhotosGallery: fields.numPhotosGallery,
+      maxPhotosGallery: fields.maxPhotosGallery,
+      address: fields.address
     },
-    markers: {
-      name: 'markers',
-      internalId: 'uid',
-      geo: 'coords',
-      info: 'info'
+    listFields: {
+      gallery: {
+        uid: fields.internalId,
+        photoURL: fields.photoURL
+      },
+      plans: {
+        eid: fields.externalId
+      },
+      events: {
+        eid: fields.externalId
+      },
+      employees: {
+        eid: fields.externalId,
+        displayName: fields.displayName,
+        photoURL: fields.photoURL
+      },
+      tags: {
+        eid: fields.externalId,
+        name: fields.name
+      },
+      requirements: {
+        eid: fields.externalId,
+        name: fields.name
+      }
     },
-    plans: {
-      name: 'plans',
-      internalId: 'uid',
-      relations: {
-        modified: {
-          name: 'modifiedPlanDates',
-          fields: {
-            relation: 'id',
-            list: 'modifiedPlanList'
-          }
+    relations: {
+      events: {
+        connection: connections.items,
+        name: 'locationEvents',
+        mainFields: {
+          uid: fields.internalId
         },
-        promoted: {
-          name: 'promotedPlan',
-          fields: {
-            relation: 'id',
-            list: 'promotedPlanList'
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      plans: {
+        connection: connections.items,
+        name: 'locationPlans',
+        mainFields: {
+          uid: fields.internalId
         },
-        lists: {
-          name: 'planLists',
-          fields: {
-            relation: 'id',
-            list: 'planListList'
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      modifiedDates: {
+        connection: connections.items,
+        name: 'locationModifiedDates',
+        mainFields: {
+          uid: fields.internalId
         },
-        ticket: {
-          name: 'planTickets',
-          fields: {
-            relation: 'id',
-            list: 'planTicketList'
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date
+          }
+        }
+      },
+      markers: {
+        connection: connections.markers,
+        name: 'locationMarkers',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          markers: {
+            eid: fields.externalId
+          }
+        }
+      },
+      transactions: {
+        connection: connections.tickets,
+        name: 'locationTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          transactions: {
+            eid: fields.externalId
           }
         }
       }
+    }
+  },
+  plans: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      isPrivate: fields.isPrivate,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      expiresAt: fields.expireDate,
+      relatedTo: fields.date,
+      activateCountdown: fields.activateCountdown,
+      name: fields.name,
+      description: fields.description,
+      enableEvent: fields.enableEvent,
+      enableList: fields.enableList,
+      eventPhotoURL: fields.eventPhotoURL,
+      headerPhotoURL: fields.headerPhotoURL,
+      date: fields.date,
+      nextDate: fields.nextDate,
+      finalDate: fields.finalDate,
+      chat: fields.chat,
+      price: fields.price,
+      interval: fields.interval,
+      listGaugin: fields.listGaugin,
+      listFlow: fields.listFlow,
+      userFlow: fields.userFlow,
+      totalUserFlow: fields.totalUserFlow
     },
-    promos: {
-      name: 'promos',
-      internalId: 'uid',
-      relations: {
-
+    listFields: {
+      admin: {
+        eid: fields.externalId,
+        name: fields.name,
+        photoURL: fields.photoURL,
+        paymentAccount: fields.paymentAccount,
+        adminPercentage: fields.adminPercentage,
+        employeePercentage: fields.employeePercentage
+      },
+      sharedEmployees: {
+        eid: fields.externalId
+      },
+      locations: {
+        eid: fields.externalId,
+        address: fields.address,
+        name: fields.name
+      },
+      vips: {
+        eid: fields.externalId
+      },
+      bannedUsers: {
+        eid: fields.externalId
+      },
+      rules: {
+        maxAge: fields.maxAge,
+        minAge: fields.minAge,
+        gender: fields.gender,
+        gaugin: fields.gaugin,
+        device: fields.device,
+        radius: fields.radius
+      },
+      tickets: {
+        eid: fields.externalId,
+        name: fields.name,
+        description: fields.description,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        openAt: fields.openDate,
+        expiresAt: fields.expireDate,
+        type: fields.type,
+        uses: fields.uses,
+        rules: {
+          maxAge: fields.maxAge,
+          minAge: fields.minAge,
+          gender: fields.gender,
+          gaugin: fields.gaugin,
+          device: fields.device,
+          radius: fields.radius
+        }
+      },
+      list: {
+        eid: fields.externalId,
+        assistance: fields.assistance,
+        updatedAt: fields.updateDate
+      },
+      employees: {
+        eid: fields.externalId
+      },
+      tags: {
+        eid: fields.externalId,
+        name: fields.name
+      },
+      requirements: {
+        eid: fields.externalId,
+        name: fields.name
       }
     },
-    publicRules: {
-      name: 'publicRules',
-      internalId: 'uid',
-      relations: {
-
-      }
-    },
-    requirements: {
-      name: 'requirements',
-      internalId: 'uid'
-    },
-    tags: {
-      name: 'tags',
-      internalId: 'uid'
-    },
-    tickets: {
-      name: 'tickets',
-      internalId: 'uid',
-      relations: {
-        user: {
-          name: 'ticketUser',
-          fields: {
-            relation: 'id',
-            list: 'transactionList',
-            fields: {
-              code: 'code', //If a code is used to buy it
-              date: 'date',
-              numTicket: 'numTicket',
-              discount: 'discount',
-              price: 'price',
-            }
+    relations: {
+      modifiedDates: {
+        connection: connections.items,
+        name: 'planModifiedDates',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date
+          }
+        }
+      },
+      markers: {
+        connection: connections.markers,
+        name: 'planMarkers',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          markers: {
+            eid: fields.externalId
+          }
+        }
+      },
+      transactions: {
+        connection: connections.tickets,
+        name: 'planTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          transactions: {
+            eid: fields.externalId
           }
         }
       }
+    }
+  },
+  requirements: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      name: fields.name
+    }
+  },
+  spam: {
+    connection: connections.login,
+    mainFields: {
+      uid: fields.internalId
+    }
+  },
+  tags: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      name: fields.name
+    }
+  },
+  tickets: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      openAt: fields.openDate,
+      expiresAt: fields.expireDate,
+      type: fields.type,
+      nextDate: fields.nextDate,
+      uses: fields.uses,
+      name: fields.name,
+      description: fields.description
     },
-    users: {
-      name: 'users',
-      internalId: 'uid',
-      relations: {
-        info: {
-          name: 'userInfo',
-          fields: {
-            relation: 'id',
-            list: 'infoList'
-          }
+    listFields: {
+      rules: {
+        maxAge: fields.maxAge,
+        minAge: fields.minAge,
+        gender: fields.gender,
+        gaugin: fields.gaugin,
+        device: fields.device,
+        radius: fields.radius
+      }
+    }
+  },
+  upgrades: {
+    connection: connections.items,
+    mainFields: {
+      uid: fields.internalId,
+      name: fields.name,
+      description: fields.description,
+      price: fields.price,
+      general: fields.general,
+      tax: fields.tax,
+      fixed: fields.fixed
+    },
+    relations: {
+      transactions: {
+        connection: connections.tickets,
+        name: 'ticketTransactions',
+        mainFields: {
+          uid: fields.internalId
         },
-        club: {
-          name: 'userClub',
-          fields: {
-            //1-by-1, only relation
-            relation: 'id'
+        listFields: {
+          transactions: {
+            code: fields.code,
+            numTickets: fields.numTickets,
+            discount: fields.discount,
+            price: fields.price,
+            createdAt: fields.creationDate,
+            type: fields.type, //bono, ticket, subscription
+            from: fields.from, //plan, event
           }
+        }
+      }
+    }
+  },
+  users: {
+    connection: connections.login,
+    mainFields: {
+      uid: fields.internalId,
+      createdAt: fields.creationDate,
+      updatedAt: fields.updateDate,
+      appear: fields.appear,
+      balance: fields.balance,
+      banned: fields.banned,
+      birthday: fields.birthday,
+      displayName: fields.displayName,
+      email: fields.email,
+      gender: fields.gender,
+      photoURL: fields.photoURL,
+      numFriends: fields.numFriends,
+      numReferrals: fields.numReferrals,
+      device: fields.device
+    },
+    listFields: {
+      permissions: {
+        uid: fields.internalId,
+        name: fields.name,
+        createdAt: fields.creationDate,
+        updatedAt: fields.updateDate,
+        expiresAt: fields.expireDate,
+        relativeTo: fields.updateDate
+      },
+      friends: {
+        eid: fields.externalId,
+        name: fields.name,
+        photoURL: fields.photoURL
+      },
+      referrals: {
+        eid: fields.externalId,
+        name: fields.name,
+        photoURL: fields.photoURL
+      },
+      alias: {
+        eid: fields.externalId,
+        name: fields.name
+      },
+      ticket: {
+        eid: fields.externalId,
+        name: fields.name,
+        address: fields.address,
+        date: fields.date
+      }
+    },
+    relations: {
+      chat: {
+        connection: connections.chat,
+        name: 'userChat',
+        mainFields: {
+          uid: fields.internalId
         },
-        chat: {
-          name: 'userChat',
-          fields: {
-            relation: 'id',
-            list: 'chatList'
+        listFields: {
+          chat: {
+            eid: fields.externalId,
+            name: fields.name,
+            message: fields.message, //last message
+            updatedAt: fields.updateDate,
+            numMessages: fields.numMessages //Messages in Chat - numMessages here = sin leer 
           }
+        }
+      },
+      favLocation: {
+        connection: connections.favourites,
+        name: 'favLocation',
+        mainFields: {
+          uid: fields.internalId
         },
-        requirements: {
-          name: 'userRequirements',
-          fields: {
-            relation: 'id',
-            list: 'requirementsList'
+        listFields: {
+          location: {
+            eid: fields.externalId,
+            name: fields.name,
+            address: fields.address,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      favEvent: {
+        connection: connections.favourites,
+        name: 'favEvent',
+        mainFields: {
+          uid: fields.internalId
         },
-        silencedEvent: {
-          name: 'userSilencedEvent',
-          fields: {
-            relation: 'id',
-            list: 'silencedEventList'
+        listFields: {
+          event: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      favPlan: {
+        connection: connections.favourites,
+        name: 'favPlan',
+        mainFields: {
+          uid: fields.internalId
         },
-        spam: {
-          name: 'userSpam',
-          fields: {
-            relation:'id' //idUser
+        listFields: {
+          plan: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      favAdmin: {
+        connection: connections.favourites,
+        name: 'favAdmin',
+        mainFields: {
+          uid: fields.internalId
         },
-        tag: {
-          name: 'userTag',
-          fields: {
-            relation: 'id',
-            list: 'tagList'
+        listFields: {
+          admin: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      favEmployee: {
+        connection: connections.favourites,
+        name: 'favEmployee',
+        mainFields: {
+          uid: fields.internalId
         },
-        ticket: {
-          name: 'userTicket',
-          fields: {
-            relation: 'id',
-            list: 'ticketList'
+        listFields: {
+          employee: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
           }
+        }
+      },
+      favTags: {
+        connection: connections.favourites,
+        name: 'favTags',
+        mainFields: {
+          uid: fields.internalId
         },
-        default: {
-          name: 'userDefault',
-          fields: {
-            relation: 'id',
-            fields: {
-              club: 'club',
-              employees: 'employess',
-              event: 'event',
-              plan: 'plan',
-              publicRulesList: 'publicRulesList',
-              requirementsLit: 'requirementsList',
-              tagsList: 'tagsList',
-              ticket: 'ticket',
-              ticketList: 'ticketList'             
-            }
+        listFields: {
+          tag: {
+            eid: fields.externalId,
+            name: fields.name
+          }
+        }
+      },
+      favRequirements: {
+        connection: connections.favourites,
+        name: 'favRequirements',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          requirement: {
+            eid: fields.externalId,
+            name: fields.name
+          }
+        }
+      },
+      silLocation: {
+        connection: connections.favourites,
+        name: 'silLocation',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          location: {
+            eid: fields.externalId,
+            name: fields.name,
+            address: fields.address,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      silEvent: {
+        connection: connections.favourites,
+        name: 'silEvent',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          event: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      silPlan: {
+        connection: connections.favourites,
+        name: 'silPlan',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          plan: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      silAdmin: {
+        connection: connections.favourites,
+        name: 'silAdmin',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          admin: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      silEmployee: {
+        connection: connections.favourites,
+        name: 'silEmployee',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          employee: {
+            eid: fields.externalId,
+            name: fields.name,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      silTags: {
+        connection: connections.favourites,
+        name: 'silTags',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          tag: {
+            eid: fields.externalId,
+            name: fields.name
+          }
+        }
+      },
+      silRequirements: {
+        connection: connections.favourites,
+        name: 'silRequirements',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          requirement: {
+            eid: fields.externalId,
+            name: fields.name
+          }
+        }
+      },
+      transactionEvent: {
+        connection: connections.tickets,
+        name: 'userEventTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          requirement: {
+            eid: fields.externalId
+          }
+        }
+      },
+      transactionPlan: {
+        connection: connections.tickets,
+        name: 'planEventTransactions',
+        mainFields: {
+          uid: fields.internalId
+        },
+        listFields: {
+          requirement: {
+            eid: fields.externalId
           }
         }
       }
     }
   }
+}
+
+export const database = {
+  connections: connections,
+  actions: actions,
+  variables: variables,
+  operations: operations,
+  tables: tables,
+  fields: fields,
+  defaultConf: defaultConf
 }

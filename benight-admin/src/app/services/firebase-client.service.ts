@@ -99,19 +99,19 @@ export class FirebaseClient  {
     } 
 
     afs(db?:string) {
-        return (this.connection[`FS${db ? db:database.DB_CON_LOGIN}`] as AngularFirestore)
+        return (this.connection[`FS${db ? db:database.connections.login}`] as AngularFirestore)
     }
 
     afAuth(db?:string) {                
-        return (this.connection[`Auth${db ? db:database.DB_CON_LOGIN}`] as AngularFireAuth)
+        return (this.connection[`Auth${db ? db:database.connections.login}`] as AngularFireAuth)
     }
 
     afFun(db?:string) {
-        return (this.connection[`Fun${db ? db:database.DB_CON_LOGIN}`] as AngularFireFunctions)
+        return (this.connection[`Fun${db ? db:database.connections.login}`] as AngularFireFunctions)
     }
 
     afm(db?:string) {  
-        return (this.connection[`MS${db ? db:database.DB_CON_LOGIN}`] as AngularFireMessaging)
+        return (this.connection[`MS${db ? db:database.connections.login}`] as AngularFireMessaging)
     }
 
     collection$(path, query?, db?: string) {
@@ -143,8 +143,8 @@ export class FirebaseClient  {
     }
 
     leftJoin(path1:string,ref1:any,db1:string,path2:string,db2:string,commonField:string,op:string){
-        let conn1 = db1 ? db1 : database.DB_CON_LOGIN
-        let conn2 = db2 ? db2 : database.DB_CON_LOGIN
+        let conn1 = db1 ? db1 : database.connections.login
+        let conn2 = db2 ? db2 : database.connections.login
         return this.collection$(path1, ref1, conn1).pipe(
             switchMap((value) => {
                 let table

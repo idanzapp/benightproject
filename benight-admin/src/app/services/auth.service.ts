@@ -26,7 +26,7 @@ export class AuthService {
     private facebook: Facebook,
     private platform: Platform
   ) {
-    this.afAuth = fireclient.afAuth(database.DB_CON_LOGIN)
+    this.afAuth = fireclient.afAuth(database.connections.login)
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => (user ? fireclient.doc$(`users/${user.uid}`) : of(null))),
       shareReplay(1)

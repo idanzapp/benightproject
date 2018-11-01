@@ -12,7 +12,7 @@ export class DefaultDatabase implements OnInit {
     constructor(private db: FirebaseClient, private auth: AuthService) {}
 
     async ngOnInit() {
-        this.default$ = await this.db.collection$(`events`, ref => ref == this.auth.uid(), database.DB_CON_EVENTS).pipe(shareReplay(1))
+        this.default$ = await this.db.collection$(database.tables.users.relations.default.name, ref => ref == this.auth.uid(), database.connections.events).pipe(shareReplay(1))
     }
 
     fetch() {

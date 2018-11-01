@@ -1,5 +1,5 @@
 export const ticket = {
-    duration: {
+    interval: {
         unitary: 'unitary',
         daily: 'daily',
         weekly: 'weekly',

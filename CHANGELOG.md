@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+2018-11-2, 00:00
+----------------------------
++ Added database map constant
++ npm updates
+
 2018-10-29, 21:30
 ----------------------------
 + Swaping all constants and switches for object literall (half done, no compiling version)

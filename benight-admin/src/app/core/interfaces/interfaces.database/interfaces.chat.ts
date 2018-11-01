@@ -26,6 +26,7 @@ export interface ChatEvent {
     uid:string //idChat
     id:string //idEvent
 }
+
 export interface Alias {
     id:string //idUser
     alias:string
