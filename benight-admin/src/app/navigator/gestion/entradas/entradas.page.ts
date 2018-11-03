@@ -26,7 +26,7 @@ export class EntradasPage implements OnInit {
   public edit:string =  database.actions.edit
 
   async ngOnInit() {
-    this.entradas = await this.feed.get(database.variables.ticket)
+    this.entradas = await this.feed.get(database.literal.tickets)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }

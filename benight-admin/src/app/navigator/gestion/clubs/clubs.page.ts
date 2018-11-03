@@ -26,7 +26,7 @@ export class ClubsPage implements OnInit {
   public edit:string =  database.actions.edit  
 
   async ngOnInit() {
-    this.clubs = await this.feed.get(database.variables.club)
+    this.clubs = await this.feed.get(database.literal.clubs)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }

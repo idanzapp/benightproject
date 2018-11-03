@@ -16,7 +16,7 @@ export const environment = {
     storageBucket: "bn8-base.appspot.com",
     messagingSenderId: "416342334394"
   },
-  firebase_caducado: {    
+  firebase_timedOut: {    
     apiKey: "AIzaSyD10mlGP2kTncF1PaJM8scikYyF2tyd62g",
     authDomain: "bn8-caducados.firebaseapp.com",
     databaseURL: "https://bn8-caducados.firebaseio.com",
@@ -79,5 +79,13 @@ export const environment = {
     projectId: "bn8-chat",
     storageBucket: "",
     messagingSenderId: "679408263252"
+ },
+ firebase_favourites: {
+  apiKey: "AIzaSyDYigMA7_yMw7SwfhrPVSTk8Tuqx4OvUrw",
+  authDomain: "bn8-favourites.firebaseapp.com",
+  databaseURL: "https://bn8-favourites.firebaseio.com",
+  projectId: "bn8-favourites",
+  storageBucket: "",
+  messagingSenderId: "61122197043"
  }
 }

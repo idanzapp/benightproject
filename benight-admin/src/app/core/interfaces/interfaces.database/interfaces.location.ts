@@ -1,4 +1,4 @@
-export interface Clubs {
+export interface Locations {
     address:string    
     createdAt:Date
     description:string
@@ -10,7 +10,7 @@ export interface Clubs {
 }
 
 //Si necesito el createdAt y updatedAt
-export interface ClubPhoto{
+export interface LocationPhoto{
     id:string //idPhoto
     createdAt:Date
     photo:string
@@ -18,7 +18,7 @@ export interface ClubPhoto{
 }
 
 //Si necesito el createdAt y updatedAt
-export interface ClubGallery {
+export interface LocationGallery {
     uid: string //idClub    
     createdAt:Date
     photoList: any
@@ -26,14 +26,14 @@ export interface ClubGallery {
 }
 
 //Solo guarda la relacion y la siguiente fecha
-export interface ClubEvent {
+export interface LocationEvent {
     uid: string //idClub  
     eventList: any
     nextDate:Date
 }
 
 //Solo guarda la relacion
-export interface UserClub {
+export interface UserLocation {
     uid: string //idUser
     id: string //idClub
 }

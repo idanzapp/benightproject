@@ -20,7 +20,7 @@ export const environment = {
     storageBucket: "bn8-base.appspot.com",
     messagingSenderId: "416342334394"
   },
-  firebase_caducado: {    
+  firebase_timedOut: {    
     apiKey: "AIzaSyD10mlGP2kTncF1PaJM8scikYyF2tyd62g",
     authDomain: "bn8-caducados.firebaseapp.com",
     databaseURL: "https://bn8-caducados.firebaseio.com",
@@ -69,12 +69,12 @@ export const environment = {
     messagingSenderId: "642996909727"
   },
   firebase_markers: {
-    apiKey: "AIzaSyBg4TocQ9sc5J9gK0R-lscskz-GGsQrJu0",
-    authDomain: "bn8-base.firebaseapp.com",
-    databaseURL: "https://bn8-base.firebaseio.com",
-    projectId: "bn8-base",
-    storageBucket: "bn8-base.appspot.com",
-    messagingSenderId: "416342334394"
+    apiKey: "AIzaSyDdaCS1qztdT42S7VEW4qpqYSxH_dnLRXw",
+    authDomain: "bn8-markers.firebaseapp.com",
+    databaseURL: "https://bn8-markers.firebaseio.com",
+    projectId: "bn8-markers",
+    storageBucket: "bn8-markers.appspot.com",
+    messagingSenderId: "50220418287"
  },
  firebase_chat: {
     apiKey: "AIzaSyCcxjfL8LD_Pb-L3hO2LkxfAFQGPmLy0pw",
@@ -83,7 +83,16 @@ export const environment = {
     projectId: "bn8-chat",
     storageBucket: "",
     messagingSenderId: "679408263252"
+ },
+ firebase_favourites: {
+  apiKey: "AIzaSyDYigMA7_yMw7SwfhrPVSTk8Tuqx4OvUrw",
+  authDomain: "bn8-favourites.firebaseapp.com",
+  databaseURL: "https://bn8-favourites.firebaseio.com",
+  projectId: "bn8-favourites",
+  storageBucket: "",
+  messagingSenderId: "61122197043"
  }
+
 }
 /*
  * In development mode, to ignore zone related error stack frames such as

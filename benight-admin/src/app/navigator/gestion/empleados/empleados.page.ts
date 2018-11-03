@@ -26,7 +26,7 @@ export class EmpleadosPage implements OnInit {
   public edit:string =  database.actions.create  
 
   async ngOnInit() {
-    this.empleados = await this.feed.get(database.variables.employee)
+    this.empleados = await this.feed.get(database.literal.employees)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
     this.default = this.fc.afs().createId()
   }

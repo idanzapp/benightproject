@@ -2,9 +2,10 @@ import { OnInit } from '@angular/core'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
-import { database, tables as tb } from '@bn8-constants/constants.database'
+import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
-import { shareReplay } from 'rxjs/operators'
+import { shareReplay, reduce, filter, map } from 'rxjs/operators'
+import { Event } from '@bn8-core/interfaces/interfaces.database/interfaces.event'
 
 export class EventsDatabase implements OnInit {
     events$: Observable<any> 
@@ -12,44 +13,83 @@ export class EventsDatabase implements OnInit {
     constructor(private db: FirebaseClient, private auth: AuthService) {}
 
     async ngOnInit() {
-        let user = await this.auth.uid()
-        this.events$ = await this.db.leftJoin(tb.TB_OWNER_EVENT,tb.TB_EVENT,tb.OWNER_ID_FIELD,tb.ID_FIELD, user ? user : 0, database.DB_CON_ADMIN,database.DB_CON_ADMIN).pipe(shareReplay(1))
+        
+        let uids = await this.auth.events().pipe(
+            reduce((acc, value) => `${acc} || ${value}`)
+        )
+
+        this.events$ = await this.db.collection$(database.tableNames.events,
+            ref => ref.where(database.fields.internalId, database.operations.equal, uids),
+            database.connections.items).pipe(
+                shareReplay(1)
+            )
+    }
+
+    item(uid: string) {
+        return this.events$.pipe(
+            filter(events => events.uid === uid),
+            map(({
+                uid,
+                isPrivate,
+                createdAt,
+                updatedAt,
+                expiresAt,
+                relatedTo,
+                activateCountdown,
+                namename,
+                descriptiondescription,
+                enableEventenableEvent,
+                enableListenableList,
+                eventPhotoURL,
+                headerPhotoURL,
+                date,
+                nextDate,
+                finalDate,
+                chat,
+                price,
+                interval,
+                listGaugin,
+                listFlow,
+                userFlow,
+                totalUserFlow }) => 
+                ({
+                    uid,
+                    isPrivate,
+                    createdAt,
+                    updatedAt,
+                    expiresAt,
+                    relatedTo,
+                    activateCountdown,
+                    namename,
+                    descriptiondescription,
+                    enableEventenableEvent,
+                    enableListenableList,
+                    eventPhotoURL,
+                    headerPhotoURL,
+                    date,
+                    nextDate,
+                    finalDate,
+                    chat,
+                    price,
+                    interval,
+                    listGaugin,
+                    listFlow,
+                    userFlow,
+                    totalUserFlow })),
+            shareReplay(1)
+        )
     }
 
     fetch() {
-        return this.events$ 
+        return this.events$
     }
 
-    async create() {
-        //Check if default exists
-        //Create id
-        let id = this.db.afs().createId()
-        //Create default if still not exist default
-        let data = {
-            activateCountdown: false,
-            adress: '',
-            assistants: 0,
-            description: '',
-            duration: '',
-            enableEvent: false,
-            enableList: false,
-            eventPhotoURL: '',
-            free: false,
-            gaugin: 0,
-            headerPhotoURL: '',
-            initDate: new Date(),
-            maxAge: 0,
-            minAge: 0,
-            name: '',
-            nextDate: new Date(),
-            photoURL: '',
-            price: 0,
-            promoBudget: 0,
-            uid: id
-        }
-        //add new event
-        await this.db.createAt(tb.TB_EVENT, data, database.DB_CON_EVENTS)        
-        return id
+    addEvents(data: Event) {
+        this.db.createAt(database.tableNames.events, data, database.connections.items)
+    }
+
+    deleteEvents(uid: string) {
+        this.db.delete(`${database.tableNames.events}/${uid}`, database.connections.items)
     }
 
 }

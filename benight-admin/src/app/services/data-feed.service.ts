@@ -1,3 +1,4 @@
+import { database } from './../core/constants/constants.database';
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { filter } from 'rxjs/operators'
@@ -8,19 +9,11 @@ import { properties } from '@bn8-constants/constants.datafeed'
 
 //Database imports Functions
 import { ChatDatabase } from '@bn8-database/chat.database'
-import { ClubsDatabase } from '@bn8-database/clubs.database'
-import { DateDatabase } from '@bn8-database/date.database'
+import { LocationDatabase } from '@bn8-services/database/location.database'
 import { EmployeeDatabase } from '@bn8-database/employee.database'
 import { EventsDatabase } from '@bn8-database/events.database'
-import { FileBucket } from '@bn8-database/file.bucket'
-import { ListsDatabase } from '@bn8-database/lists.database'
-import { NotificationsDatabase } from '@bn8-database/notifications.database'
-import { OwnersDatabase } from '@bn8-database/owners.database'
 import { PlansDatabase } from '@bn8-database/plans.database'
-import { PromosDatabase } from '@bn8-database/promos.database'
-import { PublicRulesDatabase } from '@bn8-database/public-rules.database'
 import { RequirementsDatabase } from '@bn8-database/requirements.database'
-import { StatisticsDatabase } from '@bn8-database/statistics.database'
 import { TagsDatabase } from '@bn8-database/tags.database'
 import { TicketDatabase } from '@bn8-database/ticket.database'
 
@@ -31,21 +24,13 @@ export class DataFeedService {
 
   private connection: Connection = {}
   private connectionLiteral = {
-    chat: () => new ChatDatabase(this.db, this.auth),
-    clubs: () => new ClubsDatabase(this.db, this.auth),
-    date: () => new DateDatabase(this.db),
-    employee: () => new EmployeeDatabase(this.db, this.auth),
+    chats: () => new ChatDatabase(this.db, this.auth),
+    clubs: () => new LocationDatabase(this.db, this.auth),
+    employees: () => new EmployeeDatabase(this.db, this.auth),
     events: () => new EventsDatabase(this.db, this.auth),
-    fileBucket: () => new FileBucket(this.db, this.auth),
-    lists: () => new ListsDatabase(this.db, this.auth),
-    notifications: () => new NotificationsDatabase(this.db, this.auth),
-    owners: () => new OwnersDatabase(this.db, this.auth),
     plans: () => new PlansDatabase(this.db, this.auth),
-    promos: () => new PromosDatabase(this.db, this.auth),
-    publicRules: () => new PublicRulesDatabase(this.db, this.auth),
-    requirements: () => new RequirementsDatabase(this.db, this.auth),
-    statistics: () => new StatisticsDatabase(this.db, this.auth),
-    tags: () => new TagsDatabase(this.db, this.auth),
+    requirements: () => new RequirementsDatabase(this.db),
+    tags: () => new TagsDatabase(this.db),
     tickets: () => new TicketDatabase(this.db, this.auth),
     default: () => of(null)
   }
@@ -57,15 +42,9 @@ export class DataFeedService {
     if ((property in this.connectionLiteral && property != properties.date)) {
       //Charge data on Demand
       if (!(property in this.connection))
-        this.connection[property] = this.connectionLiteral[property]
+        this.connection[property] = this.connectionLiteral[property]()
       return this.connection[property].fetch()
     }
-  }
-
-  async getDate(date: string, id: string) {
-    if (!(properties.date in this.connection))
-        this.connection[properties.date] = this.connectionLiteral[properties.date]
-      return this.connection[properties.date].fetch(date, id) 
   }
 
   getItem(property: string, id: string) {
@@ -135,8 +114,18 @@ export class DataFeedService {
     if ((property in this.connectionLiteral)) {
       //Charge data on Demand
       if (!(property in this.connection))
-        this.connection[property] = this.connectionLiteral[property]
-      return this.connection[property].create()
+        this.connection[property] = this.connectionLiteral[property]()      
+      return this.connection[property]().create(this.db.createId(database.connections.admin))
+    }
+  }
+
+  async delete(property: string, id:string) {
+    //Check if property is defined
+    if ((property in this.connectionLiteral)) {
+      //Charge data on Demand
+      if (!(property in this.connection))
+        this.connection[property] = this.connectionLiteral[property]()
+      return this.connection[property].delete(id)
     }
   }
 }

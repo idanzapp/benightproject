@@ -40,7 +40,7 @@ export class NavigatorPage implements OnInit {
         this.back = (event as any)['snapshot'] .data['back']
         this.header = (event as any)['snapshot'].data['header']        
         this.hasTop = (event as any)['snapshot'].data['hasTop']        
-        this.topTabs = (event as any)['snapshot'].data['tabs']        
+        this.topTabs = (event as any)['snapshot'].data['tabs']       
       })
   }
 

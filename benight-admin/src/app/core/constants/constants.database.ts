@@ -6,7 +6,7 @@ const connections = {
   favourites: 'favourites',
   items: 'items',
   login: 'login',
-  markers:'markers',
+  markers: 'markers',
   tickets: 'tickets'
 }
 
@@ -24,8 +24,8 @@ const actions = {
   create: 'create',
   edit: 'edit'
 }
-const variables = {
-  chat: 'chat',
+const tableNames = {
+  /*chat: 'chat',
   club: 'club',
   date: 'date',
   employee: 'employee',
@@ -33,7 +33,7 @@ const variables = {
   file: 'file',
   lists: 'lits',
   notifications: 'notifications',
-  owners: 'owners',
+  admin: 'admin',
   plans: 'plans',
   promos: 'promos',
   publicRules: 'publicRules',
@@ -41,7 +41,75 @@ const variables = {
   statistics: 'statistics',
   tags: 'tags',
   ticket: 'ticket',
+  default: 'default',*/
+  admins: 'admins',
+  adminEvents: 'adminEvents',
+  adminLocations: 'adminLocations',
+  adminPlans: 'adminPlans' ,
+  adminTickets: 'adminTickets' ,
+  adminPromotedEvents: 'adminPromotedEvents',
+  chats: 'chats',
+  chatMessages: 'chatMessages',
+  chatEvent: 'chatEvent',
+  employees: 'employees',
+  employeeEvents: 'employeeEvents',
+  employeePlans: 'employeePlans',
+  employeeLocations: 'employeeLocations',
+  employeeTickets: 'employeeTickets',
+  employeeTransactions: 'employeeTransactions',
+  events: 'events',
+  eventModifiedDates: 'eventModifiedDates',
+  eventMarkers: 'eventMarkers',
+  eventTransactions: 'eventTransactions',  
+  plans: 'plans',
+  planModifiedDates: 'planModifiedDates',
+  planMarkers: 'planMarkers',
+  planTransactions: 'planTransactions',
+  locations: 'locations',
+  locationEvents: 'locationEvents',
+  locationEventsDate: 'locationEventsDate',
+  locationPlans: 'locationPlans',
+  locationPlansDate: 'locationPlansDate',
+  locationModifiedDates: 'locationModifiedDates',
+  locationMarkers: 'locationMarkers',
+  requirements: 'requirements',
+  tags: 'tags',
+  spam: 'spam',
+  tickets: 'tickets',
+  ticketTransactions: 'ticketTransactions',
+  upgrades: 'upgrades',
+  users: 'users',
+  userChat: 'userChat',
+  userTransactionEvent: 'userTransactionEvent',
+  userTransactioPlan: 'userTransactioPlan',
+  favLocations: 'favLocations',
+  favEvents: 'favEvents',
+  favPlans: 'favPlans',
+  favAdmins: 'favAdmins',
+  favEmployees: 'favEmployees',
+  favTags: 'favTags',
+  favRequirements: 'favRequirements',
+  silLocations: 'silLocations',
+  silEvents: 'silEvents',
+  silPlans: 'silPlans',
+  silAdmins: 'silAdmins',
+  silEmployees: 'silEmployees',
+  silTags: 'silTags',
+  silRequirements: 'silRequirements'
+}
+
+const literal = {
+  chats: 'chats',
+  clubs: 'clubs',
+  employees: 'employees',
+  events: 'events',
+  fileBucket: 'fileBucket',
+  plans: 'plans',
+  requirements: 'requirements',
+  tags: 'tags',
+  tickets: 'tickets',
   default: 'default',
+  promos: 'promos'
 }
 
 const fields = {
@@ -107,15 +175,31 @@ const fields = {
   numPhotosGallery: 'numPhotosGallery',
   maxPhotosGallery: 'maxPhotosGallery',
   numTickets: 'numTickets',
-  discount: 'discount'
+  discount: 'discount',
+  budget: 'budget',
+  percentage: 'percentage',
+  totalAmount: 'totalAmount',
+  totalTransactions: 'numTransactions',
+  bondAmount: 'bondAmount',
+  bondTransactions: 'bondTransactions',
+  subscriptionsAmount: 'subscriptionsAmount',
+  subscriptionsTransactions: 'subscriptionsTransactions',
+  ticketsAmount: 'ticketsAmount',
+  ticketsTransactions: 'ticketsTransactions'
 }
+
+const listFields = {
+  chatList: 'chatList',
+  messagesList: 'messagesList',
+} 
 
 const operations = {
   equal: '==',
   greater: '>',
   lower: '<',
   greaterOrEqual: '>=',
-  lowerOrEqual: '<='
+  lowerOrEqual: '<=',
+  arrayContains: 'array_contains'
 }
 
 const tables = {
@@ -252,7 +336,8 @@ const tables = {
           eid: fields.externalId,
           name: fields.name,
           photoURL: fields.photoURL,
-          date: fields.date
+          date: fields.date,
+          budget: fields.budget
         }
       }
     }
@@ -398,11 +483,81 @@ const tables = {
           uid: fields.internalId
         },
         listFields: {
-          property: {
-            eid: fields.externalId
+          date: {  //Sells by Employee & Date
+            uid: fields.internalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+            }
+          },
+          user: {  //Sells by Employee & User
+            eid: fields.externalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+            }
           }
         }
-      },
+      }
     }
   },
   events: {
@@ -430,7 +585,8 @@ const tables = {
       listGaugin: fields.listGaugin,
       listFlow: fields.listFlow,
       userFlow: fields.userFlow,
-      totalUserFlow: fields.totalUserFlow
+      totalUserFlow: fields.totalUserFlow,
+      budget: fields.budget
     },
     listFields: {
       admins: {
@@ -532,8 +688,78 @@ const tables = {
           uid: fields.internalId
         },
         listFields: {
-          transactions: {
-            eid: fields.externalId
+          date: {  //Sells by Event & Date
+            uid: fields.internalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+            }
+          },
+          user: {  //Sells by Event & User
+            eid: fields.externalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+            }
           }
         }
       }
@@ -557,17 +783,6 @@ const tables = {
     listFields: {
       gallery: {
         uid: fields.internalId,
-        photoURL: fields.photoURL
-      },
-      plans: {
-        eid: fields.externalId
-      },
-      events: {
-        eid: fields.externalId
-      },
-      employees: {
-        eid: fields.externalId,
-        displayName: fields.displayName,
         photoURL: fields.photoURL
       },
       tags: {
@@ -610,16 +825,89 @@ const tables = {
           }
         }
       },
-      modifiedDates: {
+      employee: {
         connection: connections.items,
-        name: 'locationModifiedDates',
+        name: 'locationEmployees',
         mainFields: {
           uid: fields.internalId
         },
         listFields: {
           modifiedDates: {
             eid: fields.externalId,
-            date: fields.date
+            name: fields.name,
+            photoURL: fields.photoURL
+          }
+        }
+      },
+      modifiedDates: {
+        connection: connections.items,
+        name: 'locationModifiedDates',
+        mainFields: {
+          uid: fields.internalId
+          /*all location fields*/
+        },
+        listFields: {
+          modifiedDates: {
+            eid: fields.externalId,
+            date: fields.date,
+            listFields: {
+              events: {
+                connection: connections.items,
+                name: 'locationEventsDate',
+                mainFields: {
+                  uid: fields.internalId
+                },
+                listFields: {
+                  modifiedDates: {
+                    eid: fields.externalId,
+                    date: fields.date,
+                    name: fields.name,
+                    photoURL: fields.photoURL
+                  }
+                }
+              },
+              plans: {
+                connection: connections.items,
+                name: 'locationPlansDate',
+                mainFields: {
+                  uid: fields.internalId
+                },
+                listFields: {
+                  modifiedDates: {
+                    eid: fields.externalId,
+                    date: fields.date,
+                    name: fields.name,
+                    photoURL: fields.photoURL
+                  }
+                }
+              },
+              markers: {
+                connection: connections.markers,
+                name: 'locationMarkersDate',
+                mainFields: {
+                  uid: fields.internalId
+                },
+                listFields: {
+                  markers: {
+                    eid: fields.externalId
+                  }
+                }
+              },
+              employees: {
+                connection: connections.items,
+                name: 'locationEmployeesDate',
+                mainFields: {
+                  uid: fields.internalId
+                },
+                listFields: {
+                  modifiedDates: {
+                    eid: fields.externalId,
+                    name: fields.name,
+                    photoURL: fields.photoURL
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -642,8 +930,78 @@ const tables = {
           uid: fields.internalId
         },
         listFields: {
-          transactions: {
-            eid: fields.externalId
+          date: {  //Sells by Location & Date
+            uid: fields.internalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+            }
+          },
+          user: {  //Sells by Location & Date
+            eid: fields.externalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+            }
           }
         }
       }
@@ -776,8 +1134,78 @@ const tables = {
           uid: fields.internalId
         },
         listFields: {
-          transactions: {
-            eid: fields.externalId
+          date: {  //Sells by Plan & Date
+            uid: fields.internalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage
+              },
+            }
+          },
+          user: {  //Sells by Plan & User
+            eid: fields.externalId,
+            percentage: fields.percentage,
+            totalAmount: fields.totalAmount,
+            totalTransactions: fields.totalTransactions,
+            bondAmount: fields.bondAmount,
+            bondTransactions: fields.bondTransactions,
+            subscriptionsAmount: fields.subscriptionsAmount,
+            subscriptionsTransactions: fields.subscriptionsTransactions,
+            ticketsAmount: fields.ticketsAmount,
+            ticketsTransactions: fields.ticketsTransactions,
+            listFields: {
+              bono: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              ticket: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+              subscription: {
+                eid: fields.externalId,
+                discount: fields.discount,
+                price: fields.price,
+                code: fields.code,
+                percentage: fields.percentage,
+                date: fields.date
+              },
+            }
           }
         }
       }
@@ -791,7 +1219,7 @@ const tables = {
     }
   },
   spam: {
-    connection: connections.login,
+    connection: connections.chat,
     mainFields: {
       uid: fields.internalId
     }
@@ -1126,20 +1554,20 @@ const tables = {
           uid: fields.internalId
         },
         listFields: {
-          requirement: {
-            eid: fields.externalId
+          transaction: {
+            eid: fields.externalId// Solo esto porque no se dan estadisticas a usuarios
           }
         }
       },
       transactionPlan: {
         connection: connections.tickets,
-        name: 'planEventTransactions',
+        name: 'userPlanTransactions',
         mainFields: {
           uid: fields.internalId
         },
         listFields: {
-          requirement: {
-            eid: fields.externalId
+          transaction: {
+            eid: fields.externalId// Solo esto porque no se dan estadisticas a usuarios
           }
         }
       }
@@ -1150,9 +1578,11 @@ const tables = {
 export const database = {
   connections: connections,
   actions: actions,
-  variables: variables,
+  tableNames: tableNames,
   operations: operations,
   tables: tables,
   fields: fields,
-  defaultConf: defaultConf
+  listFields: listFields,
+  defaultConf: defaultConf,
+  literal: literal
 }

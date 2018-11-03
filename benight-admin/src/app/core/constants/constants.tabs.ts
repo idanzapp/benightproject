@@ -10,7 +10,7 @@ export const tabs = {
         { href: `${nPath}`, icon: 'list', title: 'Notificaciones' },
         { href: `${gePath}`, icon: 'book', title: 'General' }
     ],
-    general:[
+    gestion:[
         { href: `${gPath}/eventos`, title: 'Eventos' },
         { href: `${gPath}/planes`, title: 'Planes' },
         { href: `${gPath}/clubs`, title: 'Clubs' },
@@ -18,7 +18,7 @@ export const tabs = {
         { href: `${gPath}/empleados`, title: 'Empleados' },
         { href: `${gPath}/promos`, title: 'Promos' }
     ],
-    gestion: [
+    general: [
         { href: `${gePath}/info`, title: 'Info' },
         { href: `${gePath}/preferencias`, title: 'Preferencias' },
         { href: `${gePath}/estadisticas`, title: 'Estadisticas' },

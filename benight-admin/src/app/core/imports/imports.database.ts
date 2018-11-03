@@ -22,9 +22,11 @@ export { FirebaseProviders } from '@bn8-database/db-connection.database'
 
 export const FirebaseModules = [
     AngularFireModule.initializeApp(environment.firebase_login, database.connections.login),
-    AngularFireModule.initializeApp(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en , database.connections.events),
-    AngularFireModule.initializeApp(environment.firebase_login,database.connections.admin),
-    AngularFireModule.initializeApp(environment.firebase_login,database.connections.ticket),
+    AngularFireModule.initializeApp(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en , database.connections.items),
+    AngularFireModule.initializeApp(environment.firebase_base,database.connections.admin),
+    AngularFireModule.initializeApp(environment.firebase_ticket,database.connections.tickets),
+    AngularFireModule.initializeApp(environment.firebase_favourites,database.connections.favourites),
+    AngularFireModule.initializeApp(environment.firebase_timedOut,database.connections.timedOut),
     geofirex.init(firebase.initializeApp(environment.firebase_markers,database.connections.markers)),
     AngularFirestoreModule,
     AngularFireAuthModule,
