@@ -36,10 +36,10 @@ export class EventsDatabase implements OnInit {
                 expiresAt,
                 relatedTo,
                 activateCountdown,
-                namename,
-                descriptiondescription,
-                enableEventenableEvent,
-                enableListenableList,
+                name,
+                description,
+                enableEvent,
+                enableList,
                 eventPhotoURL,
                 headerPhotoURL,
                 date,
@@ -60,10 +60,10 @@ export class EventsDatabase implements OnInit {
                     expiresAt,
                     relatedTo,
                     activateCountdown,
-                    namename,
-                    descriptiondescription,
-                    enableEventenableEvent,
-                    enableListenableList,
+                    name,
+                    description,
+                    enableEvent,
+                    enableList,
                     eventPhotoURL,
                     headerPhotoURL,
                     date,
@@ -84,13 +84,34 @@ export class EventsDatabase implements OnInit {
         return this.events$
     }
 
-    addEvents(data: Event) {
-        this.db.createAt(database.tableNames.events, data, database.connections.items)
+    create(id: string) {
+        console.log('holi')
+        this.db.updateAt(`${database.tableNames.events}/${id}`,{uid:id, createdAt: new Date(), ...defaultEvent},database.connections.admin)
+        //this.db.createAt(database.tableNames.events, data, database.connections.items)
     }
 
-    deleteEvents(uid: string) {
+    delete(uid: string) {
         this.db.delete(`${database.tableNames.events}/${uid}`, database.connections.items)
     }
-
 }
 
+const defaultEvent = {
+    isPrivate: false,
+    activateCountdown: false,
+    name: 'prueba',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque efficitur quam pharetra tortor eleifend, sed dignissim arcu lobortis. Cras luctus nisi in nibh congue, non tristique felis posuere. Morbi id enim arcu. Cras laoreet sapien ut congue efficitur. Proin dignissim turpis lacus, tempus tristique neque tristique eget. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas non est nibh. Aliquam ac finibus risus, vel pretium enim. Morbi a ullamcorper lorem. Quisque lobortis, ligula vel tempor commodo, lorem est efficitur enim, egestas blandit magna ligula ac magna. Integer pulvinar aliquet ultrices. Aenean fringilla venenatis vehicula. Donec tristique non felis id varius. Nulla dictum velit ac ornare fringilla. Suspendisse est lorem, ultricies sit amet interdum eget, finibus vel leo. Vestibulum pulvinar lorem dolor, sed interdum dui efficitur ut. Aenean nec odio ultricies, porta augue a, ornare ipsum. Vestibulum quis metus semper, posuere magna molestie, dignissim neque. Vestibulum magna odio, cursus vel commodo accumsan, efficitur sit amet justo. Etiam tempus nisi eget urna tempus, non laoreet mi euismod. Aenean faucibus, nisi et luctus luctus, lectus dolor convallis metus, in tincidunt magna turpis non tortor",
+    enableEvent: false,
+    enableList: false,
+    eventPhotoURL: 'assets/img/photo3.jpg',
+    headerPhotoURL: 'assets/img/photo42.jpg',
+    date: new Date(),
+    nextDate:new Date(),
+    finalDate:new Date(),
+    chat: 0,
+    price:10,
+    interval: 'daily',
+    listGaugin: 0,
+    listFlow: 0,
+    userFlow: 0,
+    totalUserFlow: 0
+}

@@ -22,7 +22,7 @@ const defaultConf = {
 
 const actions = {
   create: 'create',
-  edit: 'edit'
+  edit: 'editar'
 }
 const tableNames = {
   /*chat: 'chat',

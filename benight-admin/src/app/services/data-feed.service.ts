@@ -115,7 +115,10 @@ export class DataFeedService {
       //Charge data on Demand
       if (!(property in this.connection))
         this.connection[property] = this.connectionLiteral[property]()      
-      return this.connection[property]().create(this.db.createId(database.connections.admin))
+      let id = await this.db.createId(database.connections.admin)
+      console.log(property,id)
+      await this.connection[property].create(id)
+      return id
     }
   }
 

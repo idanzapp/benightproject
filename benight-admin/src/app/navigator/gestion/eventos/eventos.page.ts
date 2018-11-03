@@ -26,10 +26,9 @@ export class EventosPage implements OnInit {
   }
 
   async goto(id?:string) {
-    //this.feed.next(database.VAR_BACK_URL, `${this.basehref}/eventos`)
-    //If default, renew id    
-    if (id)
-      id = await this.feed.create(database.literal.events) 
+    if (!id)
+      id = await this.feed.create(database.literal.events)
+    console.log(this.basehref,database.actions.edit,id)   
     this.router.navigate([`${this.basehref}/eventos/${database.actions.edit}`, id])
   }
 
