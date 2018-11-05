@@ -1,6 +1,11 @@
 0.0.1-alpha (2018-10-4)
 ==========
 
+2018-11-5, 22:00
+----------------------------
++ Profile changes synced with database
++ Scheme for sync data with database
+
 2018-11-3, 19:40
 ----------------------------
 + Adding database handling

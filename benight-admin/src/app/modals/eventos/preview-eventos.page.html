@@ -82,8 +82,8 @@
             <ion-img src="{{languageIcon[selected]}}"></ion-img>
         </ion-fab-button>
         <ion-fab-list side="top">
-          <ion-fab-button (click)="selectLanguage(key)" *ngFor="let key of language.keys()">
-            <ion-img src="{{languageIcon[key]}}"></ion-img>
+          <ion-fab-button (click)="selectLanguage(item.key)" *ngFor="let item of language |keyvalue">
+            <ion-img src="{{languageIcon[item.key]}}"></ion-img>
           </ion-fab-button>
         </ion-fab-list>
     </ion-fab>

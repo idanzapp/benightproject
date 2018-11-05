@@ -8,10 +8,10 @@ export const language = {
 }
 
 export const languageIcon = {
-  es_icon: 'assets/icon/Es.png',
-  en_icon: 'assets/icon/Es.png',
-  fr_icon: 'assets/icon/Es.png',
-  pt_icon: 'assets/icon/Es.png'
+  es: 'assets/icon/Es.png',
+  en: 'assets/icon/En.png',
+  fr: 'assets/icon/Fr.png',
+  pt: 'assets/icon/Pt.png'
 }
 
 export const languageEnvironment = {

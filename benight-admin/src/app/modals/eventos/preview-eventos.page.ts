@@ -11,8 +11,8 @@ import { properties } from '@bn8-constants/constants.datafeed'
 })
 export class PreviewEventosPage implements OnInit {
   
-  //language = language
-  //languageIcon = languageIcon
+  language = language
+  languageIcon = languageIcon
   selected:string = navigator.language.slice(0,2)
   event: any = {requisites:[]}
   @Input() id: any

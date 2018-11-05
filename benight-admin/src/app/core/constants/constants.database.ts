@@ -25,23 +25,6 @@ const actions = {
   edit: 'editar'
 }
 const tableNames = {
-  /*chat: 'chat',
-  club: 'club',
-  date: 'date',
-  employee: 'employee',
-  events: 'events',
-  file: 'file',
-  lists: 'lits',
-  notifications: 'notifications',
-  admin: 'admin',
-  plans: 'plans',
-  promos: 'promos',
-  publicRules: 'publicRules',
-  requirements: 'requirements',
-  statistics: 'statistics',
-  tags: 'tags',
-  ticket: 'ticket',
-  default: 'default',*/
   admins: 'admins',
   adminEvents: 'adminEvents',
   adminLocations: 'adminLocations',

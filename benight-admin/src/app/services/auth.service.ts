@@ -15,10 +15,10 @@ import { Platform } from '@ionic/angular'
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<any>
+  private user$: Observable<any>
   private admin$: Observable<any>
 
-  afAuth: AngularFireAuth
+  private afAuth: AngularFireAuth
 
   constructor(
     private fireclient: FirebaseClient,
@@ -36,20 +36,44 @@ export class AuthService {
       switchMap(user => (user ? fireclient.doc$(`${database.tableNames.users}/${user.uid}`) : of(null))),
       take(1),
       shareReplay(1)
-      )
+      ) 
   }
 
-  user() {          
-    return this.user$.pipe(
-      map(({uid, displayName, appear, balance, banned, birthday, email, gender, photoUrl}) => 
-      ({uid, displayName, appear, balance, banned, birthday, email, gender, photoUrl})
-      ),
-      combineLatest(this.admin$.pipe(
-        map(({paymentAccount,availableTest,code}) => 
-        ({paymentAccount,availableTest,code}))
-      )),
-      shareReplay(1)
-    )
+  user() {
+    let user = this.user$.pipe(
+    map(u => {
+      return {
+        uid: u.uid,
+        userName: u.displayName,
+        appear: u.appear,
+        balance: u.balance,
+        banned: u.banned,
+        birthday: u.birthday,
+        email: u.email,
+        gender: u.gender,
+        photoURL: u.photoURL
+      }
+    }))
+    return this.admin$.pipe(
+      combineLatest(user),
+      map( u => {
+        return {
+          code: u[0].code,
+          displayName: u[0].displayName,
+          availableTest: u[0].availableTest,
+          paymentAccount: u[0].paymentAccount,          
+          uid: u[1].uid,
+          userName: u[1].userName,
+          appear: u[1].appear,
+          balance: u[1].balance,
+          banned: u[1].banned,
+          birthday: u[1].birthday,
+          email: u[1].email,
+          gender: u[1].gender,
+          photoURL: u[1].photoURL
+        }
+      }),
+      shareReplay(1))
   }
 
   alias() {
@@ -61,7 +85,7 @@ export class AuthService {
   }
 
   uid() {
-    return this.admin$
+    return this.user$
       .pipe(
         map(u => u && u.uid),
         shareReplay(1)

@@ -5,7 +5,6 @@ import { AuthService } from '@bn8-services/auth.service'
 import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
 import { shareReplay, reduce, filter, map } from 'rxjs/operators'
-import { Event } from '@bn8-core/interfaces/interfaces.database/interfaces.event'
 
 export class EventsDatabase implements OnInit {
     events$: Observable<any> 
@@ -85,9 +84,7 @@ export class EventsDatabase implements OnInit {
     }
 
     create(id: string) {
-        console.log('holi')
         this.db.updateAt(`${database.tableNames.events}/${id}`,{uid:id, createdAt: new Date(), ...defaultEvent},database.connections.admin)
-        //this.db.createAt(database.tableNames.events, data, database.connections.items)
     }
 
     delete(uid: string) {
