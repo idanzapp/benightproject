@@ -3,23 +3,53 @@ import { OnInit } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database} from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
-import { Observable } from 'rxjs'
-import { shareReplay, map , filter, reduce } from 'rxjs/operators'
-import { Locations } from '@bn8-core/interfaces/interfaces.database/interfaces.location'
+import { Observable, of } from 'rxjs'
+import { shareReplay, map , filter, reduce, share, switchMap } from 'rxjs/operators'
 
 export class LocationDatabase implements OnInit {
-    private clubs$: Observable<any>
 
-    constructor(private db: FirebaseClient, private auth: AuthService) {}
+    private clubs$: Observable<any>
+    //Fields -> gallery, tags, requirements, employees
+    private fields = {
+        uid$: of(null),
+        events$: of(null),
+        plans$: of(null),
+        address$: of(null),
+    }
+
+    constructor(private fc: FirebaseClient, private auth: AuthService) {}
 
     async ngOnInit() {
+        this.fields.uid$ = await this.auth.uid()
+        
         let uids = await this.auth.locations().pipe(
             reduce( (acc,value) => `${acc} | ${value}` )
         )
         
-        this.clubs$ = await this.db.collection$(database.tableNames.locations,
+        this.clubs$ = await this.fc.collection$(database.tableNames.locations,
             ref => ref.where(database.fields.internalId, database.operations.equal, uids),
-            database.connections.items).pipe(
+            database.connections.admin).pipe(
+            shareReplay(1)
+        )
+
+        this.fields.events$ = this.clubs$.pipe(
+            map(u => u && u[database.listFields.eventList]),
+            shareReplay(1)
+        )
+
+        this.fields.plans$ = this.clubs$.pipe(
+            map(u => u && u[database.listFields.planList]),
+            shareReplay(1)
+        )
+
+        this.fields.address$ = this.clubs$.pipe(
+            map(u => u && u[database.listFields.locationList]),
+            reduce((acc,value) => `${acc} | ${value}`),
+            /*switchMap((list) => {
+                return this.db.collection$(database.tableNames.markers,
+                    ref => ref.where(database.fields.internalId, database.operations.equal, uids),
+                    database.connections.markers)
+            }),*/
             shareReplay(1)
         )
     }
@@ -28,100 +58,42 @@ export class LocationDatabase implements OnInit {
         return this.clubs$ 
     }
 
-    item(uid:string) {        
+    getField(data:any) {
+        if (data.field in this.fields) {
+            return this.fields[data.field]
+        } else         
+            return this.get(data.id).pipe(
+                map( u => u && u[data.field]),
+                shareReplay(1)
+            )
+    }
+
+    get(id:string) {
         return this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(({
-                uid,
-                name,
-                description,
-                nextDate,
-                headerPhotoURL,
-                listPhotoURL,
-                numPhotosGallery,
-                maxPhotosGallery,
-                address}) => ({uid,name,nextDate,description,headerPhotoURL,listPhotoURL,numPhotosGallery,maxPhotosGallery,address})),
+            filter( u => u.uid === id),
             shareReplay(1)
-        )
+            )
     }
 
-    events(uid:string) {
-        return this.clubs$.pipe(
-            filter( location => location.uid === uid  ),
-            map(u => u && u.eventList),
-            shareReplay(1)
-        )
+    remove (eid:string) {
+        this.fc.delete(`${database.tableNames.locations}/${eid}`,database.connections.admin)    
+        this.fc.delete(`${database.tableNames.admins}/${this.fields.uid$}/${database.listFields.locationList}/${eid}`)    
     }
 
-    plans(uid:string) {
-        return this.clubs$.pipe(
-            filter( location => location.uid === uid  ),
-            map(u => u && u.planList),
-            shareReplay(1)
-        )
+    save(data:any) {
+        this.fc.updateAt(`${database.tableNames.locations}/${data.uid}`, data)
+        return data.uid
     }
 
-    employee(uid:string) {
-        return this.clubs$.pipe(
-            filter( location => location.uid === uid  ),
-            map(u => u && u.employeeList),
-            shareReplay(1)
-        )
+    add (data?:any) {
+        let uid = this.fc.createId(database.connections.admin)
+        data ? data : this.getDefault()
+        this.save({...data, eid:uid, createdAt: new Date()})
+        return uid
     }
 
-    modifiedDates(uid:string) {
-        return this.clubs$.pipe(
-            filter( location => location.uid === uid  ),
-            map(u => u && u.modifiedDatesList),
-            shareReplay(1)
-        )
-    }
-
-    addresses(uid:string) {
-        return  this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(u => u && u.markersList),
-            shareReplay(1)
-        )
-    }
-
-    transactions(uid:string) {
-        return  this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(u => u && u.transactionList),
-            shareReplay(1)
-        )
-    }
-
-    ClubGallery(uid:string) {
-        return  this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(u => u && u.transactionList),
-            shareReplay(1)
-        )
-    }
-
-    tags(uid:string) {
-        return  this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(u => u && u.tagList),
-            shareReplay(1)
-        )
-    }
-
-    requirements(uid:string) {
-        return  this.clubs$.pipe(
-            filter( location => location.uid === uid ),
-            map(u => u && u.requirementsList),
-            shareReplay(1)
-        )
-    }
-
-    createLocation(data:Locations) {
-        this.db.createAt(database.tableNames.locations, data, database.connections.items)
-    }
-
-    deleteLocation(uid:string) {        
-        this.db.delete(`${database.tableNames.locations}/${uid}`, database.connections.items)
+    private getDefault() {
+        let defaultLocation = {}
+        return defaultLocation
     }    
 }

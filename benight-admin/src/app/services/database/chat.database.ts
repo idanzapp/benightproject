@@ -4,30 +4,25 @@ import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable, of } from 'rxjs'
-import { shareReplay, mapTo, merge, switchMap, filter, take, pluck, toArray  } from 'rxjs/operators'
+import { shareReplay, mapTo, merge, switchMap, filter, take, toArray, map  } from 'rxjs/operators'
             
 
-interface Chat {
-    closedAt?: Date,
-    messages: any,
-    name?: string,
-    numMessages: number,
-    open: boolean,
-    openDate?: Date
-}
-
 export class ChatDatabase implements OnInit {
-    chats$: Observable<any>
-    alias$: Observable<any>
-    spam$: Observable<any>
-    uid: Observable<any>
+    private chats$: Observable<any>
 
-    constructor(private db: FirebaseClient, private auth: AuthService) { }
+    private fields = {
+        alias$: of(null),
+        spam$: of(null),
+        uid$: of(null),
+        messages$: of(null),
+    }
+
+    constructor(private fc: FirebaseClient, private auth: AuthService) { }
 
     async ngOnInit() {
         //Check if you are banned for spam
-        this.uid = this.auth.uid()
-        this.spam$ = await this.db.collection$(database.tables.spam, ref => ref.where(database.fields.internalId, database.operations.equal, this.uid), database.connections.chat)
+        this.fields.uid$ = this.auth.uid()
+        this.fields.spam$ = await this.fc.collection$(database.tableNames.spam, ref => ref.where(database.fields.internalId, database.operations.equal, this.fields.uid$), database.connections.chat)
             .pipe(
                 mapTo(value => {
                     if (value)
@@ -36,18 +31,19 @@ export class ChatDatabase implements OnInit {
                         return false
                 }),
                 shareReplay(1))
-        this.alias$ = await this.auth.alias()
+        this.fields.alias$ = await this.auth.alias()
         this.chats$ = await this.chats()
+        //this.fields.messages$ = await this.messages()
 
     }
 
     private chats() {
-        return this.spam$.pipe(
+        return this.fields.spam$.pipe(
             merge(
-                this.uid.pipe(
+                this.fields.uid$.pipe(
                     switchMap(uid => {
                         if (uid)
-                            return this.db.collection$(`${database.tableNames.userChat}/${uid}/${database.listFields.chatList}`)
+                            return this.fc.collection$(`${database.tableNames.userChat}/${uid}/${database.listFields.chatList}`)
                         return of(null)
                     }),
                     take(1),
@@ -58,15 +54,48 @@ export class ChatDatabase implements OnInit {
         )
     }
 
+    fetch() {
+        return this.chats$
+    }
+
+    getField(data:any) {
+        if (data.field in this.fields) {
+            return this.fields[data.field]
+        } else         
+            return this.get(data.id).pipe(
+                map( u => u && u[data.field]),
+                shareReplay(1)
+            )
+    }
+
+    get(id:string) {
+        return this.chats$.pipe(
+            filter( u => u.uid === id),
+            shareReplay(1)
+            )
+    }
+///////////////////////////////////////
+// Its needed to revise down functions //
+///////////////////////////////////////
+
+    create(id: string) {
+        let data = {} //await 
+        this.fc.updateAt(database.tableNames.chats, {uid:id,createdAt: new Date(),...data}, database.connections.chat)
+    }
+
+    delete(uid: string) {
+        this.fc.delete(`${database.tableNames.chats}/${uid}`, database.connections.chat)
+    }
+
     //lista de mensajes
-    async messagesList(uid: string) {
+    async messages(uid: string) {
         //Get from storage
         //compare storage num with DB num
         //download all messages i have not
         //if all users got it, remove from database 
         let numMessages = 0 //get from storage
         let messagesList = [] //get from storage
-        let newMessages = await this.db.doc$(`${database.tableNames.chats}/${uid}`,database.connections.chat)
+        let newMessages = await this.fc.doc$(`${database.tableNames.chats}/${uid}`,database.connections.chat)
              .pipe(
                 switchMap(relation => {
                     numMessages = relation.numMessages
@@ -77,45 +106,6 @@ export class ChatDatabase implements OnInit {
             )
         messagesList = [...messagesList, newMessages] //await save to storage
         return messagesList
-    }
-
-    getChatIdOfEvent(eid: string) {
-        return this.db.collection$(`${database.tableNames.chatEvent}`,
-            ref => ref.where(database.fields.externalId, database.operations.equal, eid),
-            database.connections.chat).pipe(
-                pluck(database.fields.internalId),
-                shareReplay(1)
-            )
-    }
-
-    getEventIdOfChat(uid: string) {
-        return this.db.collection$(`${database.tableNames.chatEvent}`,
-            ref => ref.where(database.fields.internalId, database.operations.equal, uid),
-            database.connections.chat).pipe(
-                pluck(database.fields.externalId),
-                shareReplay(1)
-            )
-    }
-
-    fetch() {
-        return this.chats$
-    }
-
-    getAlias() {
-        return this.alias$
-    }
-
-    getSpam() {
-        return this.spam$
-    }
-
-    createChat(id: string) {
-        let data = {} //await 
-        this.db.createAt(database.tableNames.chats, {uid:id,...data}, database.connections.chat)
-    }
-
-    deleteChat(uid: string) {
-        this.db.delete(`${database.tableNames.chats}/${uid}`, database.connections.chat)
     }
 
 }

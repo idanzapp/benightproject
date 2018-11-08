@@ -7,24 +7,65 @@ import { Observable } from 'rxjs'
 import { shareReplay, reduce, filter, map } from 'rxjs/operators'
 
 export class EventsDatabase implements OnInit {
-    events$: Observable<any> 
+    private events$: Observable<any> 
+    private uid$:Observable<any>
 
-    constructor(private db: FirebaseClient, private auth: AuthService) {}
+    constructor(private fc: FirebaseClient, private auth: AuthService) {}
 
     async ngOnInit() {
-        
+        this.uid$ = await this.auth.uid()
+
         let uids = await this.auth.events().pipe(
             reduce((acc, value) => `${acc} || ${value}`)
         )
 
-        this.events$ = await this.db.collection$(database.tableNames.events,
+        this.events$ = await this.fc.collection$(database.tableNames.events,
             ref => ref.where(database.fields.internalId, database.operations.equal, uids),
             database.connections.items).pipe(
                 shareReplay(1)
             )
     }
+    
+    fetch() {
+        return this.events$
+    }
 
-    item(uid: string) {
+    get(id:string) {
+        return this.events$.pipe(
+            filter( u => u.uid === id),
+            shareReplay(1)
+            )
+    }
+
+    getField(data:any) {
+        return this.get(data.id).pipe(
+            map( u => u && u[data.field]),
+            shareReplay(1)
+        )
+    }
+
+    remove (eid:string) {
+        this.fc.delete(`${database.tableNames.events}/${eid}`,database.connections.admin)
+        this.fc.delete(`${database.tableNames.admins}/${this.uid$}/${database.listFields.eventList}/${eid}`)    
+    }
+
+    save(data:any) {
+        this.fc.updateAt(`${database.tableNames.events}/${data.uid}`, data)
+        return data.uid
+    }
+
+    add (data?:any) {
+        let uid = this.fc.createId(database.connections.admin)
+        data ? data : this.getDefault()
+        this.save({...data, eid:uid, createdAt: new Date()})
+        return uid
+    }
+
+    private getDefault() {
+        return defaultEvent
+    }
+
+   /* item(uid: string) {
         return this.events$.pipe(
             filter(events => events.uid === uid),
             map(({
@@ -77,19 +118,7 @@ export class EventsDatabase implements OnInit {
                     totalUserFlow })),
             shareReplay(1)
         )
-    }
-
-    fetch() {
-        return this.events$
-    }
-
-    create(id: string) {
-        this.db.updateAt(`${database.tableNames.events}/${id}`,{uid:id, createdAt: new Date(), ...defaultEvent},database.connections.admin)
-    }
-
-    delete(uid: string) {
-        this.db.delete(`${database.tableNames.events}/${uid}`, database.connections.items)
-    }
+    }*/
 }
 
 const defaultEvent = {

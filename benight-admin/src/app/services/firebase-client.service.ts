@@ -192,13 +192,14 @@ export class FirebaseClient  {
             return this.afs(db).doc(path).set({ ...data, updatedAt: new Date() }, { merge: true })
     }
 
-    createAt(path: string, data: Object, db?: string) {
+    /*createAt(path: string, data: Object, db?: string) {
         //Add createdAt to data Stream if doc and call updatedAt
         const segments = path.split('/').filter(v => v)
         if (!(segments.length % 2))
             data = { ...data, createdAt: new Date() }
         this.updateAt(path, data, db)
-    }
+        return data['uid'] || -1
+    }*/
 
     delete(path: string, db?: string) {
         const segments = path.split('/').filter(v => v)

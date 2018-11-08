@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular'
 import { PreviewEventosPage } from '@bn8-imports/imports.previews' 
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { ActivatedRoute, Params} from '@angular/router'
-import { properties } from '@bn8-constants/constants.datafeed'
+import { database } from '@bn8-constants/constants.database'
 
 @Component({
   selector: 'detalle-detalle-info-event',
@@ -59,7 +59,7 @@ export class DetalleInfoEventPage implements OnInit {
   }
 
   private async getEvent(){
-    this.event = await this.feed.getItem(properties.events,this.id)
+    this.event = await this.feed.get(database.literal.events,this.id)
   }
 
   async presentModal() {

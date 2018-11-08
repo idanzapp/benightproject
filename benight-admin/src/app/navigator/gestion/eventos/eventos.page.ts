@@ -11,24 +11,21 @@ import { Router } from '@angular/router'
 })
 export class EventosPage implements OnInit {
 
-  events: Observable<any>
+  events$: Observable<any>
+  private basehref:string = ''
 
   constructor(
     private feed: DataFeedService,
     private router: Router
   ) {}
 
-  private basehref:string = ''
-
   async ngOnInit() {
-    this.events = await this.feed.get(database.literal.events)
+    this.events$ = await this.feed.fetch(database.literal.events)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    if (!id)
-      id = await this.feed.create(database.literal.events)
-    console.log(this.basehref,database.actions.edit,id)   
+    id ? id : await this.feed.add(database.literal.events) 
     this.router.navigate([`${this.basehref}/eventos/${database.actions.edit}`, id])
   }
 

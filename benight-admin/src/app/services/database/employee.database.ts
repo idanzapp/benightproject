@@ -5,47 +5,64 @@ import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
 import { shareReplay, reduce, filter, map } from 'rxjs/operators'
-import { Employee } from '@bn8-core/interfaces/interfaces.database/interfaces.user'
 
 export class EmployeeDatabase implements OnInit {
-    employee$: Observable<any>
+    private employee$: Observable<any>
+    private uid$: Observable<any>
 
-    constructor(private db: FirebaseClient, private auth: AuthService) { }
+    constructor(private fc: FirebaseClient, private auth: AuthService) { }
 
     async ngOnInit() {
+        this.uid$ = await this.auth.uid()
+
         let uids = await this.auth.employees().pipe(
             reduce((acc, value) => `${acc} || ${value}`)
         )
 
-        this.employee$ = await this.db.collection$(database.tableNames.employees,
+        this.employee$ = await this.fc.collection$(database.tableNames.employees,
             ref => ref.where(database.fields.internalId, database.operations.equal, uids),
             database.connections.admin).pipe(
                 shareReplay(1)
             )
     }
-
-
-    item(uid: string) {
-        return this.employee$.pipe(
-            filter(employee => employee.uid === uid),
-            map(({uid, name, description, nextDate, headerPhotoURL, listPhotoURL, numPhotosGallery, maxPhotosGallery, address }) => 
-            ({ uid, name, nextDate, description, headerPhotoURL, listPhotoURL, numPhotosGallery, maxPhotosGallery, address })
-            ),
-            shareReplay(1)
-        )
-    }
-
+    
     fetch() {
         return this.employee$
     }
 
-    addEmployee(data: Employee) {
-        this.db.createAt(database.tableNames.employees, data, database.connections.admin)
+    get(id:string) {
+        return this.employee$.pipe(
+            filter( u => u.uid === id),
+            shareReplay(1)
+            )
     }
 
-    deleteEmployee(uid: string) {
-        this.db.delete(`${database.tableNames.employees}/${uid}`, database.connections.items)
+    getField(data:any) {
+        return this.get(data.id).pipe(
+            map( u => u && u[data.field]),
+            shareReplay(1)
+        )
+    }
+    remove (eid:string) {
+        this.fc.delete(`${database.tableNames.employees}/${eid}`,database.connections.admin)
+        this.fc.delete(`${database.tableNames.admins}/${this.uid$}/${database.listFields.employeeList}/${eid}`)    
     }
 
+    save(data:any) {
+        this.fc.updateAt(`${database.tableNames.employees}/${data.uid}`, data)
+        return data.uid
+    }
+
+    add (data?:any) {
+        let uid = this.fc.createId(database.connections.admin)
+        data ? data : this.getDefault()
+        this.save({...data, eid:uid, createdAt: new Date()})
+        return uid
+    }
+
+    private getDefault() {
+        let defaultEmployee = {}
+        return defaultEmployee
+    }
 }
 

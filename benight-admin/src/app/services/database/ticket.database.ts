@@ -5,46 +5,65 @@ import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
 import { shareReplay, reduce, map, filter } from 'rxjs/operators'
-import { Ticket } from '@bn8-core/interfaces/interfaces.database/interfaces.ticket'
 
 export class TicketDatabase implements OnInit {
-    ticket$: Observable<any>
+    private tickets$: Observable<any>
+    private uid$:Observable<any>
 
-    constructor(private db: FirebaseClient, private auth: AuthService) { }
+    constructor(private fc: FirebaseClient, private auth: AuthService) {}
 
     async ngOnInit() {
+        this.uid$ = await this.auth.uid()
+
         let uids = await this.auth.tickets().pipe(
             reduce((acc, value) => `${acc} || ${value}`)
         )
 
-        this.ticket$ = await this.db.collection$(database.tableNames.tickets,
+        this.tickets$ = await this.fc.collection$(database.tableNames.tickets,
             ref => ref.where(database.fields.internalId, database.operations.equal, uids),
-            database.connections.tickets).pipe(
+            database.connections.admin).pipe(
                 shareReplay(1)
             )
     }
+    
+    fetch() {
+        return this.tickets$
+    }
 
+    get(id:string) {
+        return this.tickets$.pipe(
+            filter( u => u.uid === id),
+            shareReplay(1)
+            )
+    }
 
-    item(uid: string) {
-        return this.ticket$.pipe(
-            filter(ticket => ticket.uid === uid),
-            map(({uid, name, description, nextDate, headerPhotoURL, listPhotoURL, numPhotosGallery, maxPhotosGallery, address }) => 
-            ({ uid, name, nextDate, description, headerPhotoURL, listPhotoURL, numPhotosGallery, maxPhotosGallery, address })
-            ),
+    getField(data:any) {
+        return this.get(data.id).pipe(
+            map( u => u && u[data.field]),
             shareReplay(1)
         )
     }
 
-    fetch() {
-        return this.ticket$
+    remove (eid:string) {
+        this.fc.delete(`${database.tableNames.tickets}/${eid}`,database.connections.admin)
+        this.fc.delete(`${database.tableNames.admins}/${this.uid$}/${database.listFields.planList}/${eid}`)    
     }
 
-    addTicket(data: Ticket) {
-        this.db.createAt(database.tableNames.tickets, data, database.connections.admin)
+    save(data:any) {
+        this.fc.updateAt(`${database.tableNames.tickets}/${data.uid}`, data)
+        return data.uid
     }
 
-    deleteTicket(uid: string) {
-        this.db.delete(`${database.tableNames.tickets}/${uid}`, database.connections.items)
+    add (data?:any) {
+        let uid = this.fc.createId(database.connections.admin)
+        data ? data : this.getDefault()
+        this.save({...data, eid:uid, createdAt: new Date()})
+        return uid
+    }
+
+    private getDefault() {
+        let  defaultTicket = {}
+        return defaultTicket
     }
 
 }

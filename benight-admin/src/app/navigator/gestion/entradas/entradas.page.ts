@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
-import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 
@@ -12,31 +11,22 @@ import { Router } from '@angular/router'
 })
 export class EntradasPage implements OnInit {
   
-  entradas: Observable<any>
+  entradas$: Observable<any>
+  private basehref:string = ''
 
   constructor(
     private feed: DataFeedService,
-    private fc: FirebaseClient,
     private router: Router
-  ) {}
-
-  private basehref:string = ''
-  public default:string = '' 
-  public create:string = database.actions.create
-  public edit:string =  database.actions.edit
+  ) {}  
 
   async ngOnInit() {
-    this.entradas = await this.feed.get(database.literal.tickets)
+    this.entradas$ = await this.feed.fetch(database.literal.tickets)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
-    this.default = this.fc.afs().createId()
   }
 
-  goto(path:string,data:string) {    
-    //this.feed.next(database.VAR_BACK_URL,`${this.basehref}/entradas`)       
-    //If default, renew id
-    if (data = this.default)
-      this.default = this.fc.afs().createId()
-    this.router.navigate([`${this.basehref}/entradas/${path}`,data])
+  async goto(id?:string) {
+    id ? id : await this.feed.add(database.literal.tickets) 
+    this.router.navigate([`${this.basehref}/entradas/${database.actions.edit}`, id])
   }
 
   trackById(idx:number, todo:any) {

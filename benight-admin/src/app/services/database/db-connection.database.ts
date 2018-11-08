@@ -7,8 +7,6 @@ import { languageEnvironment } from '@bn8-constants/constants.languages'
 import { environment } from '@bn8-environments/environment'
 //
 import { database} from '@bn8-constants/constants.database'
-import * as firebase from 'firebase/app'
-import * as geofirex from 'geofirex'
 
 //Firestore
 export class FirestoreLoginService extends AngularFirestore {}

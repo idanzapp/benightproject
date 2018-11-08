@@ -31,6 +31,7 @@ const tableNames = {
   adminPlans: 'adminPlans' ,
   adminTickets: 'adminTickets' ,
   adminPromotedEvents: 'adminPromotedEvents',
+  bans: 'bans',
   chats: 'chats',
   chatMessages: 'chatMessages',
   chatEvent: 'chatEvent',
@@ -82,6 +83,7 @@ const tableNames = {
 }
 
 const literal = {
+  bans: 'bans',
   chats: 'chats',
   clubs: 'clubs',
   employees: 'employees',
@@ -92,6 +94,7 @@ const literal = {
   tags: 'tags',
   tickets: 'tickets',
   default: 'default',
+  markers: 'markers',
   promos: 'promos'
 }
 
@@ -173,7 +176,14 @@ const fields = {
 
 const listFields = {
   chatList: 'chatList',
+  banList: 'banList',
   messagesList: 'messagesList',
+  eventList: 'eventList',
+  employeeList: 'employeeList',
+  moderatorList: 'moderatorList',
+  locationList: 'locationList',
+  planList: 'planList',
+  ticketList: 'ticketList'
 } 
 
 const operations = {

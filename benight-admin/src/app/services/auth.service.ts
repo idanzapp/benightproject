@@ -141,7 +141,7 @@ export class AuthService {
   moderators() {
     return this.admin$
       .pipe(
-        map(u => u && u.moderators),
+        map(u => u && u.moderatorList),
         shareReplay(1)
       )
       //.toPromise()
@@ -150,7 +150,7 @@ export class AuthService {
   locations() {
     return this.admin$
       .pipe(
-        map(u => u && u.locations),
+        map(u => u && u.locationList),
         map(u => u && u.eid),
         shareReplay(1)
       )
@@ -159,7 +159,7 @@ export class AuthService {
   employees() {
     return this.admin$
       .pipe(
-        map(u => u && u.employees),
+        map(u => u && u.employeeList),
         map(u => u && u.eid),
         shareReplay(1)
       )
@@ -168,7 +168,7 @@ export class AuthService {
   plans() {
     return this.admin$
       .pipe(
-        map(u => u && u.plans),
+        map(u => u && u.planList),
         map(u => u && u.eid),
         shareReplay(1)
       )
@@ -177,7 +177,7 @@ export class AuthService {
   tickets() {
     return this.admin$
       .pipe(
-        map(u => u && u.employees),
+        map(u => u && u.ticketList),
         map(u => u && u.eid),
         shareReplay(1)
       )
@@ -186,7 +186,7 @@ export class AuthService {
   events() {
     return this.admin$
       .pipe(
-        map(u => u && u.employees),
+        map(u => u && u.eventList),
         map(u => u && u.eid),
         shareReplay(1)
       )
@@ -197,14 +197,14 @@ export class AuthService {
   }
 
   private createUser({ uid, email, displayName, photoURL }) {
-    return this.fireclient.createAt(`${database.tableNames.admins}/${uid}`, { ...defaultUser, uid, email, displayName, photoURL })
+    return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { ...defaultUser, createdAt: new Date(), uid, email, displayName, photoURL })
   }
   private updateAdminData({ uid, email, displayName, photoURL }) {
     return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { uid, email, displayName, photoURL })
   }
 
   private createAdmin({ uid, email, displayName, photoURL }) {
-    return this.fireclient.createAt(`${database.tableNames.admins}/${uid}`, { ...defaultUser, uid, email, displayName, photoURL })
+    return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { ...defaultUser, createdAt: new Date(), uid, email, displayName, photoURL })
   }
 
   async signOut() {

@@ -12,15 +12,14 @@ export class TagsDatabase implements OnInit {
 
     async ngOnInit() {
         this.tags$ = await this.db.collection$(database.tableNames.tags,ref => ref.where(true),
-            database.connections.items).pipe(shareReplay(1))
+            database.connections.admin).pipe(shareReplay(1))
     }
 
-    item(uid: string) {
+    get(id:string) {
         return this.tags$.pipe(
-            filter(ticket => ticket.uid === uid),
-            map(({uid, name}) => ({uid, name})),
+            filter( u => u.uid === id),
             shareReplay(1)
-        )
+            )
     }
 
     fetch() {

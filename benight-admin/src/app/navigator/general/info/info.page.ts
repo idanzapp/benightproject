@@ -1,4 +1,3 @@
-import { database } from '@bn8-constants/constants.database';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 import { AuthService } from '@bn8-services/auth.service'
 import { FormBuilder, FormGroup } from '@angular/forms'
@@ -6,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs'
 import { tap, debounceTime, take } from 'rxjs/operators'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
+import { database } from '@bn8-constants/constants.database'
 @Component({
   selector: 'general-info',
   templateUrl: './info.page.html',
@@ -24,7 +24,6 @@ export class InfoPage implements OnInit{
   constructor(private fireclient: FirebaseClient, private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit() {
-    this.user$ = this.auth.user()
     this.myForm = this.fb.group({
       displayName: [''],
       paymentAccount:[''],

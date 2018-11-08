@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core'
 import { ToastController } from '@ionic/angular'
 import { language, languageIcon } from '@bn8-constants/constants.languages'
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { properties } from '@bn8-constants/constants.datafeed'
+import { database } from '@bn8-constants/constants.database'
 
 @Component({
   selector: 'preview-eventos',
@@ -24,7 +24,7 @@ export class PreviewEventosPage implements OnInit {
   }  
 
   private async getEvent(){
-    this.event = await this.feed.getItem(properties.events,this.id)
+    this.event = await this.feed.get(database.tableNames.events,this.id)
   }
   selectLanguage(property:string) {
     this.selected = property
