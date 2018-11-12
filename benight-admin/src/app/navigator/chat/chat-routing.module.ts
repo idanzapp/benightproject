@@ -9,8 +9,7 @@ const routes: Routes = [
     component: ChatPage,
     data:{
       header:'Chat',
-      back:false,
-      hasTop:false,
+      back:false
     },
     canActivate: [UserLevelGuard]
   }

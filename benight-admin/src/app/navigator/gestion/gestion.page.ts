@@ -1,14 +1,16 @@
+import { Component} from '@angular/core'
 import { Router } from '@angular/router'
-import { Component, AfterViewInit } from '@angular/core'
 
 @Component({
   selector: 'app-gestion',
   templateUrl: './gestion.page.html',
   styleUrls: ['./gestion.page.scss'],
 })
-export class GestionPage implements AfterViewInit {
+export class GestionPage {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  ngAfterViewInit() {}
+  goto(ref) {
+    this.router.navigate([ref])
+  }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { DataFeedService } from '@bn8-services/data-feed.service'
 
 @Component({
   selector: 'app-notificaciones',
@@ -8,6 +7,5 @@ import { DataFeedService } from '@bn8-services/data-feed.service'
 })
 export class NotificacionesPage {
 
-  constructor(private feed: DataFeedService) { }
-
+  constructor() {} 
 }

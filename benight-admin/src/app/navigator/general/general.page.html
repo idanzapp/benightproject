@@ -1,4 +1,21 @@
-<!--<tabs [tabs]=generalTabs></tabs>-->
- <ion-content>
-  <ion-router-outlet></ion-router-outlet>
- </ion-content>
+<ion-header>
+  <ion-toolbar>
+      <ion-tab-bar>
+          <ion-tab-button (click)="goto('navigator/general/info')">
+             <ion-label>Info</ion-label>
+          </ion-tab-button>
+          <ion-tab-button (click)="goto('navigator/general/preferencias')">
+             <ion-label>Preferencias</ion-label>
+          </ion-tab-button>
+          <ion-tab-button (click)="goto('navigator/general/estadisticas')">
+             <ion-label>Estadisticas</ion-label>
+          </ion-tab-button>
+          <ion-tab-button (click)="goto('navigator/general/bans')">
+             <ion-label>Bans</ion-label>
+          </ion-tab-button>
+      </ion-tab-bar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-router-outlet></ion-router-outlet>
+</ion-content>

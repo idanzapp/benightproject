@@ -24,19 +24,7 @@ import { MarkersDatabase } from '@bn8-database/markers.database'
 export class DataFeedService {
 
   private connection: Connection = {}
-  private connectionLiteral = {
-    bans: () => new BansDatabase(this.db, this.auth),
-    chats: () => new ChatDatabase(this.db, this.auth),
-    clubs: () => new LocationDatabase(this.db, this.auth),
-    employees: () => new EmployeeDatabase(this.db, this.auth),
-    events: () => new EventsDatabase(this.db, this.auth),
-    plans: () => new PlansDatabase(this.db, this.auth),
-    requirements: () => new RequirementsDatabase(this.db),
-    tags: () => new TagsDatabase(this.db),
-    tickets: () => new TicketDatabase(this.db, this.auth),
-    markers: () => new MarkersDatabase(this.db, this.auth),
-    default: () => of(null)
-  }
+  private connectionLiteral
 
   private action = {
     fetch: (e) => e.fetch(),
@@ -49,14 +37,26 @@ export class DataFeedService {
     add: (e,data?) => e.add(data)
   }
 
-  constructor(private db: FirebaseClient, private auth: AuthService) { }
+  constructor(private db: FirebaseClient, private auth: AuthService) {
+    this.connection = {
+      bans: new BansDatabase(this.db, this.auth),
+      chats:  new ChatDatabase(this.db, this.auth),
+      clubs:  new LocationDatabase(this.db, this.auth),
+      employees:  new EmployeeDatabase(this.db, this.auth),
+      events:  new EventsDatabase(this.db, this.auth),
+      plans:  new PlansDatabase(this.db, this.auth),
+      requirements:  new RequirementsDatabase(this.db),
+      tags:  new TagsDatabase(this.db),
+      tickets:  new TicketDatabase(this.db, this.auth),
+      markers:  new MarkersDatabase(this.db, this.auth),
+      default:  of(null)
+    }
+  }
 
-  private checkProperty (property:string, action:string, data?:any) {
-    if (property in this.connectionLiteral) {
-      if (!(property in this.connection))
-          this.connection[property] = this.connectionLiteral[property]()
-      return data ? this.action[action](this.connection[property], data) : this.action[action](this.connection[property])    
-    }      
+  private checkProperty (property:string, action:string, data?:any) {     
+    if (property in this.connection)
+      return this.action[action](this.connection[property], data)
+    return of(null)
   }
 
   fetch(property:string) {return this.checkProperty(property,'fetch')}

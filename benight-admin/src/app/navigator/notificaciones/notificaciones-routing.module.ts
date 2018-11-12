@@ -9,8 +9,7 @@ const routes: Routes = [
       component: NotificacionesPage,
       data:{
         header:'Notificaciones',
-        back:false,
-        hasTop:false
+        back:false
       },
       canActivate: [UserLevelGuard]
     }

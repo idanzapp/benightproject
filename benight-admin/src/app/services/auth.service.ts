@@ -186,8 +186,9 @@ export class AuthService {
   events() {
     return this.admin$
       .pipe(
-        map(u => u && u.eventList),
-        map(u => u && u.eid),
+        map(u => {
+         return  u && u.eventList
+        }),
         shareReplay(1)
       )
   }

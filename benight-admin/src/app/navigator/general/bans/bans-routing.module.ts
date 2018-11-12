@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { BansPage } from '@bn8-imports/imports.views'
-import { tabs } from '@bn8-constants/constants.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [
@@ -10,9 +9,7 @@ const routes: Routes = [
       component: BansPage,
       data:{
         header:'Bans',
-        hasTop:true,
-        back:false,
-        tabs: tabs.general
+        back:false
       },
       canActivate: [UserLevelGuard]
     }

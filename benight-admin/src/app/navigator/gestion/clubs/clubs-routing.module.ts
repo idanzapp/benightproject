@@ -1,7 +1,6 @@
 import { ClubsPage, DetalleInfoClubPage} from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { tabs } from '@bn8-constants/constants.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [
@@ -10,9 +9,7 @@ const routes: Routes = [
       component: ClubsPage,
       data:{
         header:'Clubs',
-        back:false,
-        hasTop:true,
-        tabs: tabs.gestion
+        back:false
       },
       canActivate: [UserLevelGuard]
     },    
@@ -21,7 +18,6 @@ const routes: Routes = [
       component: DetalleInfoClubPage,
       data:{
         header:'Crear Club',
-        hasTop:false,
         back:true
       }
     },
@@ -29,7 +25,6 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Club',
-        hasTop:false,
         back:true
       },
       component: DetalleInfoClubPage

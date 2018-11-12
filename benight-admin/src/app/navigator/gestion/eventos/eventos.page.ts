@@ -19,13 +19,15 @@ export class EventosPage implements OnInit {
     private router: Router
   ) {}
 
-  async ngOnInit() {
-    this.events$ = await this.feed.fetch(database.literal.events)
+  ngOnInit() {
+    this.events$ = this.feed.fetch(database.literal.events)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    id ? id : await this.feed.add(database.literal.events) 
+    if (!id) 
+      id = await this.feed.add(database.literal.events) 
+    console.log(id)
     this.router.navigate([`${this.basehref}/eventos/${database.actions.edit}`, id])
   }
 

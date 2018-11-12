@@ -1,29 +1,23 @@
-import { OnInit } from '@angular/core'
-
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
 import { database } from '@bn8-constants/constants.database'
-import { Observable } from 'rxjs'
-import { shareReplay, reduce, filter, map } from 'rxjs/operators'
+import { Observable, combineLatest } from 'rxjs'
+import { shareReplay,  filter, map, switchMap } from 'rxjs/operators'
 
-export class EventsDatabase implements OnInit {
+export class EventsDatabase {
     private events$: Observable<any> 
-    private uid$:Observable<any>
+    private uid$
 
-    constructor(private fc: FirebaseClient, private auth: AuthService) {}
+    constructor(private fc: FirebaseClient, private auth: AuthService) {
+        this.auth.uid().subscribe(e => this.uid$ = e)
 
-    async ngOnInit() {
-        this.uid$ = await this.auth.uid()
-
-        let uids = await this.auth.events().pipe(
-            reduce((acc, value) => `${acc} || ${value}`)
-        )
-
-        this.events$ = await this.fc.collection$(database.tableNames.events,
-            ref => ref.where(database.fields.internalId, database.operations.equal, uids),
-            database.connections.items).pipe(
-                shareReplay(1)
-            )
+        this.events$ = this.auth.events().pipe(
+            switchMap((ids) => {
+                let reads$ = []
+                for (let id of ids)
+                    reads$.push(this.fc.doc$(`${database.tableNames.events}/${id}`, database.connections.admin))
+                return combineLatest(reads$)}),
+                shareReplay(1))
     }
     
     fetch() {
@@ -50,75 +44,30 @@ export class EventsDatabase implements OnInit {
     }
 
     save(data:any) {
-        this.fc.updateAt(`${database.tableNames.events}/${data.uid}`, data)
+        this.fc.updateAt(`${database.tableNames.events}/${data.uid}`, data, database.connections.admin)
         return data.uid
     }
 
-    add (data?:any) {
+    async add (data?:any) {
         let uid = this.fc.createId(database.connections.admin)
-        data ? data : this.getDefault()
-        this.save({...data, eid:uid, createdAt: new Date()})
+        let item
+        if (data)  
+            item = data
+        else 
+            item = this.getDefault()
+        this.save({...item, uid:uid, createdAt: new Date()})
+        let addId
+        this.auth.events().subscribe(e => {
+            e.push(uid)
+            addId = {eventList: e}
+        }) 
+        this.fc.updateAt(`${database.tableNames.admins}/${this.uid$}`, addId)
         return uid
     }
 
     private getDefault() {
-        return defaultEvent
+        return {...defaultEvent}
     }
-
-   /* item(uid: string) {
-        return this.events$.pipe(
-            filter(events => events.uid === uid),
-            map(({
-                uid,
-                isPrivate,
-                createdAt,
-                updatedAt,
-                expiresAt,
-                relatedTo,
-                activateCountdown,
-                name,
-                description,
-                enableEvent,
-                enableList,
-                eventPhotoURL,
-                headerPhotoURL,
-                date,
-                nextDate,
-                finalDate,
-                chat,
-                price,
-                interval,
-                listGaugin,
-                listFlow,
-                userFlow,
-                totalUserFlow }) => 
-                ({
-                    uid,
-                    isPrivate,
-                    createdAt,
-                    updatedAt,
-                    expiresAt,
-                    relatedTo,
-                    activateCountdown,
-                    name,
-                    description,
-                    enableEvent,
-                    enableList,
-                    eventPhotoURL,
-                    headerPhotoURL,
-                    date,
-                    nextDate,
-                    finalDate,
-                    chat,
-                    price,
-                    interval,
-                    listGaugin,
-                    listFlow,
-                    userFlow,
-                    totalUserFlow })),
-            shareReplay(1)
-        )
-    }*/
 }
 
 const defaultEvent = {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { PromosPage, DetalleInfoPromoPage } from '@bn8-imports/imports.views'
-import { tabs } from '@bn8-constants/constants.tabs'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
 const routes: Routes = [
@@ -10,9 +9,7 @@ const routes: Routes = [
       component: PromosPage,
       data:{
         header:'Promos',
-        back:false,
-        hasTop:true,
-        tabs: tabs.gestion
+        back:false
       },
       canActivate: [UserLevelGuard]
     },   
@@ -21,7 +18,6 @@ const routes: Routes = [
       component: DetalleInfoPromoPage,
       data:{
         header:'Crear Promo',
-        hasTop:false,
         back:true
       }
     },
@@ -29,7 +25,6 @@ const routes: Routes = [
       path:'editar/:id',
       data:{
         header:'Editar Promo',
-        hasTop:false,
         back:true
       },
       component: DetalleInfoPromoPage
