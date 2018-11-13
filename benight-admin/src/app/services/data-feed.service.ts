@@ -16,7 +16,6 @@ import { PlansDatabase } from '@bn8-database/plans.database'
 import { RequirementsDatabase } from '@bn8-database/requirements.database'
 import { TagsDatabase } from '@bn8-database/tags.database'
 import { TicketDatabase } from '@bn8-database/ticket.database'
-import { MarkersDatabase } from '@bn8-database/markers.database'
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +47,6 @@ export class DataFeedService {
       requirements:  new RequirementsDatabase(this.db),
       tags:  new TagsDatabase(this.db),
       tickets:  new TicketDatabase(this.db, this.auth),
-      markers:  new MarkersDatabase(this.db, this.auth),
       default:  of(null)
     }
   }
