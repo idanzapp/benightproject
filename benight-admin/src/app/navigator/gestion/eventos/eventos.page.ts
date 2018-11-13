@@ -14,10 +14,7 @@ export class EventosPage implements OnInit {
   events$: Observable<any>
   private basehref:string = ''
 
-  constructor(
-    private feed: DataFeedService,
-    private router: Router
-  ) {}
+  constructor(private feed: DataFeedService,private router: Router) {}
 
   ngOnInit() {
     this.events$ = this.feed.fetch(database.literal.events)
@@ -27,7 +24,6 @@ export class EventosPage implements OnInit {
   async goto(id?:string) {
     if (!id) 
       id = await this.feed.add(database.literal.events) 
-    console.log(id)
     this.router.navigate([`${this.basehref}/eventos/${database.actions.edit}`, id])
   }
 

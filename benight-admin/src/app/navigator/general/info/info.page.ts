@@ -35,7 +35,7 @@ export class InfoPage implements OnInit{
   } 
 
   async getUid() {
-    this.uid = await this.auth.uid().toPromise()
+    this.uid = await this.auth.uid()
   }
 
   preloadData() {

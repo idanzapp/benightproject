@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListPropietariosPage,
     data:{
       header:'Propietarios',
-      back:false
+      back:true
     }
   }
 ]

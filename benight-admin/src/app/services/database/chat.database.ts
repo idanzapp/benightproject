@@ -1,111 +1,61 @@
-import { OnInit } from '@angular/core'
-
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable, of } from 'rxjs'
-import { shareReplay, mapTo, merge, switchMap, filter, take, toArray, map  } from 'rxjs/operators'
+import { shareReplay, mapTo, merge, switchMap, filter, take, toArray, map, startWith  } from 'rxjs/operators'
             
 
-export class ChatDatabase implements OnInit {
+export class ChatDatabase {
     private chats$: Observable<any>
+    private uid$
 
     private fields = {
         alias$: of(null),
-        spam$: of(null),
-        uid$: of(null),
-        messages$: of(null),
+        //messages$: of(null)
     }
 
-    constructor(private fc: FirebaseClient, private auth: AuthService) { }
+    constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
 
-    async ngOnInit() {
-        //Check if you are banned for spam
-        this.fields.uid$ = this.auth.uid()
-        this.fields.spam$ = await this.fc.collection$(database.tableNames.spam, ref => ref.where(database.fields.internalId, database.operations.equal, this.fields.uid$), database.connections.chat)
-            .pipe(
-                mapTo(value => {
-                    if (value)
-                        return value
-                    else
-                        return false
-                }),
-                shareReplay(1))
-        this.fields.alias$ = await this.auth.alias()
-        this.chats$ = await this.chats()
-        //this.fields.messages$ = await this.messages()
-
-    }
-
-    private chats() {
-        return this.fields.spam$.pipe(
-            merge(
-                this.fields.uid$.pipe(
-                    switchMap(uid => {
-                        if (uid)
-                            return this.fc.collection$(`${database.tableNames.userChat}/${uid}/${database.listFields.chatList}`)
-                        return of(null)
-                    }),
-                    take(1),
-                    filter(u => u[database.fields.openDate] <= Date()),
-                    shareReplay(1)
-                )
+    private async preloadData() {
+        this.uid$ = await this.auth.uid()        
+        let spam$ = await this.fc.collection$(`${database.tableNames.spam}`, {db: database.connections.chat})
+            .pipe( 
+                map(spam => spam.filter(u => u.id === this.uid$).length === 0),
+                shareReplay(1)
             )
-        )
-    }
-
+        this.chats$ = await spam$.pipe(
+            startWith(true),
+            switchMap( val => {
+                return this.fc.collection$(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}`, {db: database.connections.chat})
+                .pipe(shareReplay(1))
+            }))        
+        this.fields.alias$ = await this.fc.collection$(`${database.tableNames.alias}/${this.uid$}/${database.listFields.aliasList}`, {db: database.connections.chat})
+            .pipe(shareReplay(1))   
+        /*this.fields.messages$ = await this.fc.collection$(`${database.tableNames.messages}/${this.fields.uid$}/${database.listFields.messageList}`, {db: database.connections.chat})
+            .pipe(shareReplay(1)) */     
+    }    
+    
     fetch() {
         return this.chats$
     }
 
-    getField(data:any) {
-        if (data.field in this.fields) {
-            return this.fields[data.field]
-        } else         
-            return this.get(data.id).pipe(
-                map( u => u && u[data.field]),
-                shareReplay(1)
-            )
-    }
-
     get(id:string) {
-        return this.chats$.pipe(
-            filter( u => u.uid === id),
-            shareReplay(1)
-            )
-    }
-///////////////////////////////////////
-// Its needed to revise down functions //
-///////////////////////////////////////
-
-    create(id: string) {
-        let data = {} //await 
-        this.fc.updateAt(database.tableNames.chats, {uid:id,createdAt: new Date(),...data}, database.connections.chat)
+        return this.chats$.pipe(map(e => e.filter(u => u.id === id)[0]))   
     }
 
-    delete(uid: string) {
-        this.fc.delete(`${database.tableNames.chats}/${uid}`, database.connections.chat)
+    getField(data:any) {
+        if(this.fields.hasOwnProperty(data.field))
+            return this.fields[data.field]
+        return this.get(data.id).pipe(map( u => u && u[data.field]))
     }
 
-    //lista de mensajes
-    async messages(uid: string) {
-        //Get from storage
-        //compare storage num with DB num
-        //download all messages i have not
-        //if all users got it, remove from database 
-        let numMessages = 0 //get from storage
-        let messagesList = [] //get from storage
-        let newMessages = await this.fc.doc$(`${database.tableNames.chats}/${uid}`,database.connections.chat)
-             .pipe(
-                switchMap(relation => {
-                    numMessages = relation.numMessages
-                    return relation.messagesList
-                }),
-                filter( messageList => messageList[uid] >= numMessages),
-                toArray()
-            )
-        messagesList = [...messagesList, newMessages] //await save to storage
-        return messagesList
+    remove (eid:string) {
+        this.fc.delete(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}/${eid}`,database.connections.chat)
+    }
+
+    save(data:any) {
+        this.fc.updateAt(`${database.tableNames.chats}/${this.uid$}/${database.listFields.eventList}/${data.uid}`, data, database.connections.chat)
+        return data.uid
     }
 
 }

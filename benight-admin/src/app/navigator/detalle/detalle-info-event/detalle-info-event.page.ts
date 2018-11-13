@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormGroup, FormBuilder } from '@angular/forms'
 import { ModalController } from '@ionic/angular'
 import { PreviewEventosPage } from '@bn8-imports/imports.previews' 
 import { DataFeedService } from '@bn8-services/data-feed.service'
-import { ActivatedRoute, Params} from '@angular/router'
 import { database } from '@bn8-constants/constants.database'
+import { ActivatedRoute, Router } from '@angular/router' 
+import { ToastController } from '@ionic/angular'
 
+import { Observable, of } from 'rxjs'
+import { tap, debounceTime, take, map } from 'rxjs/operators'
 @Component({
   selector: 'detalle-detalle-info-event',
   templateUrl: './detalle-info-event.page.html',
@@ -13,53 +16,119 @@ import { database } from '@bn8-constants/constants.database'
 })
 export class DetalleInfoEventPage implements OnInit {
 
-  myForm: FormGroup = {} as FormGroup
-  create: boolean = true
-  minDate: string  = ''
-  event: any = {}
-  id: string = ''
+  myForm: FormGroup = {} as FormGroup  
+  private event$: Observable<any> = of(null)
+  private state: 'loading' | 'synced' | 'modified' | 'error' = 'loading'
+  private id: string
+  private check:boolean = false
+  private basehref:string = ''
 
-  constructor(private fb: FormBuilder,
-    private feed: DataFeedService, 
-    public modal: ModalController,
-    private activatedRoute: ActivatedRoute) {
-   }
+  constructor(private feed: DataFeedService, 
+    private modal: ModalController, 
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    public toastController: ToastController) {} 
 
   ngOnInit() {
-    // subscribe to router event
-     this.activatedRoute.params.subscribe((params: Params) => {
-      this.id = params.id
-    })
-    this.getEvent()
-    const actualDate: string = new Date().toISOString()
-    this.minDate = actualDate
+    let actualDate = new Date()
     this.myForm = this.fb.group({
-      activateCountdown: false,
-      adress: '',
-      assistants: 0,
-      description: '',
-      duration: '',
-      enableEvent: false,
-      enableList: false,
-      eventPhotoURL: '',
-      free: false,
-      gaugin: 0,
-      headerPhotoURL: '',
-      initDate: actualDate,
-      maxAge: 0,
-      minAge: 0,
-      name: '',
-      nextDate: actualDate,
-      photoURL: '',
-      price: 0,
-      promoBudget: 0
-    })
-
-    this.myForm.valueChanges.subscribe(console.log)
+      activateCountdown: [false],
+      date: [actualDate],
+      description:[''],
+      duration:[180],
+      enableList:[false],
+      enableEvent:[false],
+      eventPhotoURL:[''],
+      free:[false],
+      gaugin:[0],
+      headerPhotoURL:[''],
+      interval:[''],
+      isPrivate:[false],
+      maxAge:[0],
+      minAge:[0],
+      name: [''],
+      nextDate: [actualDate]
+      })        
+    this.preloadData()
+    this.autoSave()
   }
 
-  private async getEvent(){
-    this.event = await this.feed.get(database.literal.events,this.id)
+  async preloadData() {
+    await this.route.params.pipe(map(p => p.id)).subscribe(e => this.id = e)
+    this.state = 'loading'
+    this.event$ = await this.feed.get(database.literal.events,this.id)
+    this.event$
+      .pipe(
+        tap(doc => {
+          if (doc) {
+            let data = {              
+              activateCountdown: doc.activateCountdown ,
+              description: doc.description ,
+              duration: doc.duration ,
+              enableEvent: doc.enableEvent ,
+              enableList: doc.enableList ,
+              eventPhotoURL: doc.eventPhotoURL,
+              free: doc.free ,
+              gaugin: doc.gaugin ,
+              headerPhotoURL: doc.headerPhotoURL ,
+              date: doc.date ,
+              interval: doc.interval ,
+              isPrivate: doc.isPrivate ,
+              maxAge: doc.maxAge ,
+              minAge: doc.minAge ,
+              name: doc.name ,
+              nextDate: doc.nextDate 
+            }
+            this.myForm.patchValue(data)
+            this.myForm.markAsPristine()
+            this.state = 'synced' 
+          }
+        }),
+        take(1)
+      )
+      .subscribe()
+    let route = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
+    this.basehref = this.router.url.slice(0, route.lastIndexOf('/'))
+  }
+
+  autoSave() {
+    this.myForm.valueChanges
+    .pipe(
+      tap(change => {this.state = 'modified';console.log(this.state)}),
+      debounceTime(5000),
+      tap(change => {
+          if (this.myForm.valid && this.state === 'modified') {          
+            this.feed.save(database.literal.events,{uid:this.id,...this.myForm.value})  
+          this.state = 'synced'         
+          this.presentToast('Sincronizado', 'success')
+        }
+      })
+    )
+    .subscribe()
+  }
+
+  onSubmit(e:any) {
+    if (this.myForm.valid && this.state ==='modified') {
+      this.feed.save(database.literal.events,{uid:this.id,...e})    
+      this.state = 'synced'
+      this.presentToast('Sincronizado', 'success')
+    } else 
+      if(!this.myForm.valid)
+        this.presentToast('Los datos no son validos', 'danger')
+  }
+  
+  delete() {
+    //check if it can be deleted
+    if (this.check)      
+      this.feed.remove(database.literal.events, this.id)
+    else
+      this.presentToast('El Evento no puede ser eliminado', 'danger')
+  }
+
+  goto(url){
+    console.log(`${this.basehref}${url}`)
+    this.router.navigate([`${this.basehref}${url}`,this.id])
   }
 
   async presentModal() {
@@ -68,6 +137,15 @@ export class DetalleInfoEventPage implements OnInit {
       componentProps: { id: this.id }
     })
     return await window.present()
+  }
 
+  private async presentToast(message,color) {
+    const toast = await this.toastController.create({
+      message: message,
+      position: 'top',
+      duration: 2000,
+      color
+    })
+    toast.present()
   }
 }

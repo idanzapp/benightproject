@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { EventosPage, DetalleInfoEventPage } from '@bn8-imports/imports.views'
-import { PreviewEventosPage } from '@bn8-imports/imports.previews'
+import { EventosPage } from '@bn8-imports/imports.views'
 import { EventosRoutingModule} from '@bn8-imports/imports.routing'
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -12,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms'
     ReactiveFormsModule,
     EventosRoutingModule
   ],
-  entryComponents: [PreviewEventosPage],
-  declarations: [EventosPage,DetalleInfoEventPage,PreviewEventosPage]
+  declarations: [EventosPage]
 })
 export class EventosPageModule {}

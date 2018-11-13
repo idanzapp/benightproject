@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     ReactiveFormsModule,
     DetalleInfoEventRoutingModule
   ],
+  entryComponents: [PreviewEventosPage],
   declarations: [DetalleInfoEventPage, PreviewEventosPage]
 })
 export class DetalleInfoEventPageModule {}

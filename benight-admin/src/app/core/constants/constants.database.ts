@@ -25,6 +25,7 @@ const actions = {
   edit: 'editar'
 }
 const tableNames = {
+  alias: 'alias',
   admins: 'admins',
   adminEvents: 'adminEvents',
   adminLocations: 'adminLocations',
@@ -175,6 +176,7 @@ const fields = {
 }
 
 const listFields = {
+  aliasList: 'aliasList',
   chatList: 'chatList',
   banList: 'banList',
   messagesList: 'messagesList',

@@ -138,9 +138,9 @@ export class FirebaseClient  {
         return (this.connection[`MS${db ? db:database.connections.login}`] as AngularFireMessaging)
     }
 
-    collection$(path, query?, db?: string) {
-        return this.afs(db)
-            .collection(path, query)
+    collection$(path, data:{query?, db?: string}) {
+        return this.afs(data.db)
+            .collection(path, data.query)
             .snapshotChanges()
             .pipe(
                 map(actions => {
@@ -169,7 +169,7 @@ export class FirebaseClient  {
     leftJoin(path1:string,ref1:any,db1:string,path2:string,db2:string,commonField:string,op:string){
         let conn1 = db1 ? db1 : database.connections.login
         let conn2 = db2 ? db2 : database.connections.login
-        return this.collection$(path1, ref1, conn1).pipe(
+        return this.collection$(path1, {query:ref1, db:conn1}).pipe(
             switchMap((value) => {
                 let table
                 table.push(value.forEach(element => {
@@ -179,7 +179,7 @@ export class FirebaseClient  {
             }),
             reduce((value,current) => `${value} | ${current}` ),
             switchMap((value) => {
-                return this.collection$(path2, ref => ref.where(commonField,op,value), conn2)
+                return this.collection$(path2, {query:ref => ref.where(commonField,op,value), db:conn2})
             })
         )
     }

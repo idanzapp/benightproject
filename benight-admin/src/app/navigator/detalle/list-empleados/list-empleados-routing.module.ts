@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListEmpleadosPage,
     data:{
       header:'Empleados',
-      back:false
+      back:true
     }
   }
 ]

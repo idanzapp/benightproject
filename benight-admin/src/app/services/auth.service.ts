@@ -3,8 +3,8 @@ import { Router } from '@angular/router'
 import { auth } from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth'
 
-import { Observable, of } from 'rxjs'
-import { switchMap, take, map, shareReplay, combineLatest } from 'rxjs/operators'
+import { Observable, of, combineLatest} from 'rxjs'
+import { switchMap, take, map, shareReplay } from 'rxjs/operators'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 
@@ -54,143 +54,77 @@ export class AuthService {
         photoURL: u.photoURL
       }
     }))
-    return this.admin$.pipe(
-      combineLatest(user),
-      map( u => {
-        return {
-          code: u[0].code,
-          displayName: u[0].displayName,
-          availableTest: u[0].availableTest,
-          paymentAccount: u[0].paymentAccount,          
-          uid: u[1].uid,
-          userName: u[1].userName,
-          appear: u[1].appear,
-          balance: u[1].balance,
-          banned: u[1].banned,
-          birthday: u[1].birthday,
-          email: u[1].email,
-          gender: u[1].gender,
-          photoURL: u[1].photoURL
-        }
-      }),
-      shareReplay(1))
+    return combineLatest(
+      user,
+      this.admin$.pipe(
+        map( u => {
+          return {
+            code: u[0].code,
+            displayName: u[0].displayName,
+            availableTest: u[0].availableTest,
+            paymentAccount: u[0].paymentAccount,          
+            uid: u[1].uid,
+            userName: u[1].userName,
+            appear: u[1].appear,
+            balance: u[1].balance,
+            banned: u[1].banned,
+            birthday: u[1].birthday,
+            email: u[1].email,
+            gender: u[1].gender,
+            photoURL: u[1].photoURL
+          }
+        }),
+        shareReplay(1))
+    )
+    
   }
 
   alias() {
-    return this.user$.pipe(
-      map(u => u && u.aliasList),
-      shareReplay(1)
-    )    
-    //.toPromise()
+    return this.user$.pipe(map(u => u && u.aliasList))    
   }
 
   uid() {
-    return this.user$
-      .pipe(
-        map(u => u && u.uid),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.user$.pipe(map(u => u && u.uid),shareReplay(1)).toPromise()
   }
 
   permissions() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.permissions),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.permissions))
   }
 
   upgrades() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.upgrades),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.upgrades))
   }
 
   default() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.default),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.default))
   }
 
   bans() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.bans),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.bans))
   }
 
   vips() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.vips),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.vips))
   }
 
   moderators() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.moderatorList),
-        shareReplay(1)
-      )
-      //.toPromise()
+    return this.admin$.pipe(map(u => u && u.moderatorList))
   }
 
   locations() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.locationList),
-        map(u => u && u.eid),
-        shareReplay(1)
-      )
+    return this.admin$.pipe(map(u => u && u.locationList))
   }
 
   employees() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.employeeList),
-        map(u => u && u.eid),
-        shareReplay(1)
-      )
+    return this.admin$.pipe(map(u => u && u.employeeList))
   }
 
   plans() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.planList),
-        map(u => u && u.eid),
-        shareReplay(1)
-      )
+    return this.admin$.pipe(map(u => u && u.planList))
   }
 
   tickets() {
-    return this.admin$
-      .pipe(
-        map(u => u && u.ticketList),
-        map(u => u && u.eid),
-        shareReplay(1)
-      )
-  }
-
-  events() {
-    return this.admin$
-      .pipe(
-        map(u => {
-         return  u && u.eventList
-        }),
-        shareReplay(1)
-      )
+    return this.admin$.pipe(map(u => u && u.ticketList))
   }
 
   private updateUserData({ uid, email, displayName, photoURL }) {

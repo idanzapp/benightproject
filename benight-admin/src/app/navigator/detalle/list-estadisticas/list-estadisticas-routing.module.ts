@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListEstadisticasPage,
     data:{
       header:'Estadisticas',
-      back:false
+      back:true
     }
   }
 ]

@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListRequisitosPage,
     data:{
       header:'Requisitos',
-      back:false
+      back:true
     }
   }
 ]

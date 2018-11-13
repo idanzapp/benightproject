@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListPublicoPage,
     data:{
       header:'Publico',
-      back:false
+      back:true
     }
   }
 ]

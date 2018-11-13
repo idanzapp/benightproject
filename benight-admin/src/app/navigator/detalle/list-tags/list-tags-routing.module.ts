@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ListTagsPage,
     data:{
       header:'Tags',
-      back:false
+      back:true
     }
   }
 ]
