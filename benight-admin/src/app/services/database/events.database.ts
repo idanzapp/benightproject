@@ -50,7 +50,8 @@ export class EventsDatabase {
     }
 
     private getDefault() {
-        return {...defaultEvent}
+        let date = new Date()
+        return {...defaultEvent, date: date, nextDate: date, finalDate: date}
     }
 }
 
@@ -65,11 +66,8 @@ const defaultEvent = {
     eventPhotoURL: 'assets/img/photo3.jpg',
     headerPhotoURL: 'assets/img/photo42.jpg',
     duration: 60*3, /*3 horas, se guarda en minutos*/
-    date: new Date(),
     maxAge: -1,
     minAge: 18,
-    nextDate:new Date(),
-    finalDate:new Date(),
     chat: 0,
     price:10,
     interval: 'weekly',

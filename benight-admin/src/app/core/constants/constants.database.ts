@@ -51,6 +51,7 @@ const tableNames = {
   planMarkers: 'planMarkers',
   planTransactions: 'planTransactions',
   locations: 'locations',
+  locationGallery: 'locationGallery',
   locationEvents: 'locationEvents',
   locationEventsDate: 'locationEventsDate',
   locationPlans: 'locationPlans',
@@ -185,7 +186,8 @@ const listFields = {
   moderatorList: 'moderatorList',
   locationList: 'locationList',
   planList: 'planList',
-  ticketList: 'ticketList'
+  ticketList: 'ticketList',
+  gallery: 'gallery'
 } 
 
 const operations = {

@@ -59,7 +59,7 @@ const routes: Routes = [
         header:'Reglas',
         back:true
       },
-      loadChildren:  '../../detalle/list-public/list-public.module#ListPublicPageModule'
+      loadChildren:  '../../detalle/list-publico/list-publico.module#ListPublicoPageModule'
     },
     {
       path:'listar/propietarios/:id',

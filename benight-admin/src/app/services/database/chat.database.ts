@@ -2,7 +2,7 @@ import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable, of } from 'rxjs'
-import { shareReplay, mapTo, merge, switchMap, filter, take, toArray, map, startWith  } from 'rxjs/operators'
+import { shareReplay, switchMap, map, startWith  } from 'rxjs/operators'
             
 
 export class ChatDatabase {

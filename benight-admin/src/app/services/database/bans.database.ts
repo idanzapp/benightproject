@@ -2,7 +2,7 @@ import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
-import { shareReplay, filter, map } from 'rxjs/operators'
+import { shareReplay, map } from 'rxjs/operators'
 
 export class BansDatabase { 
 
@@ -15,8 +15,7 @@ export class BansDatabase {
         this.uid$ = await this.auth.uid()
         this.bans$ = await this.fc.collection$(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
-    }
-    
+    }    
     
     fetch() {
         return this.bans$
