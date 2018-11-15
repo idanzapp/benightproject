@@ -14,7 +14,7 @@
             </ion-button>                 
         </ion-buttons>        
         <br><br><br><br><br>
-        <ion-badge *ngFor="let req of event.requisites | slice:0:3" color="tertiary">
+        <ion-badge *ngFor="let req of event.requisites | slice:0:3; trackBy: trackById" color="tertiary">
             {{req}}                
         </ion-badge>
         <ion-badge *ngIf="event.requisites.length > 4 " color="tertiary" (click)="presentToast()">

@@ -8,7 +8,7 @@
     </ion-label>
     <ion-icon name="add-circle"></ion-icon>
   </ion-item>
-  <ion-list *ngFor="let plan of plans$ | async">
+  <ion-list *ngFor="let plan of plans$ | async; trackBy: trackById">
     <ion-item (click)="goto(plan.uid)">
       <ion-label>{{plan.name}}</ion-label>
     </ion-item>

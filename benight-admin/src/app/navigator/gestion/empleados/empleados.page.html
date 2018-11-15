@@ -8,7 +8,7 @@
     </ion-label>
     <ion-icon name="search"></ion-icon>
   </ion-item>
-  <ion-list *ngFor="let empleado of empleados$ | async">
+  <ion-list *ngFor="let empleado of empleados$ | async; trackBy: trackById">
     <ion-item (click)="goto(empleado.uid)">
       <ion-label>{{empleado.name}}</ion-label>
     </ion-item>

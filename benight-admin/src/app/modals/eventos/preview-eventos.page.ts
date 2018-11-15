@@ -40,4 +40,7 @@ export class PreviewEventosPage implements OnInit {
     toast.present()
   }
 
+  trackById(idx:number, todo:any) {
+    return todo.id
+  }
 }

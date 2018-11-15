@@ -1,78 +1,69 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
-import { AuthService } from '@bn8-services/auth.service'
-import { FormBuilder, FormGroup } from '@angular/forms'
-
-import { Observable } from 'rxjs'
-import { tap, debounceTime, take } from 'rxjs/operators'
-import { FirebaseClient } from '@bn8-services/firebase-client.service'
+import { Component, OnInit } from '@angular/core'
+import { FormGroup, FormBuilder } from '@angular/forms' 
+import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
+import { ToastController } from '@ionic/angular'
+
+import { Observable, of } from 'rxjs'
+import { tap, debounceTime, take} from 'rxjs/operators'
 @Component({
   selector: 'general-info',
   templateUrl: './info.page.html',
   styleUrls: ['./info.page.scss'],
 })
-export class InfoPage implements OnInit{
+export class InfoPage implements OnInit {
 
-  user$: Observable<any>
-  myForm: FormGroup = {} as FormGroup
+  myForm: FormGroup = {} as FormGroup  
+  private info$: Observable<any> = of(null)
   private state: 'loading' | 'synced' | 'modified' | 'error' = 'loading'
-  private uid: string
-  // Outputs
-  @Output() stateChange = new EventEmitter<string>()
-  @Output() formError = new EventEmitter<string>()
+  private id: string = ''
 
-  constructor(private fireclient: FirebaseClient, private fb: FormBuilder, private auth: AuthService) { }
+  constructor(private feed: DataFeedService, 
+    private fb: FormBuilder,
+    public toastController: ToastController) {} 
 
   ngOnInit() {
     this.myForm = this.fb.group({
       displayName: [''],
       paymentAccount:[''],
       appear:[false] 
-    })
-    this.getUid()
+      })        
     this.preloadData()
     this.autoSave()
-  } 
-
-  async getUid() {
-    this.uid = await this.auth.uid()
   }
 
-  preloadData() {
+  async preloadData() {
     this.state = 'loading'
-    this.user$ = this.auth.user()
-    this.user$
+    this.info$ = await this.feed.fetch(database.literal.info)
+    this.info$
       .pipe(
         tap(doc => {
+          this.id = doc.uid
           if (doc) {
-            let data = {
+            let data = {              
               displayName: doc.displayName,
               paymentAccount: doc.paymentAccount,
-              appear: doc.appear
+              appear: doc.appear 
             }
             this.myForm.patchValue(data)
             this.myForm.markAsPristine()
-            this.state = 'synced'
+            this.state = 'synced' 
           }
         }),
         take(1)
-      )
-      .subscribe()
+      ).subscribe()
   }
 
   autoSave() {
     this.myForm.valueChanges
     .pipe(
-      tap(change => {
-        this.state = 'modified'
-      }),
+      tap(change => this.state = 'modified'),
       debounceTime(5000),
       tap(change => {
-        if (this.myForm.valid && this.state === 'modified') {
-          let adminValue = {displayName: this.myForm.value.displayName,paymentAccount: this.myForm.value.paymentAccount}
-          let userValue = {appear: this.myForm.value.appear}
-          this.setDoc(`${database.tableNames.admins}/${this.uid}`,adminValue)
-          this.setDoc(`${database.tableNames.users}/${this.uid}`,userValue)
+          if (this.myForm.valid && this.state === 'modified') {          
+            this.feed.save(database.literal.info,{uid:this.id,...this.myForm.value})  
+          this.state = 'synced'         
+          this.presentToast('Sincronizado', 'success')
         }
       })
     )
@@ -80,20 +71,22 @@ export class InfoPage implements OnInit{
   }
 
   onSubmit(e:any) {
-    let adminValue = {displayName: e.displayName,paymentAccount: e.paymentAccount}
-    let userValue = {appear: e.appear}
-    this.setDoc(`${database.tableNames.admins}/${this.uid}`,adminValue)
-    this.setDoc(`${database.tableNames.users}/${this.uid}`,userValue)
+    if (this.myForm.valid && this.state ==='modified') {
+      this.feed.save(database.literal.info,{uid:this.id,...e})    
+      this.state = 'synced'
+      this.presentToast('Sincronizado', 'success')
+    } else 
+      if(!this.myForm.valid)
+        this.presentToast('Los datos no son validos', 'danger')
   }
 
-  async setDoc(path,data) {
-    try {
-      await this.fireclient.updateAt(path,data)
-      this.state = 'synced'
-    } catch (err) {
-      console.log(err)
-      this.formError.emit(err.message)
-      this.state = 'error'
-    }
+  private async presentToast(message,color) {
+    const toast = await this.toastController.create({
+      message: message,
+      position: 'top',
+      duration: 2000,
+      color
+    })
+    toast.present()
   }
 }

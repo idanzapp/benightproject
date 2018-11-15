@@ -31,7 +31,6 @@ export class DetalleInfoClubPage implements OnInit {
     public toastController: ToastController) {} 
 
   ngOnInit() {
-    let actualDate = new Date().toISOString()
     this.myForm = this.fb.group({
       address:[''],
       description:[''],

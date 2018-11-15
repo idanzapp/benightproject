@@ -97,7 +97,8 @@ const literal = {
   tickets: 'tickets',
   default: 'default',
   markers: 'markers',
-  promos: 'promos'
+  promos: 'promos',
+  info: 'info'
 }
 
 const fields = {

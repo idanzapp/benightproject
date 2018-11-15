@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar *ngIf="user$ | async as user">
+  <ion-toolbar *ngIf="info$ | async as user">
     <ion-avatar slot="start">
       <ion-img src="{{user.photoURL}}"></ion-img>
     </ion-avatar>
@@ -11,45 +11,40 @@
         {{user.email}}
       </ion-label>
     </div>
-    <div text-right>      
+    <div text-right>
       <ion-grid>
         <ion-row>
           <ion-col>
             <ion-label>
-              {{user.balance || 0}}          
+              {{user.balance || 0}}
             </ion-label>
           </ion-col>
-          <ion-col> 
+          <ion-col>
             <ion-img class="coin" src="assets/icon/coin.png"></ion-img>
-          </ion-col>          
+          </ion-col>
         </ion-row>
       </ion-grid>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div *ngIf="user$ | async as user">
-    <form [formGroup]="myForm">
-      <ion-item>
-          <ion-label>Nombre Comercial: </ion-label>
-          <ion-input text-right formControlName="displayName"></ion-input>
-      </ion-item>   
-      <ion-item>
-          <ion-label>Cuenta de cobros:</ion-label>
-          <ion-input text-right formControlName="paymentAccount"></ion-input>
-      </ion-item>   
-      <ion-item>
-          <ion-label>Mostrar Conexion:</ion-label>
-          <ion-toggle formControlName="appear" text-right></ion-toggle>
-      </ion-item>         
-    </form> 
-  </div>
+  <form [formGroup]="myForm">
+    <ion-item>
+      <ion-label position="floating">Nombre Comercial: </ion-label>
+      <ion-input formControlName="displayName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cuenta de cobros:</ion-label>
+      <ion-input type="email" formControlName="paymentAccount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mostrar Conexion:</ion-label>
+      <ion-toggle formControlName="appear" text-right></ion-toggle>
+    </ion-item>
+  </form>
 </ion-content>
 <ion-footer *ngIf="this.myForm.valid && ( this.state === 'modified')">
-  <ion-button 
-      color="primary" 
-      expand="full" 
-      (click)="onSubmit(myForm.value)">
-        Actualizar
-    </ion-button>
+  <ion-button color="primary" expand="full" (click)="onSubmit(myForm.value)">
+    Actualizar
+  </ion-button>
 </ion-footer>

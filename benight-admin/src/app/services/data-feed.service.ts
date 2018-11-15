@@ -4,7 +4,6 @@ import { of } from 'rxjs'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
 import { Connection } from '@bn8-interfaces/interfaces.datafeed'
-import { database } from '@bn8-constants/constants.database'
 
 //Database imports Functions
 import { BansDatabase } from '@bn8-database/bans.database'
@@ -16,6 +15,7 @@ import { PlansDatabase } from '@bn8-database/plans.database'
 import { RequirementsDatabase } from '@bn8-database/requirements.database'
 import { TagsDatabase } from '@bn8-database/tags.database'
 import { TicketDatabase } from '@bn8-database/ticket.database'
+import { InfoDatabase } from '@bn8-database/info.database'
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,6 @@ import { TicketDatabase } from '@bn8-database/ticket.database'
 export class DataFeedService {
 
   private connection: Connection = {}
-  private connectionLiteral
 
   private action = {
     fetch: (e) => e.fetch(),
@@ -47,6 +46,7 @@ export class DataFeedService {
       requirements:  new RequirementsDatabase(this.db),
       tags:  new TagsDatabase(this.db),
       tickets:  new TicketDatabase(this.db, this.auth),
+      info: new InfoDatabase(this.auth),
       default:  of(null)
     }
   }

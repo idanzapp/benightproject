@@ -40,43 +40,33 @@ export class AuthService {
   }
 
   user() {
-    let user = this.user$.pipe(
-    map(u => {
-      return {
-        uid: u.uid,
-        userName: u.displayName,
-        appear: u.appear,
-        balance: u.balance,
-        banned: u.banned,
-        birthday: u.birthday,
-        email: u.email,
-        gender: u.gender,
-        photoURL: u.photoURL
-      }
-    }))
-    return combineLatest(
-      user,
-      this.admin$.pipe(
-        map( u => {
-          return {
-            code: u[0].code,
-            displayName: u[0].displayName,
-            availableTest: u[0].availableTest,
-            paymentAccount: u[0].paymentAccount,          
-            uid: u[1].uid,
-            userName: u[1].userName,
-            appear: u[1].appear,
-            balance: u[1].balance,
-            banned: u[1].banned,
-            birthday: u[1].birthday,
-            email: u[1].email,
-            gender: u[1].gender,
-            photoURL: u[1].photoURL
-          }
-        }),
-        shareReplay(1))
-    )
-    
+    return combineLatest(this.admin$,this.user$).pipe(
+          map( u => {
+            return {
+              code: u[0].code,
+              displayName: u[0].displayName,
+              availableTest: u[0].availableTest,
+              paymentAccount: u[0].paymentAccount,          
+              uid: u[1].uid,
+              userName: u[1].displayName,
+              appear: u[1].appear,
+              balance: u[1].balance,
+              banned: u[1].banned,
+              birthday: u[1].birthday,
+              email: u[1].email,
+              gender: u[1].gender,
+              photoURL: u[1].photoURL
+            }
+          }),
+          shareReplay(1)
+        )  
+  }
+
+  saveUser(data) {
+    this.fireclient.updateAt(`${database.tableNames.admins}/${data.uid}`, 
+    { displayName: data.displayName,
+      appear: data.appear,
+      paymentAccount: data.paymentAccount })
   }
 
   alias() {
