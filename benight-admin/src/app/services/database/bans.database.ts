@@ -30,7 +30,10 @@ export class BansDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}/${eid}`,database.connections.admin)
+        return check    
     }
 
     save(data:any) {

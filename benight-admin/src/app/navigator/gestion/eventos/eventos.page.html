@@ -1,12 +1,12 @@
 <ion-content>
-  <ion-item (click)="goto()" color="black">	
+  <ion-item (click)="goto()" color="plain-black">	
     <ion-avatar slot="start">
       <ion-img src="assets/icon/favicon.png"></ion-img>
     </ion-avatar>
     <ion-label>
       <h2>Crear Nuevo Evento</h2>
     </ion-label>
-    <ion-icon color="primary" name="add-circle"></ion-icon>
+    <ion-icon name="add-circle"></ion-icon>
   </ion-item>
   <ion-list *ngFor="let event of events$ | async">
     <ion-item (click)="goto(event.uid)">

@@ -3,6 +3,8 @@ import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
+import { ModalController } from '@ionic/angular'
+import { SearchEmployeesPage } from '@bn8-imports/imports.previews'
 
 @Component({
   selector: 'gestion-empleados',
@@ -16,7 +18,8 @@ export class EmpleadosPage implements OnInit {
 
   constructor(
     private feed: DataFeedService,
-    private router: Router
+    private router: Router,
+    private modal: ModalController
   ) {}  
 
   async ngOnInit() {
@@ -27,6 +30,13 @@ export class EmpleadosPage implements OnInit {
   async goto(id?:string) {
     id ? id : await this.feed.add(database.literal.employees) 
     this.router.navigate([`${this.basehref}/empleados/${database.actions.edit}`, id])
+  }
+  
+  async presentModal() {
+    const window = await this.modal.create({
+      component: SearchEmployeesPage
+    })
+    return await window.present()
   }
 
   trackById(idx:number, todo:any) {

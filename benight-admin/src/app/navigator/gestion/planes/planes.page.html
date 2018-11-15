@@ -1,16 +1,16 @@
 <ion-content>
-  <ion-item (click)="goto()" color="black">	
+  <ion-item (click)="goto()" color="plain-black">	
     <ion-avatar slot="start">
       <ion-img src="assets/icon/favicon.png"></ion-img>
     </ion-avatar>
     <ion-label>
       <h2>Crear Nuevo Plan</h2>
     </ion-label>
-    <ion-icon color="primary" name="add-circle"></ion-icon>
+    <ion-icon name="add-circle"></ion-icon>
   </ion-item>
-  <ion-virtual-scroll [items]="plans$ | async" virtualTrackBy="trackById">
-    <ion-item (click)="goto(plan.uid)" *virtualItem="let plan">
+  <ion-list *ngFor="let plan of plans$ | async">
+    <ion-item (click)="goto(plan.uid)">
       <ion-label>{{plan.name}}</ion-label>
     </ion-item>
-  </ion-virtual-scroll> 
+  </ion-list>
 </ion-content>

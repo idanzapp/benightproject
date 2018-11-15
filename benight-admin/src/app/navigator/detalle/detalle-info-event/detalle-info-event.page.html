@@ -28,9 +28,9 @@
             <ion-label position="floating">Intervalo</ion-label>
             <ion-input formControlName="interval"></ion-input>
         </ion-item>
-        <ion-item *ngIf="create">
+        <ion-item>
             <ion-label position="floating">Fecha de inicio</ion-label>
-            <ion-datetime displayFormat="D MMM YYYY H:mm" formControlName="initDate"></ion-datetime>
+            <ion-datetime displayFormat="D MMM YYYY, H:mm" pickerFormat="D MMM YYYY, H:mm" formControlName="date"></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label position="floating">Aforo</ion-label>

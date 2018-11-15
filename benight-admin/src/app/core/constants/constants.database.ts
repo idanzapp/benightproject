@@ -187,7 +187,8 @@ const listFields = {
   locationList: 'locationList',
   planList: 'planList',
   ticketList: 'ticketList',
-  gallery: 'gallery'
+  gallery: 'gallery',
+  dateList: 'dateList'
 } 
 
 const operations = {

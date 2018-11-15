@@ -1,16 +1,16 @@
 <ion-content>
-  <ion-item (click)="goto()" color="black">	
+  <ion-item (click)="goto()" color="plain-black">	
     <ion-avatar slot="start">
       <ion-img src="assets/icon/favicon.png"></ion-img>
     </ion-avatar>
     <ion-label>
-      <h2>Crear Nuevo Club</h2>
+      <h2>Añadir Nueva Localizacion</h2>
     </ion-label>
-    <ion-icon color="primary" name="add-circle"></ion-icon>
+    <ion-icon name="add-circle"></ion-icon>
   </ion-item>
-  <ion-virtual-scroll [items]="clubs$ | async" virtualTrackBy="trackById">
-    <ion-item (click)="goto(club.uid)" *virtualItem="let club">
+  <ion-list *ngFor="let club of clubs$ | async">
+    <ion-item (click)="goto(club.uid)">
       <ion-label>{{club.name}}</ion-label>
     </ion-item>
-  </ion-virtual-scroll> 
+  </ion-list>
 </ion-content>

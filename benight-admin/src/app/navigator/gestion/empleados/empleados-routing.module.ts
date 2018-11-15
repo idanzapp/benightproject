@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
+
+const basehref =  '../../detalle/'
 const routes: Routes = [
     {
       path: '',
@@ -14,20 +16,36 @@ const routes: Routes = [
       canActivate: [UserLevelGuard]
     },    
     {
-      path:'crear/:id',
-      component: DetalleInfoEmpleadoPage,
-      data:{
-        header:'Crear Empleado',
-        back:true
-      }
-    },
-    {
       path:'editar/:id',
       data:{
-        header:'Editar Empleado',
+        header:'Evento',
         back:true
       },
-      component: DetalleInfoEmpleadoPage
+      loadChildren:  `${basehref}detalle-info-empleado/detalle-info-empleado.module#DetalleInfoEmpleadoPageModule`
+    }, 
+    {
+      path:'listar/estadisticas/:id',
+      data:{
+        header:'Estadisticas',
+        back:true
+      },
+      loadChildren:  `${basehref}list-estadisticas/list-estadisticas.module#ListEstadisticasPageModule`
+    },   
+    {
+      path:'listar/entradas/:id',
+      data:{
+        header:'Entradas',
+        back:true
+      },
+      loadChildren:  `${basehref}list-entradas/list-entradas.module#ListEntradasPageModule`
+    },   
+    {
+      path:'listar/localizaciones/:id',
+      data:{
+        header:'Clubs',
+        back:true
+      },
+      loadChildren:  `${basehref}list-clubs/list-clubs.module#ListClubsPageModule`
     }, 
     {path:'**',redirectTo:'',pathMatch:'full'}
 ]

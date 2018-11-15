@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { PlanesPage, DetalleInfoPlanPage } from '@bn8-imports/imports.views'
-import {  PlanesRoutingModule } from '@bn8-imports/imports.routing'
+import { PlanesPage } from '@bn8-imports/imports.views'
+import { PlanesRoutingModule } from '@bn8-imports/imports.routing'
 import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
@@ -11,6 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms'
     ReactiveFormsModule,
     PlanesRoutingModule
   ],
-  declarations: [PlanesPage, DetalleInfoPlanPage]
+  declarations: [PlanesPage]
 })
 export class PlanesPageModule {}

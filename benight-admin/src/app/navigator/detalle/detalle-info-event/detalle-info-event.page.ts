@@ -31,7 +31,7 @@ export class DetalleInfoEventPage implements OnInit {
     public toastController: ToastController) {} 
 
   ngOnInit() {
-    let actualDate = new Date()
+    let actualDate = new Date().toISOString()
     this.myForm = this.fb.group({
       activateCountdown: [false],
       date: [actualDate],
@@ -95,7 +95,7 @@ export class DetalleInfoEventPage implements OnInit {
   autoSave() {
     this.myForm.valueChanges
     .pipe(
-      tap(change => {this.state = 'modified';console.log(this.state)}),
+      tap(change => this.state = 'modified'),
       debounceTime(5000),
       tap(change => {
           if (this.myForm.valid && this.state === 'modified') {          
@@ -127,7 +127,6 @@ export class DetalleInfoEventPage implements OnInit {
   }
 
   goto(url){
-    console.log(`${this.basehref}${url}`)
     this.router.navigate([`${this.basehref}${url}`,this.id])
   }
 

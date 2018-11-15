@@ -29,7 +29,10 @@ export class PlansDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.plans}/${this.uid$}/${database.listFields.planList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.plans}/${this.uid$}/${database.listFields.planList}/${eid}`,database.connections.admin)
+        return check
     }
 
     save(data:any) {
@@ -44,12 +47,12 @@ export class PlansDatabase {
             item = data
         else 
             item = this.getDefault()
-        this.save({...item, uid:uid, createdAt: new Date()})
+        this.save({...item, uid:uid, createdAt: new Date().toISOString()})
         return uid
     }
 
     private getDefault() {
-        let date = new Date()
+        let date = new Date().toISOString()
         return {...defaultPlan, date: date, nextDate: date, finalDate: date}
     }
 }

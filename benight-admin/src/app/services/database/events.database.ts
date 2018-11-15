@@ -30,7 +30,10 @@ export class EventsDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.events}/${this.uid$}/${database.listFields.eventList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.events}/${this.uid$}/${database.listFields.eventList}/${eid}`,database.connections.admin)
+        return check
     }
 
     save(data:any) {
@@ -45,12 +48,12 @@ export class EventsDatabase {
             item = data
         else 
             item = this.getDefault()
-        this.save({...item, uid:uid, createdAt: new Date()})
+        this.save({...item, uid:uid, createdAt: new Date().toISOString()})
         return uid
     }
 
     private getDefault() {
-        let date = new Date()
+        let date = new Date().toISOString()
         return {...defaultEvent, date: date, nextDate: date, finalDate: date}
     }
 }

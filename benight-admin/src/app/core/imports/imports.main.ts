@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular'
 import { CoreModule } from '@bn8-core/core.module'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
+import { ChartsModule } from 'ng2-charts'
 
 export const myBaseModules = [
     CommonModule,
@@ -18,4 +19,5 @@ export const myBaseModules = [
 export const myAppModules = [
     BrowserModule,
     IonicModule.forRoot(),
+    ChartsModule
 ]

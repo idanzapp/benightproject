@@ -37,6 +37,15 @@
     --ion-color-tint: linear-gradient(155deg, #5a6673 0%, #3e4750 100%);
   }
 
+.ion-color-plain-black {
+    --ion-color-base:#000;
+    --ion-color-base-rgb: rgb(0,0,0);
+    --ion-color-contrast:#b4bfbf;
+    --ion-color-contrast-rgb: rgb(#b4bfbf);
+    --ion-color-shade: #000;
+    --ion-color-tint: #1a1a1a;
+  }
+
 .ion-color-palette {
     --ion-color-base:linear-gradient(to top, #fe7444 0%, #d647a6 17%, #57aefe 83%, #2ff6f4 100% );
     --ion-color-base-rgb:linear-gradient(to top, rgb(254, 116, 68) 0%, rgb(214, 71, 166) 33%, rgb(87, 174, 254) 66%, rgb(47, 246, 244) 100% );

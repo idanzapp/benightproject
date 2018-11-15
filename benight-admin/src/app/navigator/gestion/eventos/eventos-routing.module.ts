@@ -1,7 +1,9 @@
-import { EventosPage, DetalleInfoEventPage} from '@bn8-imports/imports.views'
+import { EventosPage} from '@bn8-imports/imports.views'
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
+
+const basehref =  '../../detalle/'
 
 const routes: Routes = [
     {
@@ -19,7 +21,7 @@ const routes: Routes = [
         header:'Evento',
         back:true
       },
-      loadChildren:  '../../detalle/detalle-info-event/detalle-info-event.module#DetalleInfoEventPageModule'
+      loadChildren:  `${basehref}detalle-info-event/detalle-info-event.module#DetalleInfoEventPageModule`
     },   
     {
       path:'picker/:id',
@@ -27,7 +29,7 @@ const routes: Routes = [
         header:'Ficheros',
         back:true
       },
-      loadChildren:  '../../detalle/file-picker/file-picker.module#FilePickerPageModule'
+      loadChildren:  `${basehref}file-picker/file-picker.module#FilePickerPageModule`
     },   
     {
       path:'listar/traducciones/:id',
@@ -35,7 +37,7 @@ const routes: Routes = [
         header:'Traducciones',
         back:true
       },
-      loadChildren:  '../../detalle/list-traducciones/list-traducciones.module#ListTraduccionesPageModule'
+      loadChildren:  `${basehref}list-traducciones/list-traducciones.module#ListTraduccionesPageModule`
     }, 
     {
       path:'listar/tags/:id',
@@ -43,7 +45,7 @@ const routes: Routes = [
         header:'Tags',
         back:true
       },
-      loadChildren:  '../../detalle/list-tags/list-tags.module#ListTagsPageModule'
+      loadChildren:  `${basehref}list-tags/list-tags.module#ListTagsPageModule`
     },   
     {
       path:'listar/requisitos/:id',
@@ -51,7 +53,7 @@ const routes: Routes = [
         header:'Requisitos',
         back:true
       },
-      loadChildren:  '../../detalle/list-requisitos/list-requisitos.module#ListRequisitosPageModule'
+      loadChildren:  `${basehref}list-requisitos/list-requisitos.module#ListRequisitosPageModule`
     },   
     {
       path:'listar/reglas/:id',
@@ -59,7 +61,7 @@ const routes: Routes = [
         header:'Reglas',
         back:true
       },
-      loadChildren:  '../../detalle/list-publico/list-publico.module#ListPublicoPageModule'
+      loadChildren:  `${basehref}list-publico/list-publico.module#ListPublicoPageModule`
     },
     {
       path:'listar/propietarios/:id',
@@ -67,7 +69,7 @@ const routes: Routes = [
         header:'Propietarios',
         back:true
       },
-      loadChildren:  '../../detalle/list-propietarios/list-propietarios.module#ListPropietariosPageModule'
+      loadChildren:  `${basehref}list-propietarios/list-propietarios.module#ListPropietariosPageModule`
     },   
     {
       path:'listar/listas/:id',
@@ -75,7 +77,7 @@ const routes: Routes = [
         header:'Listas',
         back:true
       },
-      loadChildren:  '../../detalle/list-listas/list-listas.module#ListListasPageModule'
+      loadChildren:  `${basehref}list-listas/list-listas.module#ListListasPageModule`
     },        
     {
       path:'listar/fechas/:id',
@@ -83,7 +85,7 @@ const routes: Routes = [
         header:'Fechas',
         back:true
       },
-      loadChildren:  '../../detalle/list-fechas/list-fechas.module#ListFechasPageModule'
+      loadChildren:  `${basehref}list-fechas/list-fechas.module#ListFechasPageModule`
     },   
     {
       path:'listar/estadisticas/:id',
@@ -91,7 +93,7 @@ const routes: Routes = [
         header:'Estadisticas',
         back:true
       },
-      loadChildren:  '../../detalle/list-estadisticas/list-estadisticas.module#ListEstadisticasPageModule'
+      loadChildren:  `${basehref}list-estadisticas/list-estadisticas.module#ListEstadisticasPageModule`
     },   
     {
       path:'listar/tickets/:id',
@@ -99,7 +101,7 @@ const routes: Routes = [
         header:'Tickets',
         back:true
       },
-      loadChildren:  '../../detalle/list-entradas/list-entradas.module#ListEntradasPageModule'
+      loadChildren:  `${basehref}list-entradas/list-entradas.module#ListEntradasPageModule`
     },   
     {
       path:'listar/empleados/:id',
@@ -107,7 +109,7 @@ const routes: Routes = [
         header:'Empleados',
         back:true
       },
-      loadChildren:  '../../detalle/list-empleados/list-empleados.module#ListEmpleadosPageModule'
+      loadChildren:  `${basehref}list-empleados/list-empleados.module#ListEmpleadosPageModule`
     }, 
     {
       path:'listar/locations/:id',
@@ -115,7 +117,7 @@ const routes: Routes = [
         header:'Localizaciones',
         back:true
       },
-      loadChildren:  '../../detalle/list-clubs/list-clubs.module#ListClubsPageModule'
+      loadChildren:  `${basehref}list-clubs/list-clubs.module#ListClubsPageModule`
     }, 
     {path:'**',redirectTo:'',pathMatch:'full'}
 

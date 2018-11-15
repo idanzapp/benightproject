@@ -9,28 +9,25 @@ import { Router } from '@angular/router'
   templateUrl: './planes.page.html',
   styleUrls: ['./planes.page.scss'],
 })
-export class PlanesPage implements OnInit{
-  
+export class PlanesPage implements OnInit {
+
   plans$: Observable<any>
   private basehref:string = ''
 
-  constructor(
-    private feed: DataFeedService,
-    private router: Router
-  ) {}
+  constructor(private feed: DataFeedService,private router: Router) {}
 
-  async ngOnInit() {
-    this.plans$ = await this.feed.fetch(database.literal.plans)
+  ngOnInit() {
+    this.plans$ = this.feed.fetch(database.literal.plans)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    id ? id : await this.feed.add(database.literal.plans) 
-    this.router.navigate([`${this.basehref}/plans/${database.actions.edit}`, id])
+    if (!id) 
+      id = await this.feed.add(database.literal.plans) 
+    this.router.navigate([`${this.basehref}/planes/${database.actions.edit}`, id])
   }
 
   trackById(idx:number, todo:any) {
     return todo.id
   }
-
 }

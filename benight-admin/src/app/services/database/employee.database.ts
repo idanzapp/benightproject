@@ -29,7 +29,10 @@ export class EmployeeDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.employees}/${this.uid$}/${database.listFields.employeeList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check) 
+            this.fc.delete(`${database.tableNames.employees}/${this.uid$}/${database.listFields.employeeList}/${eid}`,database.connections.admin)            
+        return check        
     }
 
     save(data:any) {
@@ -37,5 +40,18 @@ export class EmployeeDatabase {
         return data.uid
     }
 
+    async add (uid:string) {
+        this.save({...this.getDefault(), uid:uid, createdAt: new Date().toISOString()})
+        return uid
+    }
+
+    private getDefault() {
+        return defaultEmployee
+    }
+}
+
+const defaultEmployee = {
+    role:'employee',
+    description: 'do things'
 }
 

@@ -10,22 +10,20 @@ import { Router } from '@angular/router'
   styleUrls: ['./clubs.page.scss'],
 })
 export class ClubsPage implements OnInit {
-  
-  clubs: Observable<any>
+
+  clubs$: Observable<any>
   private basehref:string = ''
 
-  constructor(
-    private feed: DataFeedService,
-    private router: Router
-  ) {}  
+  constructor(private feed: DataFeedService,private router: Router) {}
 
-  async ngOnInit() {
-    this.clubs = await this.feed.fetch(database.literal.clubs)
-    this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
+  ngOnInit() {
+    this.clubs$ = this.feed.fetch(database.literal.clubs)
+    this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    id ? id : await this.feed.add(database.literal.clubs) 
+    if (!id) 
+      id = await this.feed.add(database.literal.clubs) 
     this.router.navigate([`${this.basehref}/clubs/${database.actions.edit}`, id])
   }
 

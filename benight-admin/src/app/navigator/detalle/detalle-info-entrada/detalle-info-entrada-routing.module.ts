@@ -7,9 +7,9 @@ const routes: Routes = [
   {
     path: '',
     component: DetalleInfoEntradaPage,
-    data:{
-      header:'Entrada',
-      back:true
+    data: {
+      header: 'Entrada',
+      back: true
     },
     canActivate: [UserLevelGuard]
   }

@@ -29,7 +29,10 @@ export class TicketDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.tickets}/${this.uid$}/${database.listFields.ticketList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.tickets}/${this.uid$}/${database.listFields.ticketList}/${eid}`,database.connections.admin)
+        return check            
     }
 
     save(data:any) {
@@ -42,15 +45,18 @@ export class TicketDatabase {
         let item
         if (data)  
             item = data
-        else 
+        else             
             item = this.getDefault()
-        this.save({...item, uid:uid, createdAt: new Date()})
+        let date = new Date().toISOString()
+        this.save({...item, uid:uid, createdAt: date})
+        if(!data) //It should be removed after defaultCreation
+            this.fc.updateAt(`${database.tableNames.tickets}/${this.uid$}/${database.listFields.ticketList}/${uid}/${database.listFields.dateList}/${date}`, {}, database.connections.admin)        
         return uid
     }
 
     private getDefault() {
-        let date = new Date()
-        return {...defaultTicket, date: date, expiresAt: date, openAt: date, finalDate: date}
+        let date = new Date().toISOString()
+        return {...defaultTicket, date: date, expiresAt: date, openAt: date, nextDate: date, closeAt: date}
     }
 }
 
@@ -61,6 +67,7 @@ const defaultTicket = {
     gaugin: -1,
     name: 'ticket prueba',
     description: 'ticket description',
-    uses:-1
+    uses:-1,
+    price:0
 }
 

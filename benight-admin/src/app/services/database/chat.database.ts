@@ -50,7 +50,10 @@ export class ChatDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}/${eid}`,database.connections.chat)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}/${eid}`,database.connections.chat)
+        return check    
     }
 
     save(data:any) {

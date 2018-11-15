@@ -3,7 +3,7 @@ import { database} from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable, of } from 'rxjs'
 import { shareReplay, map } from 'rxjs/operators'
-
+import * as firebase from 'firebase/app'
 export class LocationDatabase  {
 
     private clubs$: Observable<any>
@@ -44,7 +44,10 @@ export class LocationDatabase  {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.locations}/${this.uid$}/${database.listFields.locationList}/${eid}`,database.connections.admin)
+        let check = false
+        if (check)
+            this.fc.delete(`${database.tableNames.locations}/${this.uid$}/${database.listFields.locationList}/${eid}`,database.connections.admin)
+        return check    
     }
 
     save(data:any) {
@@ -77,12 +80,12 @@ export class LocationDatabase  {
             item = data
         else 
             item = this.getDefault()
-        this.save({...item, uid:uid, createdAt: new Date()})
+        this.save({...item, uid:uid, createdAt: new Date().toISOString()})
         return uid
     }
 
     private getDefault() {
-        return {...defaultLocation, nextDate: new Date()}
+        return {...defaultLocation, nextDate: new Date().toISOString()}
     }
 }
 
@@ -91,5 +94,12 @@ const defaultLocation = {
     headerPhotoURL: 'assets/img/photo42.jpg',
     listPhotoURL: 'assets/img/photo3.jpg',
     name: 'prueba',
-    numPhotosGallery: 0    
+    numPhotosGallery: 0,
+    address: 'victor jara, 31, Zaragoza',
+    gaugin: -1,
+    point: {
+        geohash: 'ezrmhcwneec8',
+        geopoint: new firebase.firestore.GeoPoint(41.669532, -0.837555),
+        info: {}
+    }    
 }

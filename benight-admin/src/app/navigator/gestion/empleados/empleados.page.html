@@ -1,16 +1,16 @@
 <ion-content>
-  <ion-item (click)="goto()" color="black">	
+  <ion-item (click)="presentModal()" color="plain-black">	
     <ion-avatar slot="start">
       <ion-img src="assets/icon/favicon.png"></ion-img>
     </ion-avatar>
     <ion-label>
-      <h2>Crear Nuevo Empleado</h2>
+      <h2>Buscar Nuevos Empleados</h2>
     </ion-label>
-    <ion-icon color="primary" name="add-circle"></ion-icon>
+    <ion-icon name="search"></ion-icon>
   </ion-item>
-  <ion-virtual-scroll [items]="empleados$ | async" virtualTrackBy="trackById">
-    <ion-item (click)="goto(empleado.uid)" *virtualItem="let empleado">
+  <ion-list *ngFor="let empleado of empleados$ | async">
+    <ion-item (click)="goto(empleado.uid)">
       <ion-label>{{empleado.name}}</ion-label>
     </ion-item>
-  </ion-virtual-scroll> 
+  </ion-list>
 </ion-content>

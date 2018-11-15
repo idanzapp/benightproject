@@ -10,22 +10,20 @@ import { Router } from '@angular/router'
   styleUrls: ['./entradas.page.scss'],
 })
 export class EntradasPage implements OnInit {
-  
-  entradas$: Observable<any>
+
+  tickets$: Observable<any>
   private basehref:string = ''
 
-  constructor(
-    private feed: DataFeedService,
-    private router: Router
-  ) {}  
+  constructor(private feed: DataFeedService,private router: Router) {}
 
-  async ngOnInit() {
-    this.entradas$ = await this.feed.fetch(database.literal.tickets)
-    this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
+  ngOnInit() {
+    this.tickets$ = this.feed.fetch(database.literal.tickets)
+    this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    id ? id : await this.feed.add(database.literal.tickets) 
+    if (!id) 
+      id = await this.feed.add(database.literal.tickets) 
     this.router.navigate([`${this.basehref}/entradas/${database.actions.edit}`, id])
   }
 
