@@ -4,7 +4,7 @@ import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 import { ModalController } from '@ionic/angular'
-import { SearchEmployeesPage } from '@bn8-imports/imports.previews'
+import { SearchUsersPage } from '@bn8-imports/imports.previews'
 
 @Component({
   selector: 'gestion-empleados',
@@ -34,7 +34,8 @@ export class EmpleadosPage implements OnInit {
   
   async presentModal() {
     const window = await this.modal.create({
-      component: SearchEmployeesPage
+      component: SearchUsersPage,
+      componentProps: {search:'employee'}
     })
     return await window.present()
   }

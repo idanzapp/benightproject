@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SearchEmployeesPage } from '@bn8-imports/imports.previews'
+import { SearchUsersPage } from '@bn8-imports/imports.previews'
 
-describe('SearchEmployeesPage', () => {
-  let component: SearchEmployeesPage
-  let fixture: ComponentFixture<SearchEmployeesPage>
+describe('SearchUsersPage', () => {
+  let component: SearchUsersPage
+  let fixture: ComponentFixture<SearchUsersPage>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchEmployeesPage ],
+      declarations: [ SearchUsersPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchEmployeesPage)
+    fixture = TestBed.createComponent(SearchUsersPage)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

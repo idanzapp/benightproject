@@ -8,7 +8,6 @@ import { myAppProviders } from '@bn8-imports/imports.providers'
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
     ...myAppModules,
     AppRoutingModule

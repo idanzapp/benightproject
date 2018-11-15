@@ -1,3 +1,16 @@
-<p>
-  bans works!!
-</p>
+<ion-content>
+  <ion-item (click)="presentModal()" color="plain-black">	
+    <ion-avatar slot="start">
+      <ion-img src="assets/icon/favicon.png"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2>Añadir Nuevo Usuario</h2>
+    </ion-label>
+    <ion-icon name="search"></ion-icon>
+  </ion-item>
+  <ion-list *ngFor="let ban of bans$ | async; trackBy: trackById">
+    <ion-item (click)="goto(ban.uid)">
+      <ion-label>{{ban.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
