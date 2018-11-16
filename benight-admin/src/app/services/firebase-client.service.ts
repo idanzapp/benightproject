@@ -151,6 +151,11 @@ export class FirebaseClient  {
             )
     }
 
+    docRef(path:string,db?:string) {
+        return this.afs(db)
+        .doc(path)
+    }
+
     doc$(path: string, db?: string): Observable<any> {
         return this.afs(db)
             .doc(path)

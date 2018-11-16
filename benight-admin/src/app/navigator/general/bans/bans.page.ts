@@ -26,7 +26,7 @@ export class BansPage implements OnInit {
   async presentModal() {
     const window = await this.modal.create({
       component: SearchUsersPage,
-      componentProps: {search:'bans'}
+      componentProps: {search:'users'}
     })
     return await window.present()
   }

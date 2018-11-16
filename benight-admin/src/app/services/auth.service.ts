@@ -77,6 +77,10 @@ export class AuthService {
     return this.user$.pipe(map(u => u && u.uid),shareReplay(1)).toPromise()
   }
 
+  name() {
+    this.user$.pipe(map(u => u && u.displayName),shareReplay(1)).toPromise()
+  }
+
   permissions() {
     return this.admin$.pipe(map(u => u && u.permissions))
   }

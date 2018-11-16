@@ -34,7 +34,7 @@ const tableNames = {
   adminPromotedEvents: 'adminPromotedEvents',
   bans: 'bans',
   chats: 'chats',
-  chatMessages: 'chatMessages',
+  messages: 'messages',
   chatEvent: 'chatEvent',
   employees: 'employees',
   employeeEvents: 'employeeEvents',
@@ -179,6 +179,7 @@ const fields = {
 
 const listFields = {
   aliasList: 'aliasList',
+  usersList: 'usersList',
   chatList: 'chatList',
   banList: 'banList',
   messagesList: 'messagesList',

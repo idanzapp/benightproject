@@ -4,6 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 export const environment = {
   production: false,
+  config: {
+    apiKey: "AIzaSyBmLZZy5SFT6rAb2miC9AAjroDbqW7l0lI",
+    projectId: "bn8remoteconfig"
+  },
+  secret:{
+    "secret": "2GwX4tIumGBH9hpd$@HS!xig5B-ODjst"
+  },
   firebase_login: {    
     apiKey: "AIzaSyB0xLx0fbzRceUoBfM3wHiN_ilLCQdO3h0",
     authDomain: "auth.benightapp.com",
