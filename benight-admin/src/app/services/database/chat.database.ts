@@ -5,7 +5,7 @@ import { Observable, of, combineLatest } from 'rxjs'
 import { shareReplay, switchMap, map, startWith, tap } from 'rxjs/operators'
 import { firestore } from 'firebase/app'
 
-export class ChatDatabase {
+export class ChatDatabase  {
     private chats$: Observable<any>
     private uid$
     private name$
@@ -31,14 +31,10 @@ export class ChatDatabase {
                 return this.fc.collection$(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}`, { db: database.connections.chat })
                     .pipe(
                         tap(chats => {
-                            let ids
-                            chats.reduce(chat => {
-                                ids.push(this.fc.doc$(`${database.tableNames.messages}/${chat}`, database.connections.chat))
-                                this.fc.updateAt(`${database.tableNames.messages}/${chat}/${database.listFields.usersList}/${this.uid$}`, { docID: chat['docID'], name: this.name$, uid: this.uid$}, database.connections.chat)
-                                this.fc.updateAt(`${database.tableNames.chats}/${this.uid$}/${database.listFields.chatList}/${chat}`, { docID: chat['docID'] }, database.connections.chat)
-                                return chat
-                            })
-                            this.fields.messages$ = combineLatest(ids).pipe(shareReplay(1))                            
+                            let ids = []
+                            for (let chat of chats) 
+                                ids.push(this.fc.collection$(`${database.tableNames.messages}/${chat['id']}/${database.listFields.docList}`, {db:database.connections.chat}))
+                            this.fields.messages$ = combineLatest(ids).pipe(shareReplay(1))                           
                         }),
                         shareReplay(1))
             }))
@@ -54,7 +50,8 @@ export class ChatDatabase {
         return this.chats$.pipe(map(e => e.filter(u => u.id === id)[0]))
     }
 
-    getField(data: any) {
+    getField(data: any) {       
+        this.fields[data.field].subscribe(e=>console.log(e))
         if (this.fields.hasOwnProperty(data.field))
             return this.fields[data.field]
         return this.get(data.id).pipe(map(u => u && u[data.field]))

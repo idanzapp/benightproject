@@ -35,7 +35,7 @@
     --ion-color-contrast-rgb: rgb(#b4bfbf);
     --ion-color-shade: linear-gradient(155deg, #3f4b57 0%, #242c35 100%);
     --ion-color-tint: linear-gradient(155deg, #5a6673 0%, #3e4750 100%);
-  }
+}
 
 .ion-color-plain-black {
     --ion-color-base:#000;
@@ -44,7 +44,16 @@
     --ion-color-contrast-rgb: rgb(#b4bfbf);
     --ion-color-shade: #000;
     --ion-color-tint: #1a1a1a;
-  }
+}
+
+.ion-color-plain-white {
+    --ion-color-base:#fff;
+    --ion-color-base-rgb: rgb(f,f,f);
+    --ion-color-contrast:#000;
+    --ion-color-contrast-rgb: rgb(#000);
+    --ion-color-shade: #e0e0e0;
+    --ion-color-tint: #ffffff;
+}
 
 .ion-color-palette {
     --ion-color-base:linear-gradient(to top, #fe7444 0%, #d647a6 17%, #57aefe 83%, #2ff6f4 100% );
@@ -53,4 +62,14 @@
     --ion-color-contrast-rgb: rgb(#fff);
     --ion-color-shade: linear-gradient(to top, #e0663c 0%, #bc3e92 17%, #4d99e0 83%, #29d8d7 100% );
     --ion-color-tint: linear-gradient(to top, #feb6fe 0%, #da59af 17%, #68b6fe 83%, #44f7f5 100% );
+}
+
+.hydrated {
+    font-size: calc(0.7rem + 0.4vw);
+}
+
+@media (min-width: 720px) {
+    .hydrated {
+      font-size: 1rem;
+    }
 }

@@ -98,7 +98,8 @@ const literal = {
   default: 'default',
   markers: 'markers',
   promos: 'promos',
-  info: 'info'
+  info: 'info',
+  messages: 'messages'
 }
 
 const fields = {
@@ -190,7 +191,8 @@ const listFields = {
   planList: 'planList',
   ticketList: 'ticketList',
   gallery: 'gallery',
-  dateList: 'dateList'
+  dateList: 'dateList',
+  docList: 'docList'
 } 
 
 const operations = {

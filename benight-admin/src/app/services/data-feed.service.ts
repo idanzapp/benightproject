@@ -16,6 +16,7 @@ import { RequirementsDatabase } from '@bn8-database/requirements.database'
 import { TagsDatabase } from '@bn8-database/tags.database'
 import { TicketDatabase } from '@bn8-database/ticket.database'
 import { InfoDatabase } from '@bn8-database/info.database'
+import { MessagesDatabase } from '@bn8-database/messages.database'
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,7 @@ export class DataFeedService {
       tags:  new TagsDatabase(this.db),
       tickets:  new TicketDatabase(this.db, this.auth),
       info: new InfoDatabase(this.auth),
+      messages: new MessagesDatabase(this.db,this.auth),
       default:  of(null)
     }
   }
@@ -58,8 +60,8 @@ export class DataFeedService {
   }
 
   fetch(property:string) {return this.checkProperty(property,'fetch')}
-  get(property: string, id: string) {return this.checkProperty(property,'get',id)}
-  getField(property: string, id: string) {return this.checkProperty(property,'getField',id)}
+  get(property: string, data: any) {return this.checkProperty(property,'get',data)}
+  getField(property: string, data: any) {return this.checkProperty(property,'getField',data)}
   create(property:string) {return this.checkProperty(property,'create')} 
   delete(property: string) {return this.checkProperty(property,'delete')}
   save(property: string, data:any) {return this.checkProperty(property,'save',data)}

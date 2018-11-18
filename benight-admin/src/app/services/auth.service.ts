@@ -59,7 +59,7 @@ export class AuthService {
             }
           }),
           shareReplay(1)
-        )  
+        ) 
   }
 
   saveUser(data) {
