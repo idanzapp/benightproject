@@ -85,9 +85,11 @@ const tableNames = {
 }
 
 const literal = {
+  admins: 'admins',
   bans: 'bans',
   chats: 'chats',
   clubs: 'clubs',
+  employee: 'employee',
   employees: 'employees',
   events: 'events',
   fileBucket: 'fileBucket',

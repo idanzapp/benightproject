@@ -6,6 +6,7 @@ import { CoreModule } from '@bn8-core/core.module'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
 import { ChartsModule } from 'ng2-charts'
+import { NgAisModule } from 'angular-instantsearch'
 
 export const myBaseModules = [
     CommonModule,
@@ -19,5 +20,6 @@ export const myBaseModules = [
 export const myAppModules = [
     BrowserModule,
     IonicModule.forRoot(),
+    NgAisModule.forRoot(),
     ChartsModule
 ]

@@ -7,7 +7,7 @@ export const environment = {
   config: {
     apiKey: "AIzaSyBmLZZy5SFT6rAb2miC9AAjroDbqW7l0lI",
     projectId: "bn8remoteconfig"
-  },
+  }, 
   secret:{
     "secret": "2GwX4tIumGBH9hpd$@HS!xig5B-ODjst"
   },

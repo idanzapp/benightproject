@@ -23,19 +23,19 @@ export class EmpleadosPage implements OnInit {
   ) {}  
 
   async ngOnInit() {
-    this.empleados$ = await this.feed.fetch(database.literal.employees)
+    this.empleados$ = await this.feed.fetch(database.literal.employee)
     this.basehref = this.router.url.slice(0,this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
-    id ? id : await this.feed.add(database.literal.employees) 
+    id ? id : await this.feed.add(database.literal.employee) 
     this.router.navigate([`${this.basehref}/empleados/${database.actions.edit}`, id])
   }
   
   async presentModal() {
     const window = await this.modal.create({
       component: SearchUsersPage,
-      componentProps: {search:'employee'}
+      componentProps: {search:'admins'}
     })
     return await window.present()
   }
