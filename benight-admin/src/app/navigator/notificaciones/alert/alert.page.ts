@@ -10,12 +10,12 @@ import { Observable } from 'rxjs'
 })
 export class AlertPage implements OnInit {
 
-  notifications$: Observable<any>
+  notificaciones$: Observable<any>
 
   constructor(private feed: DataFeedService) {}
 
   ngOnInit() {
-    this.notifications$ = this.feed.fetch(database.literal.notifications)
+    this.notificaciones$ = this.feed.fetch(database.literal.notifications)
   }
 
   remove() {}
@@ -23,4 +23,10 @@ export class AlertPage implements OnInit {
   trackById(idx:number, todo:any) {
     return todo.id
   }
+/*
+  runAction(fun: string, data?:any){
+    let  funcion = eval( `${fun}`)
+    return funcion(data)
+  }*/
+
 }

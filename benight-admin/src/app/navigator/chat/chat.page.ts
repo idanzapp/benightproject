@@ -86,7 +86,6 @@ export class ChatPage implements OnInit {
     if (this.cadena!='') {
       let encryption = await encrypt(this.cadena,this.secret)
       let decryption = await decrypt(encryption,this.secret)
-      console.log(encryption,decryption) 
     } else {      
       this.newMsg=false
     }

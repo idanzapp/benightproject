@@ -10,12 +10,12 @@ import { Observable } from 'rxjs'
 })
 export class ManagePage implements OnInit {
 
-  notifications$: Observable<any>
+  notificaciones$: Observable<any>
 
   constructor(private feed: DataFeedService) {}
 
   ngOnInit() {
-    this.notifications$ = this.feed.getField(database.literal.notifications, {field: 'sent'})
+    this.notificaciones$ = this.feed.getField(database.literal.notifications, {field: 'sent'})
   }
 
   trackById(idx:number, todo:any) {

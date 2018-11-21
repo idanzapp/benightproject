@@ -12,7 +12,7 @@ export class EmployeeDatabase {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.employee$ = await this.fc.collection$(`${database.tableNames.employees}/${this.uid$}/${database.listFields.employeeList}`, {db: database.connections.admin})
+        this.employee$ = await this.fc.collection$(`${database.tableNames.adminEmployees}/${this.uid$}/${database.listFields.employeeList}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }    
     
@@ -31,12 +31,12 @@ export class EmployeeDatabase {
     remove (eid:string) {
         let check = false
         if (check) 
-            this.fc.delete(`${database.tableNames.employees}/${this.uid$}/${database.listFields.employeeList}/${eid}`,database.connections.admin)            
+            this.fc.delete(`${database.tableNames.adminEmployees}/${this.uid$}/${database.listFields.employeeList}/${eid}`,database.connections.admin)            
         return check        
     }
 
     save(data:any) {
-        this.fc.updateAt(`${database.tableNames.employees}/${this.uid$}/${database.listFields.employeeList}/${data.uid}`, data, database.connections.admin)
+        this.fc.updateAt(`${database.tableNames.adminEmployees}/${this.uid$}/${database.listFields.employeeList}/${data.uid}`, data, database.connections.admin)
         return data.uid
     }
 

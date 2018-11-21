@@ -32,6 +32,7 @@ const tableNames = {
   adminPlans: 'adminPlans' ,
   adminTickets: 'adminTickets' ,
   adminPromotedEvents: 'adminPromotedEvents',
+  adminEmployees: 'adminEmployees',
   bans: 'bans',
   chats: 'chats',
   messages: 'messages',
