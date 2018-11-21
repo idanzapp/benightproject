@@ -63,7 +63,7 @@ export class ChatPage implements OnInit {
     this.user$ = await this.auth.user().pipe(tap(
       user => this.id = user['uid']
     ))
-    this.messages$ = await this.feed.fetch(database.literal.messages).pipe(tap(e=>console.log(e)))
+    this.messages$ = await this.feed.fetch(database.literal.messages)
   }
 
   changeSelected(data) {
@@ -93,8 +93,7 @@ export class ChatPage implements OnInit {
   }
 
   send() {
-    if(this.newMsg) {      
-      console.log('spam!')
+    if(this.newMsg) {     
       this.newMsg=false
       this.cadena=''
     }

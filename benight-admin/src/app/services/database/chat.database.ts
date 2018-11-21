@@ -8,7 +8,7 @@ import { firestore } from 'firebase/app'
 export class ChatDatabase  {
     private chats$: Observable<any>
     private uid$
-    private name$
+    private user$
 
     private fields = {
         alias$: of(null),
@@ -19,7 +19,7 @@ export class ChatDatabase  {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.name$ = await this.auth.name()
+        this.user$ = await this.auth.user()
         let spam$ = await this.fc.collection$(`${database.tableNames.spam}`, { db: database.connections.chat })
             .pipe(
                 map(spam => spam.filter(u => u.id === this.uid$).length === 0),

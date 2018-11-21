@@ -1,3 +1,4 @@
+import { APP_INITIALIZER } from '@angular/core'
 import { RouteReuseStrategy } from '@angular/router'
 import { IonicRouteStrategy } from '@ionic/angular'
 //

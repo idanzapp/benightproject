@@ -9,7 +9,7 @@ import { FirebaseProviders } from '@bn8-database/db-connection.database'
 
 export const ClientProvider = [ 
     FirebaseClient,
-    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },       
-    FirebaseProviders
+    { provide: APP_INITIALIZER, useFactory: init_client, deps: [FirebaseClient], multi: true },      
+    FirebaseProviders 
 ]
 

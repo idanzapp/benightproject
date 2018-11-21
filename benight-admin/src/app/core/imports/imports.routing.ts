@@ -7,6 +7,9 @@ export * from '@bn8-navigator/chat/chat-routing.module'
 export * from '@bn8-navigator/notificaciones/notificaciones-routing.module'
 
 //Sub Routes
+//Notifications
+export * from '@bn8-navigator/notificaciones/alert/alert-routing.module'
+export * from '@bn8-navigator/notificaciones/manage/manage-routing.module'
 //General
 export * from '@bn8-navigator/general/info/info-routing.module'
 export * from '@bn8-navigator/general/estadisticas/estadisticas-routing.module'

@@ -19,6 +19,7 @@ import { InfoDatabase } from '@bn8-database/info.database'
 import { MessagesDatabase } from '@bn8-database/messages.database'
 import { AdminsDatabase } from '@bn8-database/admins.database'
 import { EmployeesDatabase } from '@bn8-database/employees.database'
+import { NotificationsDatabase } from '@bn8-database/notifications.database'
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class DataFeedService {
     delete: (e) => e.delete(),
     save: (e,data) => e.save(data),
     remove: (e,id) => e.remove(id),
+    erase: (e,data) => e.remove(data),
     add: (e,data?) => e.add(data)
   }
 
@@ -53,6 +55,7 @@ export class DataFeedService {
       messages: new MessagesDatabase(this.db,this.auth),
       admins: new AdminsDatabase(this.db),
       employees: new EmployeesDatabase(this.db),
+      notifications: new NotificationsDatabase(this.db,this.auth),
       default:  of(null)
     }
   }
@@ -70,5 +73,6 @@ export class DataFeedService {
   delete(property: string) {return this.checkProperty(property,'delete')}
   save(property: string, data:any) {return this.checkProperty(property,'save',data)}
   remove(property: string, id:string) {return this.checkProperty(property,'remove',id)}
+  erase(property: string, data:any) {return this.checkProperty(property,'erase',data)}
   add(property: string, data?:any) {return this.checkProperty(property,'add',data)}
 }

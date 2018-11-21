@@ -81,7 +81,11 @@ const tableNames = {
   silAdmins: 'silAdmins',
   silEmployees: 'silEmployees',
   silTags: 'silTags',
-  silRequirements: 'silRequirements'
+  silRequirements: 'silRequirements',
+  adminNotifications:'adminNotifications',
+  userNotifications:'userNotifications',
+  employeeNotifications:'employeeNotifications',
+  sentNotifications: 'sentNotifications'
 }
 
 const literal = {
@@ -101,7 +105,8 @@ const literal = {
   markers: 'markers',
   promos: 'promos',
   info: 'info',
-  messages: 'messages'
+  messages: 'messages',
+  notifications: 'notifications'
 }
 
 const fields = {
@@ -194,7 +199,8 @@ const listFields = {
   ticketList: 'ticketList',
   gallery: 'gallery',
   dateList: 'dateList',
-  docList: 'docList'
+  docList: 'docList',
+  notificationList: 'notificationList'
 } 
 
 const operations = {

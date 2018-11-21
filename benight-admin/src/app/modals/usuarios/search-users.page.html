@@ -4,7 +4,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-searchbar (ionChange)="actualize($event)" animated="true" autocomplete="on" type="email" placeholder="Buscar" debounce="200"></ion-searchbar>                       
+    <ion-searchbar (ionChange)="actualize($event)" animated="true" autocomplete="on" placeholder="Buscar" debounce="200"></ion-searchbar>                       
     <ion-list lines="none" *ngIf="users$ | async">
         <ion-item color="tertiary">        
             <ion-label>Nombre</ion-label>
@@ -15,7 +15,7 @@
             <ion-label>{{user.displayName}}</ion-label>
             <ion-label text-center>{{user.email}}</ion-label>
             <ion-label text-right>                
-                <ion-button (click)="invite(user.uid)">
+                <ion-button (click)="invite(user)">
                     <ion-icon name="mail"></ion-icon>
                 </ion-button>
             </ion-label>

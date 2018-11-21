@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router'
 import { AuthService } from '@bn8-services/auth.service'
-import { filter } from 'rxjs/operators'
+import { filter, map } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
@@ -25,8 +25,10 @@ export class UserLevelGuard implements CanActivate {
     const roles = next.data["roles"] as Array<string>
     let hasPermission = true //If roles is not created, you has permission
     if (roles) {
-      const permission = await this.auth.permissions()    
-      hasPermission= roles.filter(p => (permission.pipe(
+      const permission = await this.auth.user().pipe(
+        map(u => u && u['permissions'])
+      )    
+      hasPermission = roles.filter(p => (permission.pipe(
         filter( permissions => permissions.includes(p))
       ))).length>0
 

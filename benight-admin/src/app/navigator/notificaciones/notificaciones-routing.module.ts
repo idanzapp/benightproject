@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { NotificacionesPage } from '@bn8-imports/imports.views'
-import { UserLevelGuard } from '@bn8-services/user-level.guard'
+
 
 const routes: Routes = [
     {
       path: '',
       component: NotificacionesPage,
-      data:{
-        header:'Notificaciones',
-        back:false
-      },
-      canActivate: [UserLevelGuard]
+      children: [          
+        { path: '', redirectTo: 'notificaciones', pathMatch: 'full' }, 
+        { path: 'notificaciones', loadChildren: './alert/alert.module#AlertPageModule' },
+        { path: 'gestion', loadChildren: './manage/manage.module#ManagePageModule' },         
+        { path: '**', redirectTo: '', pathMatch: 'full' }
+      ] 
     }
 ]
 

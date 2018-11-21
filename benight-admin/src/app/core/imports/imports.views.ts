@@ -7,6 +7,9 @@ export * from '@bn8-navigator/notificaciones/notificaciones.page'
 export * from '@bn8-navigator/chat/chat.page'
 
 //Sub Views-exports
+//Notification Exports
+export * from '@bn8-navigator/notificaciones/alert/alert.page'
+export * from '@bn8-navigator/notificaciones/manage/manage.page'
 
 //General  Exports
 export * from '@bn8-navigator/general/bans/bans.page'

@@ -3,7 +3,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-core/constants/constants.database'
 import { map, tap } from 'rxjs/operators'
-
+import { AuthService } from '@bn8-services/auth.service'
 
 @Component({
   selector: 'search-users',
@@ -13,14 +13,15 @@ import { map, tap } from 'rxjs/operators'
 export class SearchUsersPage implements AfterViewInit, OnDestroy {  
 
   users$: Observable<any> = of(null)
-  filter: string = ''
-  filter2: BehaviorSubject<string> = new BehaviorSubject('')
+  filter: BehaviorSubject<string> = new BehaviorSubject('')
+  private sender
+
   @Input() search: string
-  constructor(private feed: DataFeedService) {}
+  constructor(private feed: DataFeedService, private auth: AuthService) {}
   
-  ngAfterViewInit() {    
-    this.filter2.subscribe(filter =>{
-      console.log(filter, `${database.literal[this.search]}`)
+  async ngAfterViewInit() {
+    this.sender = await this.auth.user()
+    this.filter.subscribe(filter =>{
       if (filter.length > 2)
         this.users$ = this.feed.fetch(database.literal[this.search]).pipe(
           tap(e=>console.log(e)),
@@ -39,15 +40,24 @@ export class SearchUsersPage implements AfterViewInit, OnDestroy {
   }
 
   actualize(e) {
-    this.filter2.next(e.detail.value)
+    this.filter.next(e.detail.value)
   }
 
-  invite(id:string) {
-    console.log(id)
+  invite(data:any) {
+    console.log(data.id)
+    switch(this.search) {
+      case 'admins':   
+        this.feed.add(database.literal.notifications,{to: data.id, type:'admin', actions:['aceptar', 'rechazar'], body:`Hola ${data.displayName}, soy ${data.userName} y te invito a unirte a ser copropietario de X con las condiciones tal`})
+        break
+        case 'employees':  
+        this.feed.add(database.literal.notifications,{to: data.id, type:'employee', actions:['aceptar', 'rechazar'], body:`Hola ${data.displayName}, soy ${data.userName} y te invito a unirte a mis empleados con las condiciones tal`})
+        break      
+    }
+
   }
 
   ngOnDestroy() {
-    this.filter2.unsubscribe()
+    this.filter.unsubscribe()
   }
 
 }
