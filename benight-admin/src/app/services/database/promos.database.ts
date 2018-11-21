@@ -4,24 +4,24 @@ import { AuthService } from '@bn8-services/auth.service'
 import { Observable } from 'rxjs'
 import { shareReplay, map } from 'rxjs/operators'
 
-export class TicketDatabase {
-    private tickets$: Observable<any>
+export class PromoDatabase {
+    private promos$: Observable<any>
     private uid$
 
     constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.tickets$ = await this.fc.collection$(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}`, {db: database.connections.admin})
+        this.promos$ = await this.fc.collection$(`${database.tables.promos}/${this.uid$}/${database.list.promo}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }
     
     fetch() {
-        return this.tickets$
+        return this.promos$
     }
 
     get(id:string) {
-        return this.tickets$.pipe(map(e => e.filter(u => u.id === id)[0]))
+        return this.promos$.pipe(map(e => e.filter(u => u.id === id)[0]))
     }
 
     getField(data:any) {
@@ -31,12 +31,12 @@ export class TicketDatabase {
     remove (eid:string) {
         let check = false
         if (check)
-            this.fc.delete(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}/${eid}`,database.connections.admin)
+            this.fc.delete(`${database.tables.promos}/${this.uid$}/${database.list.promo}/${eid}`,database.connections.admin)
         return check            
     }
 
     save(data:any) {
-        this.fc.updateAt(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}/${data.uid}`, data, database.connections.admin)
+        this.fc.updateAt(`${database.tables.promos}/${this.uid$}/${database.list.promo}/${data.uid}`, data, database.connections.admin)
         return data.uid
     }
 
@@ -50,7 +50,7 @@ export class TicketDatabase {
         let date = new Date().toISOString()
         this.save({...item, uid:uid, createdAt: date})
         if(!data) //It should be removed after defaultCreation
-            this.fc.updateAt(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}/${uid}/${database.list.date}/${date}`, {}, database.connections.admin)        
+            this.fc.updateAt(`${database.tables.promos}/${this.uid$}/${database.list.promo}/${uid}/${database.list.date}/${date}`, {}, database.connections.admin)        
         return uid
     }
 

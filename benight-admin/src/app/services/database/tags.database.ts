@@ -9,7 +9,7 @@ export class TagsDatabase {
     constructor(private fc: FirebaseClient) {this.preloadData()}
 
     private async preloadData() {
-        this.tags$ = await this.fc.collection$(`${database.tableNames.tags}`, {db: database.connections.admin})
+        this.tags$ = await this.fc.collection$(`${database.tables.tags}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }    
     

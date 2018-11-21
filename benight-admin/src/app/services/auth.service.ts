@@ -27,7 +27,7 @@ export class AuthService {
   private afm: AngularFireMessaging
 
   private token:string=''
-  private topic = {topic: `notifications/${this.uid}/${database.listFields.notificationList}`}
+  private topic = {topic: `notifications/${this.uid}/${database.list.notification}`}
 
   constructor(
     private fireclient: FirebaseClient,
@@ -40,12 +40,12 @@ export class AuthService {
     this.aff = fireclient.afFun(database.connections.login)
     this.afm = fireclient.afm(database.connections.login)
     this.admin$ = this.afAuth.authState.pipe(
-      switchMap(user => (user ? fireclient.doc$(`${database.tableNames.admins}/${user.uid}`) : of(null))),
+      switchMap(user => (user ? fireclient.doc$(`${database.tables.admins}/${user.uid}`) : of(null))),
       take(1),
       shareReplay(1)
       )
     this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => (user ? fireclient.doc$(`${database.tableNames.users}/${user.uid}`) : of(null))),
+      switchMap(user => (user ? fireclient.doc$(`${database.tables.users}/${user.uid}`) : of(null))),
       take(1),
       shareReplay(1)
       )
@@ -120,7 +120,7 @@ export class AuthService {
 
 
   saveUser(data) {
-    this.fireclient.updateAt(`${database.tableNames.admins}/${data.uid}`, 
+    this.fireclient.updateAt(`${database.tables.admins}/${data.uid}`, 
     { displayName: data.displayName,
       appear: data.appear,
       paymentAccount: data.paymentAccount })
@@ -175,11 +175,11 @@ export class AuthService {
   }*/
 
   private updateUserData({ uid, email, displayName, photoURL }) {
-    return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { uid, email, displayName, photoURL })
+    return this.fireclient.updateAt(`${database.tables.admins}/${uid}`, { uid, email, displayName, photoURL })
   }
 
   private createUser({ uid, email, displayName, photoURL }) {
-    return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { ...defaultUser, createdAt: new Date(), uid, email, displayName, photoURL })
+    return this.fireclient.updateAt(`${database.tables.admins}/${uid}`, { ...defaultUser, createdAt: new Date(), uid, email, displayName, photoURL })
   }/*
   private updateAdminData({ uid, email, displayName, photoURL }) {
     return this.fireclient.updateAt(`${database.tableNames.admins}/${uid}`, { uid, email, displayName, photoURL })

@@ -11,7 +11,6 @@ import { ChatDatabase } from '@bn8-database/chat.database'
 import { LocationDatabase } from '@bn8-services/database/location.database'
 import { EmployeeDatabase } from '@bn8-database/employee.database'
 import { EventsDatabase } from '@bn8-database/events.database'
-import { PlansDatabase } from '@bn8-database/plans.database'
 import { RequirementsDatabase } from '@bn8-database/requirements.database'
 import { TagsDatabase } from '@bn8-database/tags.database'
 import { TicketDatabase } from '@bn8-database/ticket.database'
@@ -20,6 +19,7 @@ import { MessagesDatabase } from '@bn8-database/messages.database'
 import { AdminsDatabase } from '@bn8-database/admins.database'
 import { EmployeesDatabase } from '@bn8-database/employees.database'
 import { NotificationsDatabase } from '@bn8-database/notifications.database'
+import { PromoDatabase } from '@bn8-database/promos.database'
 
 @Injectable({
   providedIn: 'root'
@@ -44,10 +44,9 @@ export class DataFeedService {
     this.connection = {
       bans: new BansDatabase(this.db, this.auth),
       chats:  new ChatDatabase(this.db, this.auth),
-      clubs:  new LocationDatabase(this.db, this.auth),
+      locations:  new LocationDatabase(this.db, this.auth),
       employee:  new EmployeeDatabase(this.db, this.auth),
       events:  new EventsDatabase(this.db, this.auth),
-      plans:  new PlansDatabase(this.db, this.auth),
       requirements:  new RequirementsDatabase(this.db),
       tags:  new TagsDatabase(this.db),
       tickets:  new TicketDatabase(this.db, this.auth),
@@ -56,6 +55,7 @@ export class DataFeedService {
       admins: new AdminsDatabase(this.db),
       employees: new EmployeesDatabase(this.db),
       notifications: new NotificationsDatabase(this.db,this.auth),
+      promos: new PromoDatabase(this.db,this.auth),
       default:  of(null)
     }
   }

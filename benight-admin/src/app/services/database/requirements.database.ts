@@ -9,7 +9,7 @@ export class RequirementsDatabase  {
     constructor(private fc: FirebaseClient) {this.preloadData()}
 
     private async preloadData() {
-        this.requirements$ = await this.fc.collection$(`${database.tableNames.requirements}`, {db: database.connections.admin})
+        this.requirements$ = await this.fc.collection$(`${database.tables.requirements}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }    
     

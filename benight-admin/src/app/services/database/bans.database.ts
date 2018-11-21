@@ -13,7 +13,7 @@ export class BansDatabase {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.bans$ = await this.fc.collection$(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}`, {db: database.connections.admin})
+        this.bans$ = await this.fc.collection$(`${database.tables.bans}/${this.uid$}/${database.list.user}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }    
     
@@ -32,12 +32,12 @@ export class BansDatabase {
     remove (eid:string) {
         let check = false
         if (check)
-            this.fc.delete(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}/${eid}`,database.connections.admin)
+            this.fc.delete(`${database.tables.bans}/${this.uid$}/${database.list.user}/${eid}`,database.connections.admin)
         return check    
     }
 
     save(data:any) {
-        this.fc.updateAt(`${database.tableNames.bans}/${this.uid$}/${database.listFields.banList}/${data.uid}`, data, database.connections.admin)
+        this.fc.updateAt(`${database.tables.bans}/${this.uid$}/${database.list.user}/${data.uid}`, data, database.connections.admin)
         return data.uid
     }
 

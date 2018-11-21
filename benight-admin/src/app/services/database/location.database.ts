@@ -19,13 +19,13 @@ export class LocationDatabase  {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.clubs$ = await this.fc.collection$(`${database.tableNames.locations}/${this.uid$}/${database.listFields.locationList}`, {db: database.connections.admin})
+        this.clubs$ = await this.fc.collection$(`${database.tables.locations}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
-        this.fields.gallery$ = await this.fc.collection$(`${database.tableNames.locationGallery}/${this.uid$}/${database.listFields.locationList}`, {db: database.connections.admin})
+        this.fields.gallery$ = await this.fc.collection$(`${database.tables.locationGallery}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
-        this.fields.events$ = await this.fc.collection$(`${database.tableNames.locationEvents}/${this.uid$}/${database.listFields.locationList}`, {db: database.connections.admin})
+        this.fields.events$ = await this.fc.collection$(`${database.tables.locationEvents}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
-        this.fields.plans$ = await this.fc.collection$(`${database.tableNames.locationPlans}/${this.uid$}/${database.listFields.locationList}`, {db: database.connections.admin})
+        this.fields.plans$ = await this.fc.collection$(`${database.tables.locationPlans}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }
     
@@ -46,7 +46,7 @@ export class LocationDatabase  {
     remove (eid:string) {
         let check = false
         if (check)
-            this.fc.delete(`${database.tableNames.locations}/${this.uid$}/${database.listFields.locationList}/${eid}`,database.connections.admin)
+            this.fc.delete(`${database.tables.locations}/${this.uid$}/${database.list.location}/${eid}`,database.connections.admin)
         return check    
     }
 
@@ -55,20 +55,20 @@ export class LocationDatabase  {
             switch (data.field) {
                 case 'gallery$':
                     delete data.field 
-                    this.fc.updateAt(`${database.tableNames.locationGallery}/${this.uid$}/${database.listFields.locationList}/${data.eid}/${database.listFields.gallery}/${data.uid}`, data, database.connections.admin)
+                    this.fc.updateAt(`${database.tables.locationGallery}/${this.uid$}/${database.list.location}/${data.eid}/${database.list.gallery}/${data.uid}`, data, database.connections.admin)
                     break
                 case 'events$': 
                     delete data.field
-                    this.fc.updateAt(`${database.tableNames.locationEvents}/${this.uid$}/${database.listFields.locationList}/${data.eid}/${database.listFields.eventList}/${data.uid}`, data, database.connections.admin)
+                    this.fc.updateAt(`${database.tables.locationEvents}/${this.uid$}/${database.list.location}/${data.eid}/${database.list.event}/${data.uid}`, data, database.connections.admin)
                     break
                 case 'plans$': 
                     delete data.field
-                    this.fc.updateAt(`${database.tableNames.locationPlans}/${this.uid$}/${database.listFields.locationList}/${data.eid}/${database.listFields.planList}/${data.uid}`, data, database.connections.admin)
+                    this.fc.updateAt(`${database.tables.locationPlans}/${this.uid$}/${database.list.location}/${data.eid}/${database.list.plan}/${data.uid}`, data, database.connections.admin)
                     break
             }
         } else {            
             delete data.field
-            this.fc.updateAt(`${database.tableNames.locations}/${this.uid$}/${database.listFields.locationList}/${data.uid}`, data, database.connections.admin)
+            this.fc.updateAt(`${database.tables.locations}/${this.uid$}/${database.list.location}/${data.uid}`, data, database.connections.admin)
         }    
         return data.uid
     }

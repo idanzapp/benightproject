@@ -11,7 +11,7 @@ export class EmployeesDatabase {
         this.preloadData()}
     
     async preloadData() {
-        this.employees$ = await this.fc.collection$(`${database.tableNames.employees}`,{})
+        this.employees$ = await this.fc.collection$(`${database.tables.employees}`,{})
         .pipe(shareReplay(1))
     }
 

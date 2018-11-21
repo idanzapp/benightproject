@@ -24,7 +24,7 @@ export class PreviewEventosPage implements OnInit {
   }  
 
   private async getEvent(){
-    this.event = await this.feed.get(database.tableNames.events,this.id)
+    this.event = await this.feed.get(database.tables.events,this.id)
   }
   selectLanguage(property:string) {
     this.selected = property

@@ -13,7 +13,7 @@ export class AdminsDatabase {
     }
     
     async preloadData() {
-        this.admins$ = await this.fc.collection$(`${database.tableNames.admins}`, {})
+        this.admins$ = await this.fc.collection$(`${database.tables.admins}`, {})
         .pipe(shareReplay(1))      
     }
 

@@ -17,13 +17,13 @@ export class PlanesPage implements OnInit {
   constructor(private feed: DataFeedService,private router: Router) {}
 
   ngOnInit() {
-    this.plans$ = this.feed.fetch(database.literal.plans)
+    this.plans$ = this.feed.fetch(database.literal.locations)
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
   async goto(id?:string) {
     if (!id) 
-      id = await this.feed.add(database.literal.plans) 
+      id = await this.feed.add(database.literal.locations) 
     this.router.navigate([`${this.basehref}/planes/${database.actions.edit}`, id])
   }
 

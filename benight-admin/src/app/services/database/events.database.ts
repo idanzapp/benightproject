@@ -13,7 +13,7 @@ export class EventsDatabase {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.events$ = await this.fc.collection$(`${database.tableNames.events}/${this.uid$}/${database.listFields.eventList}`, {db: database.connections.admin})
+        this.events$ = await this.fc.collection$(`${database.tables.events}/${this.uid$}/${database.list.event}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
     }
     
@@ -32,12 +32,12 @@ export class EventsDatabase {
     remove (eid:string) {
         let check = false
         if (check)
-            this.fc.delete(`${database.tableNames.events}/${this.uid$}/${database.listFields.eventList}/${eid}`,database.connections.admin)
+            this.fc.delete(`${database.tables.events}/${this.uid$}/${database.list.event}/${eid}`,database.connections.admin)
         return check
     }
 
     save(data:any) {
-        this.fc.updateAt(`${database.tableNames.events}/${this.uid$}/${database.listFields.eventList}/${data.uid}`, data, database.connections.admin)
+        this.fc.updateAt(`${database.tables.events}/${this.uid$}/${database.list.event}/${data.uid}`, data, database.connections.admin)
         return data.uid
     }
 

@@ -20,14 +20,14 @@ export class MessagesDatabase  {
                 let id = info.id
                 let doc = info.doc                
                 if (id != '')
-                    return this.fc.collection$(`${database.tableNames.messages}/${id}/${database.listFields.docList}`, {query: ref => ref.orderBy('uid').startAt(doc), db:database.connections.chat})
+                    return this.fc.collection$(`${database.tables.messages}/${id}/${database.list.doc}`, {query: ref => ref.orderBy('uid').startAt(doc), db:database.connections.chat})
                 return of(null)
             }),
             map(doc => {
                 if (doc) {
                     let messages = []
                     for(let i in doc) {
-                       messages = [...messages,...doc[i][database.listFields.messagesList]]
+                       messages = [...messages,...doc[i][database.list.messages]]
                     }
                     return messages
                 } else
@@ -55,15 +55,15 @@ export class MessagesDatabase  {
               
         this.messages$.pipe(
             tap( messages => {
-                let len = messages[messages.length-1].messagesList.length
+                let len = messages[messages.length-1].messages.length
                 this.getInfo$.pipe(
                     tap( info => {
                         if (len >= 800) {
                             let uid = firestore.FieldValue.serverTimestamp()                                                                           
-                            this.fc.updateAt(`${database.tableNames.messages}/${info.id}/${database.listFields.messagesList}/${uid}`, message, database.connections.chat)    
-                            this.fc.updateAt(`${database.tableNames.chats}/${this.info$.uid}/${database.listFields.chatList}/${info.id}`, {docId:uid}, database.connections.chat)    
+                            this.fc.updateAt(`${database.tables.messages}/${info.id}/${database.list.messages}/${uid}`, message, database.connections.chat)    
+                            this.fc.updateAt(`${database.tables.chats}/${this.info$.uid}/${database.list.chat}/${info.id}`, {docId:uid}, database.connections.chat)    
                         } else 
-                            this.fc.updateAt(`${database.tableNames.messages}/${info.id}/${database.listFields.messagesList}/${info.doc}`, firestore.FieldValue.arrayUnion(message), database.connections.chat)    
+                            this.fc.updateAt(`${database.tables.messages}/${info.id}/${database.list.messages}/${info.doc}`, firestore.FieldValue.arrayUnion(message), database.connections.chat)    
                     }))
             })
         )

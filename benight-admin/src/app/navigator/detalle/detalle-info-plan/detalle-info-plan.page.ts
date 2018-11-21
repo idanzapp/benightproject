@@ -57,7 +57,7 @@ export class DetalleInfoPlanPage implements OnInit {
   async preloadData() {
     await this.route.params.pipe(map(p => p.id)).subscribe(e => this.id = e)
     this.state = 'loading'
-    this.plan$ = await this.feed.get(database.literal.plans,this.id)
+    this.plan$ = await this.feed.get(database.literal.locations,this.id)
     this.plan$
       .pipe(
         tap(doc => {
@@ -99,7 +99,7 @@ export class DetalleInfoPlanPage implements OnInit {
       debounceTime(5000),
       tap(change => {
           if (this.myForm.valid && this.state === 'modified') {          
-            this.feed.save(database.literal.plans,{uid:this.id,...this.myForm.value})  
+            this.feed.save(database.literal.locations,{uid:this.id,...this.myForm.value})  
           this.state = 'synced'         
           this.presentToast('Sincronizado', 'success')
         }
@@ -110,7 +110,7 @@ export class DetalleInfoPlanPage implements OnInit {
 
   onSubmit(e:any) {
     if (this.myForm.valid && this.state ==='modified') {
-      this.feed.save(database.literal.plans,{uid:this.id,...e})    
+      this.feed.save(database.literal.locations,{uid:this.id,...e})    
       this.state = 'synced'
       this.presentToast('Sincronizado', 'success')
     } else 
@@ -121,7 +121,7 @@ export class DetalleInfoPlanPage implements OnInit {
   delete() {
     //check if it can be deleted
     if (this.check)      
-      this.feed.remove(database.literal.plans, this.id)
+      this.feed.remove(database.literal.locations, this.id)
     else
       this.presentToast('El Plan no puede ser eliminado', 'danger')
   }

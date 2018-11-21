@@ -14,9 +14,9 @@ export class NotificationsDatabase {
 
     private async preloadData() {
         this.uid$ = await this.auth.uid()
-        this.notifications$ = await this.fc.collection$(`${database.tableNames.adminNotifications}/${this.uid$}/${database.listFields.notificationList}`, {db: database.connections.login})
+        this.notifications$ = await this.fc.collection$(`${database.tables.adminNotifications}/${this.uid$}/${database.list.notification}`, {db: database.connections.login})
             .pipe(shareReplay(1))
-        this.sentNotifications$ = await this.fc.collection$(`${database.tableNames.sentNotifications}/${this.uid$}/${database.listFields.notificationList}`, {db: database.connections.login})
+        this.sentNotifications$ = await this.fc.collection$(`${database.tables.sentNotifications}/${this.uid$}/${database.list.notification}`, {db: database.connections.login})
             .pipe(shareReplay(1))
     }
     
@@ -35,20 +35,20 @@ export class NotificationsDatabase {
     }
 
     remove (eid:string) {
-        this.fc.delete(`${database.tableNames.adminNotifications}/${this.uid$}/${database.listFields.notificationList}/${eid}`,database.connections.login)
+        this.fc.delete(`${database.tables.adminNotifications}/${this.uid$}/${database.list.notification}/${eid}`,database.connections.login)
     }
 
     erase(data:any) {
-        this.fc.delete(`${database.tableNames.sentNotifications}/${this.uid$}/${database.listFields.notificationList}/${data.uid}`,database.connections.login)
+        this.fc.delete(`${database.tables.sentNotifications}/${this.uid$}/${database.list.notification}/${data.uid}`,database.connections.login)
         switch (data.type) {
             case 'user':
-                this.fc.delete(`${database.tableNames.userNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, database.connections.login)
+                this.fc.delete(`${database.tables.userNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, database.connections.login)
                 break
             case 'admin':
-                this.fc.delete(`${database.tableNames.adminNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, database.connections.login)
+                this.fc.delete(`${database.tables.adminNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, database.connections.login)
                 break
             case 'employee':
-                this.fc.delete(`${database.tableNames.employeeNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, database.connections.login)
+                this.fc.delete(`${database.tables.employeeNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, database.connections.login)
                 break
         }
     
@@ -58,16 +58,16 @@ export class NotificationsDatabase {
         let uid = this.fc.createId(database.connections.admin)
         data.uid = uid
         data.from = this.uid$
-        this.fc.updateAt(`${database.tableNames.sentNotifications}/${this.uid$}/${database.listFields.notificationList}/${uid}`, data, database.connections.login)
+        this.fc.updateAt(`${database.tables.sentNotifications}/${this.uid$}/${database.list.notification}/${uid}`, data, database.connections.login)
         switch (data.type) {
             case 'user':
-                this.fc.updateAt(`${database.tableNames.userNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, data, database.connections.login)
+                this.fc.updateAt(`${database.tables.userNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, data, database.connections.login)
                 break
             case 'admin':
-                this.fc.updateAt(`${database.tableNames.adminNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, data, database.connections.login)
+                this.fc.updateAt(`${database.tables.adminNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, data, database.connections.login)
                 break
             case 'employee':
-                this.fc.updateAt(`${database.tableNames.employeeNotifications}/${data.eid}/${database.listFields.notificationList}/${data.uid}`, data, database.connections.login)
+                this.fc.updateAt(`${database.tables.employeeNotifications}/${data.eid}/${database.list.notification}/${data.uid}`, data, database.connections.login)
                 break
         }                 
         return data.uid
