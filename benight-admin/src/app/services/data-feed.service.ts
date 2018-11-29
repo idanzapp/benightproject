@@ -20,6 +20,10 @@ import { AdminsDatabase } from '@bn8-database/admins.database'
 import { EmployeesDatabase } from '@bn8-database/employees.database'
 import { NotificationsDatabase } from '@bn8-database/notifications.database'
 import { PromoDatabase } from '@bn8-database/promos.database'
+import { DefaultDatabase } from '@bn8-database/default.database'
+import { DatesDatabase } from '@bn8-database/dates.database'
+import { GalleryDatabase } from '@bn8-database/gallery.database'
+import { ListsDatabase } from '@bn8-database/lists.database'
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +41,9 @@ export class DataFeedService {
     save: (e,data) => e.save(data),
     remove: (e,id) => e.remove(id),
     erase: (e,data) => e.remove(data),
-    add: (e,data?) => e.add(data)
+    add: (e,data?) => e.add(data),
+    add2List: (e,data?) => e.add2List(data),
+    //copy: (e,data?) => e.copy()
   }
 
   constructor(private db: FirebaseClient, private auth: AuthService) {
@@ -56,7 +62,10 @@ export class DataFeedService {
       employees: new EmployeesDatabase(this.db),
       notifications: new NotificationsDatabase(this.db,this.auth),
       promos: new PromoDatabase(this.db,this.auth),
-      default:  of(null)
+      default:  new DefaultDatabase(this.db,this.auth),
+      dates: new DatesDatabase(this.db),
+      gallery: new GalleryDatabase(this.db,this.auth),
+      lists: new ListsDatabase(this.db) 
     }
   }
 
@@ -75,4 +84,6 @@ export class DataFeedService {
   remove(property: string, id:string) {return this.checkProperty(property,'remove',id)}
   erase(property: string, data:any) {return this.checkProperty(property,'erase',data)}
   add(property: string, data?:any) {return this.checkProperty(property,'add',data)}
+  addToList(property: string, data?:any) {return this.checkProperty(property,'add2List',data)}
+  //copy(property: string, data?:any) {return this.checkProperty(property,'copy')}
 }

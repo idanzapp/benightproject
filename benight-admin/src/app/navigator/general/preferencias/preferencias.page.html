@@ -1,3 +1,28 @@
-<p>
-  preferencias works!!
-</p>
+<ion-toolbar>
+  <ion-buttons>
+    <ion-button (click)="goto('evento')">
+      <ion-label>Evento</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('plan')">
+      <ion-label>Plan</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('ticket')">
+      <ion-label>Ticket</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('localizacion')">
+      <ion-label>Localizacion</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('promo')">
+      <ion-label>Promo</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('chat')">
+      <ion-label>Chat</ion-label>
+    </ion-button>
+    <ion-button (click)="goto('notification')">
+      <ion-label>Notificacion</ion-label>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  <router-outlet></router-outlet>
+</ion-content>

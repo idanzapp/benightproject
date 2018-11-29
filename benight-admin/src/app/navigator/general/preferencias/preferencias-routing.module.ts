@@ -11,7 +11,18 @@ const routes: Routes = [
         header:'Preferencias',
         back:false
       },
-      canActivate: [UserLevelGuard]
+      canActivate: [UserLevelGuard],
+      children: [          
+        { path: '', redirectTo: 'evento', pathMatch: 'full' },
+        { path: 'evento', loadChildren:'./evento/default-event.module#DefaultEventPageModule'  },
+        { path: 'plan', loadChildren: './plan/default-plan.module#DefaultPlanPageModule' },
+        { path: 'localizacion', loadChildren: './localizacion/default-location.module#DefaultLocationPageModule' },
+        { path: 'ticket', loadChildren: './ticket/default-ticket.module#DefaultTicketPageModule' },
+        { path: 'promo', loadChildren: './promo/default-promo.module#DefaultPromoPageModule' },
+        { path: 'notification', loadChildren: './notificacion/default-notification.module#DefaultNotificationPageModule' },
+        { path: 'chat', loadChildren: './chat/default-chat.module#DefaultChatPageModule' },      
+        { path: '**', redirectTo: '', pathMatch: 'full' }  
+      ]
     }
 ]
 

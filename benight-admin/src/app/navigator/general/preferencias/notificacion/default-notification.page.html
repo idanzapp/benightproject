@@ -1,0 +1,18 @@
+<ion-content>
+    <form [formGroup]="myForm" flex layout="fill">
+        notification works!
+    </form>      
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+        <ion-fab-button color="light" class="e2eFabBottomRight">
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="onSubmit(myForm.value)">
+                <ion-icon name="save"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="delete()">
+                <ion-icon name="trash" ></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

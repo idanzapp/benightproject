@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar text-center>
+        <ion-title>Buscar</ion-title>        
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-searchbar (ionChange)="actualize($event)" animated="true" autocomplete="on" placeholder="Buscar" debounce="200"></ion-searchbar>                       
+    <ion-list lines="none" *ngIf="users$ | async">
+        <ion-item color="tertiary">        
+            <ion-label>Nombre</ion-label>
+            <ion-label text-right>Añadir</ion-label>                                 
+        </ion-item>
+        <ion-item lines="none" *ngFor="let item of items$ | async">
+            <ion-label>{{item.displayName}}</ion-label>
+            <ion-label text-right>                
+                <ion-button (click)="add(item)">
+                    <ion-icon name="add"></ion-icon>
+                </ion-button>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -42,3 +42,12 @@ export * from '@bn8-detalle/list-traducciones/list-traducciones-routing.module'
 export * from '@bn8-detalle/detalle-info-event/detalle-info-event-routing.module'
 export * from '@bn8-detalle/list-tags/list-tags-routing.module'
 
+
+export * from '@bn8-navigator/general/preferencias/chat/default-chat-routing.module'
+export * from '@bn8-navigator/general/preferencias/evento/default-event-routing.module'
+export * from '@bn8-navigator/general/preferencias/localizacion/default-location-routing.module'
+export * from '@bn8-navigator/general/preferencias/notificacion/default-notification-routing.module'
+export * from '@bn8-navigator/general/preferencias/plan/default-plan-routing.module'
+export * from '@bn8-navigator/general/preferencias/promo/default-promo-routing.module'
+export * from '@bn8-navigator/general/preferencias/ticket/default-ticket-routing.module'
+

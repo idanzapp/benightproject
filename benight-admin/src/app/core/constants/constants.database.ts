@@ -24,7 +24,11 @@ const literal = {
   admins: 'admins',
   employees: 'employees',
   notifications: 'notifications',
-  promos: 'promos'
+  promos: 'promos',
+  default: 'default',
+  dates: 'dates',
+  gallery: 'gallery',
+  lists: 'list'
 }
 const actions = {
   edit: 'editar'
@@ -45,9 +49,13 @@ const tables = {
   alias: 'alias',
   bans: 'bans',
   chats: 'chats',
+  dates: 'dates',
+  default: 'default',
   employees: 'employees',
   employeeNotifications: 'employeeNotifications',
   events:'events',
+  gallery: 'gallery',
+  lists: 'lists',
   locations: 'locations',
   locationEvents: 'locationEvents',
   locationGallery: 'locationGallery',
@@ -79,9 +87,23 @@ const list = {
   plan: 'planList',
   promo: 'promoList',
   ticket: 'ticketList',
-  user: 'userList'
+  user: 'userList',
+  list: 'listList',
+  owner: 'ownerList',
+  rule: 'ruleList',
+  requisite: 'requisiteList',
+  tag: 'tagList',
+  default: {
+    chat: 'chat',
+    employee: 'employee',
+    event: 'event',
+    location: 'location',
+    notification: 'notification',
+    plan: 'plan',
+    promo: 'promo',
+    ticket: 'ticket'
+  }
 }
-
 
 export const database = {
   connections: connections,

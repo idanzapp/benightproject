@@ -3,7 +3,6 @@ import { Observable, of, BehaviorSubject } from 'rxjs'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-core/constants/constants.database'
 import { map, tap } from 'rxjs/operators'
-import { AuthService } from '@bn8-services/auth.service'
 
 @Component({
   selector: 'search-users',
@@ -14,13 +13,11 @@ export class SearchUsersPage implements AfterViewInit, OnDestroy {
 
   users$: Observable<any> = of(null)
   filter: BehaviorSubject<string> = new BehaviorSubject('')
-  private sender
 
   @Input() search: string
-  constructor(private feed: DataFeedService, private auth: AuthService) {}
+  constructor(private feed: DataFeedService) {}
   
   async ngAfterViewInit() {
-    this.sender = await this.auth.user()
     this.filter.subscribe(filter =>{
       if (filter.length > 2)
         this.users$ = this.feed.fetch(database.literal[this.search]).pipe(
@@ -49,7 +46,7 @@ export class SearchUsersPage implements AfterViewInit, OnDestroy {
       case 'admins':   
         this.feed.add(database.literal.notifications,{to: data.id, type:'admin', actions:['aceptar', 'rechazar'], body:`Hola ${data.displayName}, soy ${data.userName} y te invito a unirte a ser copropietario de X con las condiciones tal`})
         break
-        case 'employees':  
+      case 'employees':  
         this.feed.add(database.literal.notifications,{to: data.id, type:'employee', actions:['aceptar', 'rechazar'], body:`Hola ${data.displayName}, soy ${data.userName} y te invito a unirte a mis empleados con las condiciones tal`})
         break      
     }

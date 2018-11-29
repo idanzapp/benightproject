@@ -1,0 +1,89 @@
+<ion-content>
+    <form [formGroup]="myForm" flex layout="fill">
+        <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Descripcion</ion-label>
+            <ion-textarea formControlName="description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Foto en Lista</ion-label>
+            <ion-input formControlName="eventPhotoURL"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Foto De Cabecera</ion-label>
+            <ion-input formControlName="headerPhotoURL"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Edad Maxima</ion-label>
+            <ion-input type='number' formControlName="maxAge"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Edad Minima</ion-label>
+            <ion-input type='number' formControlName="minAge"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Intervalo</ion-label>
+            <ion-input formControlName="interval"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Fecha de inicio</ion-label>
+            <ion-datetime displayFormat="D MMM YYYY, H:mm" pickerFormat="D MMM YYYY, H:mm" formControlName="date"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Aforo</ion-label>
+            <ion-input type='number' formControlName="gaugin"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Duracion</ion-label>
+            <ion-input type='number' formControlName="duration"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Evento Gratuito</ion-label>
+            <ion-toggle formControlName="free" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Activar Cuenta Atras</ion-label>
+            <ion-toggle formControlName="activateCountdown" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Activar Lista</ion-label>
+            <ion-toggle formControlName="enableList" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Activar Evento</ion-label>
+            <ion-toggle formControlName="enableEvent" slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>Evento Privado</ion-label>
+            <ion-toggle formControlName="isPrivate" slot="end"></ion-toggle>
+        </ion-item>
+    </form>       
+    <ion-button expand="full" (click)="goto('/listar/locations')">Listar Clubs</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/tickets')">Listar Entradas</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/empleados')">Listar Empleados</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/estadisticas')">Listar Estadisticas</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/fechas')">Listar Fechas</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/listas')">Listar Listas</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/propietarios')">Listar Propietarios</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/reglas')">Listar Publico</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/requisitos')">Listar Requisitos</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/tags')">Listar Tags</ion-button>
+    <ion-button expand="full" (click)="goto('/listar/traducciones')">Listar Traducciones</ion-button>
+    <ion-button expand="full" (click)="goto('/picker')">Añadir Fotos</ion-button>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge>
+        <ion-fab-button color="light" class="e2eFabBottomRight">
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button (click)="onSubmit(myForm.value)">
+                <ion-icon name="save"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="delete()">
+                <ion-icon name="trash" ></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

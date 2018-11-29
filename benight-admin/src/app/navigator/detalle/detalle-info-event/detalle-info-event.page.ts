@@ -23,12 +23,43 @@ export class DetalleInfoEventPage implements OnInit {
   private check:boolean = false
   private basehref:string = ''
 
+  charged: boolean = false
+  list = {
+    locationList: [],
+    ticketList: [],
+    dateList: [],
+    listList: [],
+    ownerList: [],
+    rulesList: [],
+    requisiteList: [],
+    tagList: [],
+    gallery: []
+  }
+
+  names = {
+    locationList: 'localizacion',
+    ticketList: 'entrada',
+    dateList: 'fecha',
+    listList: 'lista',
+    ownerList: 'propietario',
+    rulesList: 'regla',
+    requisiteList: 'requisito',
+    tagList: 'tag',
+    gallery: 'foto'
+  }
+
+  show = [true,false,false,false,false,false,false,false,false,false]
+
   constructor(private feed: DataFeedService, 
     private modal: ModalController, 
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     public toastController: ToastController) {} 
+
+  hide(index:number) {
+    this.show[index] = !this.show[index]
+  }
 
   ngOnInit() {
     let actualDate = new Date().toISOString()
@@ -53,15 +84,16 @@ export class DetalleInfoEventPage implements OnInit {
     this.preloadData()
     this.autoSave()
   }
-
+  
   async preloadData() {
     await this.route.params.pipe(map(p => p.id)).subscribe(e => this.id = e)
     this.state = 'loading'
     this.event$ = await this.feed.get(database.literal.events,this.id)
+    this.charged = true
     this.event$
       .pipe(
         tap(doc => {
-          if (doc) {
+          if (doc) {            
             let data = {              
               activateCountdown: doc.activateCountdown ,
               description: doc.description ,
@@ -79,6 +111,17 @@ export class DetalleInfoEventPage implements OnInit {
               minAge: doc.minAge ,
               name: doc.name ,
               nextDate: doc.nextDate 
+            }
+            this.list =  {            
+              locationList: doc.locationList,
+              ticketList: doc.ticketList,
+              dateList: doc.dateList,
+              listList: doc.listList,
+              ownerList: doc.ownerList,
+              rulesList: doc.rulesList,
+              requisiteList: doc.requisiteList,
+              tagList: doc.tagList,
+              gallery: doc.gallery
             }
             this.myForm.patchValue(data)
             this.myForm.markAsPristine()
