@@ -12,7 +12,6 @@ const connections = {
 const literal = {
   bans: 'bans', 
   chats: 'chats',
-  clubs: 'clubs',
   employee: 'employee',
   events: 'events',
   locations: 'locations',
@@ -24,6 +23,7 @@ const literal = {
   admins: 'admins',
   employees: 'employees',
   notifications: 'notifications',
+  plans: 'plans',
   promos: 'promos',
   default: 'default',
   dates: 'dates',
@@ -62,6 +62,7 @@ const tables = {
   locationPlans: 'locationPlans',
   messages: 'messages',
   notifications: 'notifications',
+  plans: 'plans',
   promos: 'promos',
   requirements: 'requirements',
   sentNotifications: 'sentNotifications',

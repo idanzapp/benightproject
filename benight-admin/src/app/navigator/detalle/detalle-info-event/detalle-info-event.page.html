@@ -67,7 +67,7 @@
             <ion-icon slot="end" name="{{show[i] ? 'eye' : 'eye-off'}}"></ion-icon>
         </ion-item>
         <ion-list lines="none" *ngIf="show[i] && charged">
-            <ion-item color="tertiary">
+            <ion-item (click)="searchItem(literals[item.key])" color="tertiary">
                 <ion-label color="secondary" slot="start">0</ion-label>
                 <ion-label>Añadir {{names[item.key]}}</ion-label>
                 <ion-icon name="add"></ion-icon>

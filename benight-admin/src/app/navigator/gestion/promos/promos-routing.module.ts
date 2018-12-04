@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { PromosPage, DetalleInfoPromoPage } from '@bn8-imports/imports.views'
+import { PromosPage } from '@bn8-imports/imports.views'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
 
+const basehref = '../../detalle/'
 const routes: Routes = [
     {
       path: '',
@@ -12,14 +13,6 @@ const routes: Routes = [
         back:false
       },
       canActivate: [UserLevelGuard]
-    },   
-    {
-      path:'crear/:id',
-      component: DetalleInfoPromoPage,
-      data:{
-        header:'Crear Promo',
-        back:true
-      }
     },
     {
       path:'editar/:id',
@@ -27,7 +20,7 @@ const routes: Routes = [
         header:'Editar Promo',
         back:true
       },
-      component: DetalleInfoPromoPage
+      loadChildren:  `${basehref}detalle-info-promo/detalle-info-promo.module#DetalleInfoPromoPageModule`
     }, 
     {path:'**',redirectTo:'',pathMatch:'full'} 
 ]

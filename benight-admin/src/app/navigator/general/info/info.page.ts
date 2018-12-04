@@ -14,8 +14,8 @@ import { tap, debounceTime, take} from 'rxjs/operators'
 export class InfoPage implements OnInit {
 
   myForm: FormGroup = {} as FormGroup  
-  private info$: Observable<any> = of(null)
-  private state: 'loading' | 'synced' | 'modified' | 'error' = 'loading'
+  info$: Observable<any> = of(null)
+  state: 'loading' | 'synced' | 'modified' | 'error' = 'loading'
   private id: string = ''
 
   constructor(private feed: DataFeedService, 

@@ -10,8 +10,7 @@ const routes: Routes = [{
     { path: 'gestion', loadChildren: './gestion/gestion.module#GestionPageModule' },
     { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },    
     { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesPageModule' }, 
-    { path: 'general', loadChildren: './general/general.module#GeneralPageModule' },
-    { path: 'detalle', loadChildren: './detalle/detalle.module#DetallePageModule' },    
+    { path: 'general', loadChildren: './general/general.module#GeneralPageModule' },   
     { path: '**', redirectTo: '', pathMatch: 'full' }    
   ]
 },

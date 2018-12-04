@@ -1,3 +1,74 @@
 ion-icon {
     font-size:2rem
 }
+
+.relative {
+    position: relative;
+}
+
+.background {
+    height: 24vh;
+    width: 100%;
+    object-fit: fill;
+}
+
+.name {
+    position: absolute;
+    top: 2.5%;
+    left: 5%; 
+    font-size: calc(1.2rem + 0.6vw);   
+}
+
+.date {
+    position: absolute;
+    bottom: 23%;
+    left: 3.75%;
+    background: transparent;    
+}
+
+.address {
+    position: absolute;
+    bottom: 3%;
+    left: 5%;
+}
+
+.price {
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    font-size: calc(1.2rem + 0.6vw);
+}
+
+.trans {
+    color: #fff;
+    text-shadow: 0 5px 10px rgba(0,0,0,1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.6);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.crono {
+    position: absolute;
+    top: 0%;
+    right: 2.5%;
+}
+
+.corner-ribbon{
+    width: 50%;
+    background: #e43;
+    position: absolute;
+    text-align: center;
+    color: #f0f0f0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    z-index: 10;
+  }
+
+  .corner-ribbon.top-right{
+    right: 0px;
+    left: auto;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }

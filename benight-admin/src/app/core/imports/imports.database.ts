@@ -1,7 +1,7 @@
 import { APP_INITIALIZER } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 
-function init_client(loadClient: FirebaseClient) {
+export function init_client(loadClient: FirebaseClient) {
     return () => loadClient.initializeApp()
 }
 

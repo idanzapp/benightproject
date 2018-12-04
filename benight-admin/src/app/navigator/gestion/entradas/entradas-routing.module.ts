@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { EntradasPage, DetalleInfoEntradaPage } from '@bn8-imports/imports.views'
+import { EntradasPage } from '@bn8-imports/imports.views'
 import { UserLevelGuard } from '@bn8-services/user-level.guard'
+
+
+const basehref =  '../../detalle/'
 
 const routes: Routes = [
     {
@@ -12,14 +15,6 @@ const routes: Routes = [
         back:false
       },
       canActivate: [UserLevelGuard]
-    },    
-    {
-      path:'crear/:id',
-      component: DetalleInfoEntradaPage,
-      data:{
-        header:'Crear Entrada',
-        back:true
-      }
     },
     {
       path:'editar/:id',
@@ -27,7 +22,7 @@ const routes: Routes = [
         header:'Editar Entrada',
         back:true
       },
-      component: DetalleInfoEntradaPage
+      loadChildren:  `${basehref}detalle-info-entrada/detalle-info-entrada.module#DetalleInfoEntradaPageModule`
     }, 
     {path:'**',redirectTo:'',pathMatch:'full'}
 ]

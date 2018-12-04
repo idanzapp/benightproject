@@ -85,6 +85,10 @@ export class DefaultLocationPage implements OnInit {
     this.router.navigate([`${this.basehref}${url}`,this.id])
   }
 
+  delete() {
+    console.log('deleted')
+  }
+
   private async presentToast(message,color) {
     const toast = await this.toastController.create({
       message: message,

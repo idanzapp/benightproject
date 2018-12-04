@@ -48,34 +48,34 @@ export class MessagingTimedOutService extends AngularFireFunctions {}
 //get language
 
 //Firestore Factory
-function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.connections.login, false, null, platformId, zone,{})}
-function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.connections.admin, false, null, platformId, zone,{})}
-function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.connections.tickets, false, null, platformId, zone,{})}
-function AngularFireChatFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_chat, database.connections.chat, false, null, platformId, zone,{})}
-function AngularFireTimedOutFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_timedOut, database.connections.timedOut, false, null, platformId, zone,{})}
-function AngularFireFavouritesFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_favourites, database.connections.favourites, false, null, platformId, zone,{})}
-function AngularFireMarkersFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_markers, database.connections.markers, false, null, platformId, zone,{})}
-function AngularFireEventFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, false, null, platformId, zone,{})}
+export function AngularFireLoginFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_login, database.connections.login, false, null, platformId, zone,{})}
+export function AngularFireAdminFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_base, database.connections.admin, false, null, platformId, zone,{})}
+export function AngularFireTicketFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(environment.firebase_ticket, database.connections.tickets, false, null, platformId, zone,{})}
+export function AngularFireChatFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_chat, database.connections.chat, false, null, platformId, zone,{})}
+export function AngularFireTimedOutFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_timedOut, database.connections.timedOut, false, null, platformId, zone,{})}
+export function AngularFireFavouritesFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_favourites, database.connections.favourites, false, null, platformId, zone,{})}
+export function AngularFireMarkersFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_markers, database.connections.markers, false, null, platformId, zone,{})}
+export function AngularFireEventFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, false, null, platformId, zone,{})}
 
 //Auth Factory
-function AngularAuthLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(environment.firebase_login, database.connections.login, platformId, zone)}
-function AngularAuthAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_base, database.connections.admin, platformId, zone)}
-function AngularAuthTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_ticket, database.connections.tickets, platformId, zone)}
-function AngularAuthChatFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.connections.chat, platformId, zone)}
-function AngularAuthTimedOutFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_timedOut, database.connections.timedOut, platformId, zone)}
-function AngularAuthFavouritesFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.connections.favourites, platformId, zone)}
-function AngularAuthMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_markers, database.connections.markers, platformId, zone)}
-function AngularAuthEventFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, platformId, zone)}
+export function AngularAuthLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(environment.firebase_login, database.connections.login, platformId, zone)}
+export function AngularAuthAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_base, database.connections.admin, platformId, zone)}
+export function AngularAuthTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_ticket, database.connections.tickets, platformId, zone)}
+export function AngularAuthChatFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.connections.chat, platformId, zone)}
+export function AngularAuthTimedOutFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_timedOut, database.connections.timedOut, platformId, zone)}
+export function AngularAuthFavouritesFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_chat, database.connections.favourites, platformId, zone)}
+export function AngularAuthMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireAuth(environment.firebase_markers, database.connections.markers, platformId, zone)}
+export function AngularAuthEventFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, platformId, zone)}
 
 //Functions Factory
-function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.connections.login, platformId, zone,'us-central1')}
-function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.connections.admin, platformId, zone,'us-central1')}
-function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.connections.tickets, platformId, zone,'us-central1')}
-function AngularFunctionsChatFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_chat, database.connections.chat, platformId, zone,'us-central1')}
-function AngularFunctionsTimedOutFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_timedOut, database.connections.timedOut, platformId, zone,'us-central1')}
-function AngularFunctionsFavouritesFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_favourites, database.connections.favourites, platformId, zone,'us-central1')}
-function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.connections.markers, platformId, zone,'us-central1')}
-function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, platformId, zone,'us-central1')}
+export function AngularFunctionsLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireFunctions(environment.firebase_login, database.connections.login, platformId, zone,'us-central1')}
+export function AngularFunctionsAdminFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_base, database.connections.admin, platformId, zone,'us-central1')}
+export function AngularFunctionsTicketFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_ticket, database.connections.tickets, platformId, zone,'us-central1')}
+export function AngularFunctionsChatFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_chat, database.connections.chat, platformId, zone,'us-central1')}
+export function AngularFunctionsTimedOutFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_timedOut, database.connections.timedOut, platformId, zone,'us-central1')}
+export function AngularFunctionsFavouritesFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_favourites, database.connections.favourites, platformId, zone,'us-central1')}
+export function AngularFunctionsMarkersFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(environment.firebase_markers, database.connections.markers, platformId, zone,'us-central1')}
+export function AngularFunctionsEventFactory(platformId: Object, zone: NgZone) {return new AngularFireFunctions(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, platformId, zone,'us-central1')}
 
 //Functions Factory
 export function AngularMessagingLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireMessaging(environment.firebase_login, database.connections.login, platformId, zone)}

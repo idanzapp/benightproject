@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content>
     <ion-searchbar (ionChange)="actualize($event)" animated="true" autocomplete="on" placeholder="Buscar" debounce="200"></ion-searchbar>                       
-    <ion-list lines="none" *ngIf="users$ | async">
+    <ion-list lines="none" *ngIf="items$ | async">
         <ion-item color="tertiary">        
             <ion-label>Nombre</ion-label>
             <ion-label text-right>Añadir</ion-label>                                 

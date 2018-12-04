@@ -86,6 +86,10 @@ export class DefaultNotificationPage implements OnInit {
     this.router.navigate([`${this.basehref}${url}`,this.id])
   }
 
+  delete() {
+    console.log('delete push')
+  }
+
   private async presentToast(message,color) {
     const toast = await this.toastController.create({
       message: message,

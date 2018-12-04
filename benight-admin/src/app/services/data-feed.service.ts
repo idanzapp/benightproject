@@ -9,6 +9,7 @@ import { Connection } from '@bn8-interfaces/interfaces.datafeed'
 import { BansDatabase } from '@bn8-database/bans.database'
 import { ChatDatabase } from '@bn8-database/chat.database'
 import { LocationDatabase } from '@bn8-services/database/location.database'
+import { PlansDatabase } from '@bn8-services/database/plans.database'
 import { EmployeeDatabase } from '@bn8-database/employee.database'
 import { EventsDatabase } from '@bn8-database/events.database'
 import { RequirementsDatabase } from '@bn8-database/requirements.database'
@@ -51,6 +52,7 @@ export class DataFeedService {
       bans: new BansDatabase(this.db, this.auth),
       chats:  new ChatDatabase(this.db, this.auth),
       locations:  new LocationDatabase(this.db, this.auth),
+      plans:  new PlansDatabase(this.db, this.auth),
       employee:  new EmployeeDatabase(this.db, this.auth),
       events:  new EventsDatabase(this.db, this.auth),
       requirements:  new RequirementsDatabase(this.db),

@@ -43,7 +43,7 @@
     </ion-item>
   </form>
 </ion-content>
-<ion-footer *ngIf="this.myForm.valid && ( this.state === 'modified')">
+<ion-footer *ngIf="myForm.valid && ( state === 'modified')">
   <ion-button color="primary" expand="full" (click)="onSubmit(myForm.value)">
     Actualizar
   </ion-button>

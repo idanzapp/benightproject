@@ -6,6 +6,7 @@ import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
 import { ActivatedRoute, Router } from '@angular/router' 
 import { ToastController } from '@ionic/angular'
+import { SearchItemsPage } from '@bn8-imports/imports.previews'
 
 import { Observable, of } from 'rxjs'
 import { tap, debounceTime, take, map } from 'rxjs/operators'
@@ -46,6 +47,18 @@ export class DetalleInfoEventPage implements OnInit {
     requisiteList: 'requisito',
     tagList: 'tag',
     gallery: 'foto'
+  }
+
+  literals = {
+    locationList: database.literal.locations,
+    ticketList: database.literal.tickets,
+    dateList: database.literal.dates,
+    listList: database.literal.lists,
+    ownerList: database.literal.admins,
+    rulesList: 'none',
+    requisiteList: database.literal.requirements,
+    tagList: database.literal.tags,
+    gallery: database.literal.gallery
   }
 
   show = [true,false,false,false,false,false,false,false,false,false]
@@ -179,6 +192,16 @@ export class DetalleInfoEventPage implements OnInit {
       componentProps: { id: this.id }
     })
     return await window.present()
+  }
+
+  async searchItem(literal) {
+    if (literal != 'none') {
+      const window = await this.modal.create({
+        component: SearchItemsPage,
+        componentProps: { search: literal }
+      })
+      return await window.present()
+    }
   }
 
   private async presentToast(message,color) {

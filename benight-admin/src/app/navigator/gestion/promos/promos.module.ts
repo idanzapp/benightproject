@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 
 import { myBaseModules } from '@bn8-imports/imports.main'
-import { PromosPage, DetalleInfoPromoPage } from '@bn8-imports/imports.views'
+import { PromosPage } from '@bn8-imports/imports.views'
 import { PromosRoutingModule } from '@bn8-imports/imports.routing'
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -11,6 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms'
     ReactiveFormsModule,
     PromosRoutingModule
   ],
-  declarations: [PromosPage, DetalleInfoPromoPage]
+  declarations: [PromosPage]
 })
 export class PromosPageModule {}

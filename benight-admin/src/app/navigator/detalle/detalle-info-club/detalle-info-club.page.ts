@@ -47,7 +47,7 @@ export class DetalleInfoClubPage implements OnInit {
   async preloadData() {
     await this.route.params.pipe(map(p => p.id)).subscribe(e => this.id = e)
     this.state = 'loading'
-    this.club$ = await this.feed.get(database.literal.clubs,this.id)
+    this.club$ = await this.feed.get(database.literal.locations,this.id)
     this.club$
       .pipe(
         tap(doc => {
@@ -80,7 +80,7 @@ export class DetalleInfoClubPage implements OnInit {
       debounceTime(5000),
       tap(change => {
           if (this.myForm.valid && this.state === 'modified') {          
-            this.feed.save(database.literal.clubs,{uid:this.id,...this.myForm.value})  
+            this.feed.save(database.literal.locations,{uid:this.id,...this.myForm.value})  
           this.state = 'synced'         
           this.presentToast('Sincronizado', 'success')
         }
@@ -91,7 +91,7 @@ export class DetalleInfoClubPage implements OnInit {
 
   onSubmit(e:any) {
     if (this.myForm.valid && this.state ==='modified') {
-      this.feed.save(database.literal.clubs,{uid:this.id,...e})    
+      this.feed.save(database.literal.locations,{uid:this.id,...e})    
       this.state = 'synced'
       this.presentToast('Sincronizado', 'success')
     } else 
@@ -102,7 +102,7 @@ export class DetalleInfoClubPage implements OnInit {
   delete() {
     //check if it can be deleted
     if (this.check)      
-      this.feed.remove(database.literal.clubs, this.id)
+      this.feed.remove(database.literal.locations, this.id)
     else
       this.presentToast('La localizacion no puede ser eliminada', 'danger')
   }
