@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFireFunctions } from '@angular/fire/functions'
 import { AngularFireMessaging } from '@angular/fire/messaging'
+import { AngularFireStorage } from '@angular/fire/storage'
 
 import { Observable } from 'rxjs'
 import { map, switchMap, reduce } from 'rxjs/operators'
@@ -17,6 +18,7 @@ import {
     FirestoreFavouritesService,
     FirestoreLoginService,
     FirestoreMarkersService,
+    StorageBaseService,
     AuthEventService,
     AuthAdminService,
     AuthTicketService,
@@ -59,6 +61,7 @@ export class FirebaseClient  {
         private affs:FirestoreFavouritesService,
         private alfs:FirestoreLoginService,
         private amfs:FirestoreMarkersService,
+        private store:StorageBaseService,
         private aeas:AuthEventService,
         private aaas:AuthAdminService,
         private atas:AuthTicketService,
@@ -95,6 +98,7 @@ export class FirebaseClient  {
             FStimedOut: this.atofs,
             FSfavourites: this.affs,
             FSmarkers: this.amfs,
+            Storage: this.store,
             Authlogin: this.alas,
             Authevents: this.aeas,
             Authadmin: this.aaas,
@@ -136,6 +140,10 @@ export class FirebaseClient  {
 
     afm(db?:string) {  
         return (this.connection[`MS${db ? db:database.connections.login}`] as AngularFireMessaging)
+    }
+
+    storage() {
+        return this.connection.Storage as AngularFireStorage
     }
 
     collection$(path, data:{query?, db?: string}) {

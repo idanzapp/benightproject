@@ -60,6 +60,10 @@ export class EventosPage implements OnInit {
   trackById(idx:number, todo:any) {
     return todo.id
   }
+
+  remove(event) {
+    console.log(event)
+  }
 }
   
  

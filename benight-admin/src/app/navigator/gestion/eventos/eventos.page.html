@@ -1,15 +1,43 @@
 <ion-content>
-  <ion-item (click)="goto()" color="tertiary">
-    <ion-avatar slot="start">
-      <ion-img src="assets/icon/favicon.png"></ion-img>
-    </ion-avatar>
-    <ion-label>
-      <h2>Crear Nuevo Evento</h2>
-    </ion-label>
-    <ion-icon name="add-circle"></ion-icon>
+  <br>
+  <ion-item (click)="goto()" lines="none" class="content">
+    <div class="card">
+      <div class="firstinfo">
+        <ion-avatar>
+          <ion-img src="assets/img/avatar.png"></ion-img>
+        </ion-avatar>
+        <div class="profileinfo">
+          <h2>Nuevo Evento</h2>
+          <h3>Fecha</h3>
+          <ion-badge color="primary">tags</ion-badge>
+          <ion-label class="bio" text-wrap>direccion</ion-label>
+        </div>
+      </div>
+    </div>
+    <ion-icon class="add" slot="end" name="add" (click)="goto()"></ion-icon>
   </ion-item>
   <ion-list lines="none">
-    <ion-item lines="none" class="relative" *ngFor="let event of events$ | async; trackBy: trackById" (click)="goto(event.uid)">
+    <ion-item  (click)="goto()" *ngFor="let event of events$ | async; trackBy: trackById" (click)="goto(event.uid)" class="content">      
+      <span class="ribbon">completo</span>
+      <div [class]="event.isPrivate ? 'card glowing-border' : 'card glowing-border'">
+        <div class="firstinfo">
+          <ion-avatar class="text-avatar">
+              <ion-label class="glow">{{event.price}} €</ion-label>
+          </ion-avatar>          
+          <div class="profileinfo">
+            <h2>{{event.displayName}}</h2>
+            <h3>{{event.dateString}} - {{event.durationString}}</h3>
+            <div>
+              <ion-badge class="glowing-border" color="primary">privado</ion-badge>
+              <ion-badge color="primary" style="margin-left:2px">salsa</ion-badge>
+            </div>
+            <ion-label class="bio" text-wrap>{{event.locationList[0].displayName}}</ion-label>
+          </div>
+        </div>
+      </div>
+      <ion-icon class="trash" slot="end" name="trash" (click)="remove(event)"></ion-icon>
+    </ion-item>
+    <!--<ion-item lines="none" class="relative" *ngFor="let event of events$ | async; trackBy: trackById" (click)="goto(event.uid)">
       <ion-img class="background" [src]="event.eventPhotoURL"></ion-img>
       <ion-label *ngIf="event.gaugin===event.userFlow " class="corner-ribbon top-right">Completo</ion-label>
       <ion-label *ngIf="event.isPrivate" class="corner-ribbon">Privado</ion-label>
@@ -52,6 +80,6 @@
       <ion-label class="trans address">{{event.locationList[0].displayName}}</ion-label>
       <ion-label *ngIf="!free" class="trans price">{{event.price}} €</ion-label>
       <ion-label *ngIf="free" class="trans price">GRATIS!!</ion-label>
-    </ion-item>
+    </ion-item>-->
   </ion-list>
 </ion-content>

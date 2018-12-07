@@ -1,32 +1,36 @@
 <ion-content>
-  <ion-item (click)="presentModal()" color="tertiary">
-    <ion-avatar slot="start">
-      <ion-img src="assets/icon/favicon.png"></ion-img>
-    </ion-avatar>
-    <ion-label>
-      <h2>Buscar Nuevos Empleados</h2>
-    </ion-label>
-    <ion-icon name="search"></ion-icon>
+  <br>
+  <ion-item (click)="presentModal()" lines="none" class="content">
+    <div class="card">
+      <div class="firstinfo">
+        <ion-avatar>
+          <ion-img src="assets/img/avatar.png"></ion-img>
+        </ion-avatar>
+        <div class="profileinfo">
+          <h2>Nuevo Empleado</h2>
+          <h3>Ocupacion</h3>
+          <ion-skeleton-text width="120%"></ion-skeleton-text>
+          <ion-skeleton-text width="100%"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+    <ion-icon class="add" slot="end" name="add" (click)="presentModal()"></ion-icon>
   </ion-item>
-  <ion-list *ngIf="empleadosLength$.value > 0">
-    <ion-item color="tertiary">
-      <ion-label>Nombre</ion-label>
-      <ion-label text-center>Email</ion-label>
-      <ion-label text-center>Rol</ion-label>
-      <ion-label text-right>Acciones</ion-label>
-    </ion-item>
+  <ion-list>
     <ion-item *ngFor="let empleado of empleados$ | async; trackBy: trackById" (click)="goto(empleado.uid)">
-      <ion-label>{{empleado.name}}</ion-label>
-      <ion-label>{{empleado.email}}</ion-label>
-      <ion-label>{{empleado.rol}}</ion-label>
-      <ion-label text-right>
-        <ion-button (click)="edit(empleado.uid)">
-          <ion-icon slot="start" name="create"></ion-icon>
-        </ion-button>
-        <ion-button (click)="fire(empleado.uid)">
-          <ion-icon slot="start" name="close"></ion-icon>
-        </ion-button>
-      </ion-label>
+      <div class="card">
+        <div class="firstinfo">
+          <ion-avatar>
+            <ion-img src="assets/img/avatar.png"></ion-img>
+          </ion-avatar>
+          <div class="profileinfo">
+            <h2>{{empleado.name}}</h2>
+            <h3>{{empleado.rol}}</h3>
+            <ion-label class="bio" text-wrap>{{empleado.notes}}</ion-label>
+          </div>
+        </div>
+        <ion-icon class="trash" slot="end" name="trash" (click)="fire(empleado.uid)"></ion-icon>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

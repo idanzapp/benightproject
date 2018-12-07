@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { AngularFireFunctions } from '@angular/fire/functions'
 import { AngularFireMessaging } from '@angular/fire/messaging'
 import { AngularFireAuth } from '@angular/fire/auth'
+import { AngularFireStorage } from '@angular/fire/storage'
 import { languageEnvironment } from '@bn8-constants/constants.languages'
 import { environment } from '@bn8-environments/environment'
 //
@@ -17,6 +18,8 @@ export class FirestoreMarkersService extends AngularFirestore {}
 export class FirestoreChatService extends AngularFirestore {}
 export class FirestoreFavouritesService extends AngularFirestore {}
 export class FirestoreTimedOutService extends AngularFirestore {}
+//Storage
+export class StorageBaseService extends AngularFireStorage {}
 //Auth
 export class AuthLoginService extends AngularFireAuth {}
 export class AuthEventService extends AngularFireAuth {}
@@ -56,6 +59,8 @@ export function AngularFireTimedOutFactory(platformId: Object, zone: NgZone) { r
 export function AngularFireFavouritesFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_favourites, database.connections.favourites, false, null, platformId, zone,{})}
 export function AngularFireMarkersFactory(platformId: Object, zone: NgZone) { return new AngularFirestore(environment.firebase_markers, database.connections.markers, false, null, platformId, zone,{})}
 export function AngularFireEventFactory(platformId: Object, zone: NgZone) {return new AngularFirestore(languageEnvironment[navigator.language.slice(0,2)] || languageEnvironment.en, database.connections.items, false, null, platformId, zone,{})}
+//Storage Factory
+export function AngularStorageBaseFactory(platformId: Object, zone: NgZone) {return new AngularFireStorage(environment.firebase_base, database.connections.admin,'',platformId, zone)}
 
 //Auth Factory
 export function AngularAuthLoginFactory(platformId: Object, zone: NgZone) { return new AngularFireAuth(environment.firebase_login, database.connections.login, platformId, zone)}
@@ -96,6 +101,7 @@ export const FirebaseProviders = [
     { provide: FirestoreFavouritesService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireFavouritesFactory },
     { provide: FirestoreLoginService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireLoginFactory },
     { provide: FirestoreMarkersService, deps: [PLATFORM_ID, NgZone], useFactory: AngularFireMarkersFactory },
+    { provide: StorageBaseService, deps: [PLATFORM_ID, NgZone], useFactory: AngularStorageBaseFactory },
     { provide: AuthEventService, deps: [PLATFORM_ID, NgZone], useFactory: AngularAuthEventFactory },
     { provide: AuthAdminService, deps: [PLATFORM_ID, NgZone], useFactory: AngularAuthAdminFactory },
     { provide: AuthTicketService, deps: [PLATFORM_ID, NgZone], useFactory: AngularAuthTicketFactory },

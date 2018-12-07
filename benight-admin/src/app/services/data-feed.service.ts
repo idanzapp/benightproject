@@ -87,5 +87,15 @@ export class DataFeedService {
   erase(property: string, data:any) {return this.checkProperty(property,'erase',data)}
   add(property: string, data?:any) {return this.checkProperty(property,'add',data)}
   addToList(property: string, data?:any) {return this.checkProperty(property,'add2List',data)}
+
+  private async getUid(url:string) {
+    let uid$ = await this.auth.uid()
+    return this.db.storage().ref(`${uid$}/locations/${url}`).getDownloadURL()
+  }
+
+  getImage(url:string) {     
+    return this.getUid(url)
+  }
+
   //copy(property: string, data?:any) {return this.checkProperty(property,'copy')}
 }

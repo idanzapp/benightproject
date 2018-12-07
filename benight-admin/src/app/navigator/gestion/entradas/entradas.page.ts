@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { Router } from '@angular/router'
 
 @Component({

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { DataFeedService } from '@bn8-services/data-feed.service'
 import { database } from '@bn8-constants/constants.database'
 import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 
 @Component({
@@ -11,13 +12,18 @@ import { Router } from '@angular/router'
 })
 export class ClubsPage implements OnInit {
 
-  clubs$: Observable<any>
+  locations$: Observable<any>
   private basehref:string = ''
 
-  constructor(private feed: DataFeedService,private router: Router) {}
+  constructor(private feed: DataFeedService, private router: Router) {}
 
   ngOnInit() {
-    this.clubs$ = this.feed.fetch(database.literal.locations)
+    this.locations$ = this.feed.fetch(database.literal.locations)
+    .pipe(
+      map(locations => {
+        (locations as Array<any>).map(async location => location.url = await this.feed.getImage(`${location.id}/${location.locationPhotoURL}`) )
+        return locations
+      }))
     this.basehref = this.router.url.slice(0, this.router.url.lastIndexOf('/'))
   }
 
@@ -29,5 +35,6 @@ export class ClubsPage implements OnInit {
 
   trackById(idx:number, todo:any) {
     return todo.id
-  }
+  }     
+
 }

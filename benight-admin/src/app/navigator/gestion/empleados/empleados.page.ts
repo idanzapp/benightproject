@@ -51,8 +51,4 @@ export class EmpleadosPage implements OnInit {
   fire(id:string) {
     console.log(id)
   }
-
-  edit(id:string) {
-    console.log(id)
-  }
 }
