@@ -34,4 +34,7 @@ export class PromosPage implements OnInit{
     return todo.id
   }
 
+  remove(promo) {
+    console.log(promo)
+  }
 }

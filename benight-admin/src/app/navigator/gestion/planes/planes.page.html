@@ -1,57 +1,41 @@
 <ion-content>
-    <ion-item (click)="goto()" color="tertiary">
-      <ion-avatar slot="start">
-        <ion-img src="assets/icon/favicon.png"></ion-img>
-      </ion-avatar>
-      <ion-label>
-        <h2>Crear Nuevo Plan</h2>
-      </ion-label>
-      <ion-icon name="add-circle"></ion-icon>
+    <br>
+    <ion-item (click)="goto()" lines="none" class="content">
+      <div class="card">
+        <div class="firstinfo">
+          <ion-avatar>
+            <ion-img src="assets/img/avatar.png"></ion-img>
+          </ion-avatar>
+          <div class="profileinfo">
+            <h2>Nuevo Plan</h2>
+            <h3>Fecha</h3>
+            <ion-badge color="primary">tags</ion-badge>
+            <ion-label class="bio" text-wrap>direccion</ion-label>
+          </div>
+        </div>
+      </div>
+      <ion-icon class="add" slot="end" name="add" (click)="goto()"></ion-icon>
     </ion-item>
     <ion-list lines="none">
-      <ion-item lines="none" class="relative" *ngFor="let plan of plans$ | async; trackBy: trackById" (click)="goto(event.uid)">
-        <ion-img class="background" [src]="plan.eventPhotoURL"></ion-img>
-        <ion-label *ngIf="plan.gaugin===plan.userFlow " class="corner-ribbon top-right">Completo</ion-label>
-        <ion-label *ngIf="plan.isPrivate" class="corner-ribbon">Privado</ion-label>
-        <div class="crono">
-          <ion-grid>
-            <ion-row>
-              <ion-col *ngIf="plan.activateCountdown">
-                <countdown date="plan.nextDate" class="trans"></countdown>
-              </ion-col>
-              <ion-col *ngIf="plan.flowBreakPoint === -1 || plan.userFlow >= plan.flowBreakPoint">
-                <ion-grid class="trans">
-                  <ion-row>
-                    <ion-col>
-                      <ion-avatar style="width: 3.5vw; height: 3.5vh;">
-                        <ion-img src="assets/img/avatar.png"></ion-img>
-                      </ion-avatar>
-                    </ion-col>
-                    <ion-col align-self-center>
-                      <ion-label>{{plan.userFlow}}</ion-label>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+      <ion-item  class="content margin" (click)="goto()" *ngFor="let plan of plans$ | async; trackBy: trackById" (click)="goto(plan.uid)">      
+        <span *ngIf="plan.gaugin===plan.userFlow" class="ribbon">completo</span>
+        <div [class]="plan.isPrivate ? 'card glowing-border' : 'card'">
+          <div class="firstinfo">
+            <ion-avatar class="text-avatar">
+                <ion-label class="glow">{{plan.price}} €</ion-label>
+            </ion-avatar>          
+            <div class="profileinfo">
+              <h2>{{plan.displayName}}</h2>
+              <h3>{{plan.dateString}} - {{plan.durationString}}</h3>
+              <div>
+                <ion-badge *ngIf="plan.isPrivate" class="glowing-border" color="primary">privado</ion-badge>
+                <ion-badge *ngFor="let tag of plan.tags" color="primary" style="max-width: 80%;margin-left:2px">{{tag}}</ion-badge>
+              </div>
+              <ion-label class="bio" text-wrap>{{plan.locationList[0].displayName}}</ion-label>
+            </div>
+          </div>
         </div>
-        <ion-label class="trans name">{{plan.displayName}}</ion-label>
-        <div class="date">
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="trans">{{plan.dateString}}</ion-label>
-              </ion-col>
-              <ion-col>
-                <ion-label class="trans">{{plan.durationString}}</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-        <ion-label class="trans address">{{plan.locationList[0].displayName}}</ion-label>
-        <ion-label *ngIf="!free" class="trans price">{{plan.price}} €</ion-label>
-        <ion-label *ngIf="free" class="trans price">GRATIS!!</ion-label>
+        <ion-icon class="trash" slot="end" name="trash" (click)="remove(plan)"></ion-icon>
       </ion-item>
     </ion-list>
   </ion-content>

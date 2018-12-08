@@ -35,6 +35,10 @@ export class ClubsPage implements OnInit {
 
   trackById(idx:number, todo:any) {
     return todo.id
-  }     
+  }   
+
+  remove(plan) {
+    console.log(plan)
+  }   
 
 }

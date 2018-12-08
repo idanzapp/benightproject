@@ -1,16 +1,33 @@
 <ion-content>
-  <ion-item (click)="goto()" color="tertiary">	
-    <ion-avatar slot="start">
-      <ion-img src="assets/icon/favicon.png"></ion-img>
-    </ion-avatar>
-    <ion-label>
-      <h2>Crear Nueva Promocion</h2>
-    </ion-label>
-    <ion-icon name="add-circle"></ion-icon>
-  </ion-item>
-  <ion-list *ngFor="let promo of promos$ | async; trackBy: trackById">
-    <ion-item (click)="goto(promo.uid)">
-      <ion-label>{{promo.name}}</ion-label>
+    <br>
+    <ion-item (click)="goto()" lines="none" class="content">
+      <div class="card">
+        <div class="firstinfo">
+          <ion-avatar>
+            <ion-img src="assets/img/avatar.png"></ion-img>
+          </ion-avatar>
+          <div class="profileinfo">
+            <h2>Nueva Promocion</h2>
+            <h3>descripcion</h3>
+          </div>
+        </div>
+      </div>
+      <ion-icon class="add" slot="end" name="add" (click)="goto()"></ion-icon>
     </ion-item>
-  </ion-list>
-</ion-content>
+    <ion-list lines="none">
+      <ion-item  class="content margin" (click)="goto()" *ngFor="let promo of promos$ | async; trackBy: trackById" (click)="goto(promo.uid)">      
+        <div [class]="promo.isPrivate ? 'card glowing-border' : 'card'">
+          <div class="firstinfo">
+            <ion-avatar>
+                <ion-img src="assets/img/avatar.png"></ion-img>
+            </ion-avatar>          
+            <div class="profileinfo">
+              <h2>{{promo.displayName}}</h2>
+              <h3>{{promo.description}}</h3>
+            </div>
+          </div>
+        </div>
+        <ion-icon class="trash" slot="end" name="trash" (click)="remove(promo)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>

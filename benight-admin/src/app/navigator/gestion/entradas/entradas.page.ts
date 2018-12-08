@@ -30,5 +30,9 @@ export class EntradasPage implements OnInit {
 
   trackById(idx:number, todo:any) {
     return todo.id
+  }  
+
+  remove(ticket) {
+    console.log(ticket)
   }
 }

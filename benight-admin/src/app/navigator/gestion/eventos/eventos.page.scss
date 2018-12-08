@@ -3,79 +3,9 @@ ion-icon {
     border-radius: 1vh;
 }
 
-.relative {
-    position: relative;
+.margin {
+    margin-bottom: 1vh;
 }
-
-.background {
-    height: 24vh;
-    width: 100%;
-    object-fit: fill;
-}
-
-.name {
-    position: absolute;
-    top: 2.5%;
-    left: 5%; 
-    font-size: calc(1.2rem + 0.6vw);   
-}
-
-.date {
-    position: absolute;
-    bottom: 23%;
-    left: 3.75%;
-    background: transparent;    
-}
-
-.address {
-    position: absolute;
-    bottom: 3%;
-    left: 5%;
-}
-
-.price {
-    position: absolute;
-    bottom: 3%;
-    right: 5%;
-    font-size: calc(1.2rem + 0.6vw);
-}
-
-.trans {
-    color: #fff;
-    text-shadow: 0 5px 10px rgba(0,0,0,1);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.7);
-    background: rgba(0,0,0,0.6);
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.crono {
-    position: absolute;
-    top: 0%;
-    right: 2.5%;
-}
-
-.corner-ribbon{
-    width: 50%;
-    background: #e43;
-    position: absolute;
-    text-align: center;
-    color: #f0f0f0;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    box-shadow: 0 0 3px rgba(0,0,0,.3);
-    z-index: 10;
-  }
-
-  .corner-ribbon.top-right{
-    right: 0px;
-    left: auto;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-  }
-
-
-  
 
 .firstinfo {
     display: flex;
@@ -219,33 +149,3 @@ ion-icon {
     border-bottom: 1.15rem solid transparent;
     border-left: 1rem solid var(--ion-toolbar-background);
 }
-
-/*
-.ribbon3 {
-    width: 90px;
-    height: 35px;
-    line-height: 35px;
-    padding-left: 15px;
-    position: absolute;
-    left: 0.2vw;
-    top: 2px;
-    background: #59324C;
-    z-index: 3;
-}
-  
-  .ribbon3:before {
-    height: 0;
-    width: 0;
-    top: -8.5px;
-    left: 0.1px;
-    border-bottom: 9px solid black;
-    border-left: 9px solid transparent;
-  }
-  .ribbon3:after {
-    height: 0;
-    width: 0;
-    right: -14.5px;
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 15px solid #59324C;
-  }*/
