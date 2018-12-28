@@ -2,6 +2,7 @@
 export * from '@bn8-navigator/navigator-routing.module'
 export * from '@bn8-navigator/general/general-routing.module'
 export * from '@bn8-navigator/gestion/gestion-routing.module'
+export * from '@bn8-navigator/test/test-routing.module'
 export * from '@bn8-navigator/chat/chat-routing.module'
 export * from '@bn8-navigator/notificaciones/notificaciones-routing.module'
 

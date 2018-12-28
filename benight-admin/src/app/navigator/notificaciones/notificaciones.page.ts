@@ -1,6 +1,4 @@
-import { Component, OnInit} from '@angular/core'
-import { Router, ActivationStart } from '@angular/router'
-import { filter } from 'rxjs/operators'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-notificaciones',
@@ -9,18 +7,6 @@ import { filter } from 'rxjs/operators'
 })
 export class NotificacionesPage {
 
-  
-  back:boolean
-  constructor(private router: Router) {}
+  constructor() { }
 
-  ngOnInit() {
-    this.router.events.pipe( 
-    filter(event => event instanceof ActivationStart) )
-    .subscribe(event => { 
-      this.back = (event as any)['snapshot'].data['back']   
-    })}
-
-  goto(ref) {
-    this.router.navigate([ref])
-  } 
 }

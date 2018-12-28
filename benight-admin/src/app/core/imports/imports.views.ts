@@ -1,5 +1,6 @@
 //Views export
 export * from '@bn8-navigator/general/general.page'
+export * from '@bn8-navigator/test/test.page'
 export * from '@bn8-navigator/gestion/gestion.page'
 export * from '@bn8-navigator/navigator.page'
 export * from '@bn8-navigator/notificaciones/notificaciones.page'

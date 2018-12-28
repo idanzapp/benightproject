@@ -2,7 +2,7 @@ import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
 import { database } from '@bn8-constants/constants.database'
 import { Observable, of } from 'rxjs'
-import { map, shareReplay, tap } from 'rxjs/operators'
+import { map, shareReplay } from 'rxjs/operators'
 
 export class DefaultDatabase {
     

@@ -1,11 +1,15 @@
+
+import { OnDestroy } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
-import { Observable } from 'rxjs'
-import { shareReplay, map } from 'rxjs/operators'
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs'
+import { map, shareReplay, tap } from 'rxjs/operators'
 
-export class PromoDatabase {
-    private promos$: Observable<any>
+export class PromoDatabase implements OnDestroy{
+    private promos$: Observable<any> = of(null)
+    private encondedData$: Subscription
+    private subject$: BehaviorSubject<any> = new BehaviorSubject(null)
     private uid$
 
     constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
@@ -14,10 +18,27 @@ export class PromoDatabase {
         this.uid$ = await this.auth.uid()
         this.promos$ = await this.fc.collection$(`${database.tables.promos}/${this.uid$}/${database.list.promo}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
+        this.encondedData$ = this.promos$.pipe(            
+            tap(e =>  this.subject$.next((e as Array<any>)
+            .map( e => {   
+                return {
+                    title: e.displayName,
+                    subtitle: e.description,
+                    avatar: 'assets/img/avatar.png'
+                }                                    
+            })))).subscribe()
     }
     
     fetch() {
         return this.promos$
+    }
+
+    ngOnDestroy() {
+        this.encondedData$.unsubscribe()
+    }
+
+    fetch2() {
+        return this.subject$
     }
 
     get(id:string) {

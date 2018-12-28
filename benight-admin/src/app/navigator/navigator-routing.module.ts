@@ -6,7 +6,8 @@ const routes: Routes = [{
   path:'',
   component: NavigatorPage,
   children: [
-    { path: '', redirectTo: 'gestion', pathMatch: 'full' },
+    { path: '', redirectTo: 'test', pathMatch: 'full' },
+    { path: 'test', loadChildren: './test/test.module#TestPageModule' },
     { path: 'gestion', loadChildren: './gestion/gestion.module#GestionPageModule' },
     { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },    
     { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesPageModule' }, 

@@ -1,0 +1,55 @@
+<ion-content>
+   <ion-select value="test" (ionChange)="changeTab($event)">
+      <ion-select-option value="test">test</ion-select-option>
+      <ion-select-option value="eventos">eventos</ion-select-option>
+      <ion-select-option value="planes">planes</ion-select-option>
+      <ion-select-option value="clubs">clubs</ion-select-option>
+      <ion-select-option value="entradas">entradas</ion-select-option>
+      <ion-select-option value="empleados">empleados</ion-select-option>
+      <ion-select-option value="promos">promos</ion-select-option>
+   </ion-select>
+   <br>
+   <ion-item lines="none" (click)="goto()">
+      <div class="skew">
+         <ion-avatar>
+            <ion-img [src]="itemFields[location] ? itemFields[location].avatar:itemFields['eventos'].avatar"></ion-img>
+         </ion-avatar>
+      </div>
+      <div class="info">
+         <div class="translate">
+            <h2>{{itemFields[location] ? itemFields[location].title : itemFields['eventos'].title}}</h2>
+            <h3>{{itemFields[location] ? itemFields[location].subtitle : itemFields['eventos'].subtitle}}</h3>
+            <ion-badge color="primary">{{itemFields[location] ? itemFields[location].tags : itemFields['eventos'].tags}}</ion-badge>
+            <ion-label text-wrap>{{itemFields[location] ? itemFields[location].text : itemFields['eventos'].text}}</ion-label>
+         </div>
+      </div>
+      <ion-icon class="add" slot="end" name="add"></ion-icon>
+   </ion-item>
+   <ion-list lines="none">
+      <ion-item [class]="item.privateItem ? 'glowing-border' : ''" *ngFor="let item of items$ | async; trackBy: trackById"
+         (click)="goto(event.uid)">
+         <span *ngIf="item.completeRibbon" class="ribbon">completo</span>
+         <div class="skew">
+            <ion-avatar *ngIf="item.textAvatar" class="text-avatar">
+               <ion-label class="glow">{{item.avatar}} €</ion-label>
+            </ion-avatar>
+            <ion-avatar *ngIf="!item.textAvatar">
+               <ion-img [src]="item.avatar"></ion-img>
+               <!--assets/img/avatar.png-->
+            </ion-avatar>
+         </div>
+         <div class="info">
+            <div class="translate">
+               <h2>{{item.title}}</h2>
+               <h3>{{item.subtitle}}</h3>
+               <div>
+                  <ion-badge *ngIf="item.privateItem" class="glowing-border" color="primary">privado</ion-badge>
+                  <ion-badge *ngFor="let tag of item.tags" color="primary" style="max-width: 80%;margin-left:2px">{{tag.name}}</ion-badge>
+               </div>
+               <ion-label class="bio" text-wrap>{{item.text}}</ion-label>
+            </div>
+         </div>
+         <ion-icon class="trash" slot="end" name="trash" (click)="remove(item.id)"></ion-icon>
+      </ion-item>
+   </ion-list>
+</ion-content>

@@ -179,24 +179,6 @@ export class FirebaseClient  {
         return this.afs(db).createId()
     }
 
-    leftJoin(path1:string,ref1:any,db1:string,path2:string,db2:string,commonField:string,op:string){
-        let conn1 = db1 ? db1 : database.connections.login
-        let conn2 = db2 ? db2 : database.connections.login
-        return this.collection$(path1, {query:ref1, db:conn1}).pipe(
-            switchMap((value) => {
-                let table
-                table.push(value.forEach(element => {
-                    return element[commonField]
-                }))
-                return table
-            }),
-            reduce((value,current) => `${value} | ${current}` ),
-            switchMap((value) => {
-                return this.collection$(path2, {query:ref => ref.where(commonField,op,value), db:conn2})
-            })
-        )
-    }
-
     updateAt(path: string, data: Object, db?: string): Promise<any> {
         const segments = path.split('/').filter(v => v)
         if (segments.length % 2)
@@ -204,15 +186,6 @@ export class FirebaseClient  {
         else //Add updatedAt to data Stream if doc
             return this.afs(db).doc(path).set({ ...data, updatedAt: new Date() }, { merge: true })
     }
-
-    /*createAt(path: string, data: Object, db?: string) {
-        //Add createdAt to data Stream if doc and call updatedAt
-        const segments = path.split('/').filter(v => v)
-        if (!(segments.length % 2))
-            data = { ...data, createdAt: new Date() }
-        this.updateAt(path, data, db)
-        return data['uid'] || -1
-    }*/
 
     delete(path: string, db?: string) {
         const segments = path.split('/').filter(v => v)

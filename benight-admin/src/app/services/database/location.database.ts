@@ -1,12 +1,15 @@
+import { OnDestroy } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database} from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
-import { Observable, of } from 'rxjs'
-import { shareReplay, map } from 'rxjs/operators'
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs'
+import { switchMap, map, shareReplay, tap } from 'rxjs/operators'
 import * as firebase from 'firebase/app'
-export class LocationDatabase  {
+export class LocationDatabase implements OnDestroy {
 
-    private clubs$: Observable<any>
+    private clubs$: Observable<any> = of(null)
+    private encondedData$: Subscription
+    private subject$: BehaviorSubject<any> = new BehaviorSubject(null)
     private uid$
 
     private fields = {
@@ -26,11 +29,30 @@ export class LocationDatabase  {
         this.fields.events$ = await this.fc.collection$(`${database.tables.locationEvents}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
         this.fields.plans$ = await this.fc.collection$(`${database.tables.locationPlans}/${this.uid$}/${database.list.location}`, {db: database.connections.admin})
-            .pipe(shareReplay(1))
+            .pipe(shareReplay(1))            
+        this.encondedData$ = this.clubs$.pipe(            
+            tap(e =>  this.subject$.next((e as Array<any>)
+            .map( e => {   
+                return {
+                    title: e.displayName,
+                    subtitle: e.address,
+                    text: e.description,
+                    textAvatar: false,
+                    avatar: 'assets/img/avatar.png'
+                }                                    
+            })))).subscribe()
     }
     
     fetch() {
         return this.clubs$
+    }
+    
+    fetch2() {
+        return this.subject$
+    }
+
+    ngOnDestroy() {
+        this.encondedData$.unsubscribe()
     }
 
     get(id: string) {
@@ -43,8 +65,8 @@ export class LocationDatabase  {
         return this.get(data.id).pipe(map( u => u && u[data.field]))
     }
 
-    remove (eid:string) {
-        let check = false
+    async remove (eid:string) {
+        let check = await this.checkRemove(eid)
         if (check)
             this.fc.delete(`${database.tables.locations}/${this.uid$}/${database.list.location}/${eid}`,database.connections.admin)
         return check    
@@ -82,6 +104,16 @@ export class LocationDatabase  {
             item = this.getDefault()
         this.save({...item, uid:uid, createdAt: new Date().toISOString()})
         return uid
+    }
+    
+    private checkRemove(id) {
+        //tiene eventos o planes activos
+        let hasPlans:Promise<boolean>, hasEvents:Promise<boolean>
+        hasEvents = this.getField({id: id,field: 'events$'}).pipe(
+            map(e=> (e as Array<any>).length===0 ? true:false)).toPromise() 
+        hasPlans = this.getField({id: id,field: 'plans$'}).pipe(
+            map(e=> (e as Array<any>).length===0 ? true:false)).toPromise()                              
+        return hasPlans && hasEvents
     }
 
     private getDefault() {

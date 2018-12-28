@@ -1,11 +1,14 @@
+import { OnDestroy } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
-import { Observable } from 'rxjs'
-import { shareReplay, map } from 'rxjs/operators'
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs'
+import { map, shareReplay, tap } from 'rxjs/operators'
 
-export class TicketDatabase {
-    private tickets$: Observable<any>
+export class TicketDatabase implements OnDestroy{
+    private tickets$: Observable<any> = of(null)
+    private encondedData$: Subscription
+    private subject$: BehaviorSubject<any> = new BehaviorSubject(null)
     private uid$
 
     constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
@@ -13,11 +16,30 @@ export class TicketDatabase {
     private async preloadData() {
         this.uid$ = await this.auth.uid()
         this.tickets$ = await this.fc.collection$(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}`, {db: database.connections.admin})
-            .pipe(shareReplay(1))
+            .pipe(shareReplay(1))    
+        this.encondedData$ = this.tickets$.pipe(            
+            tap(e =>  this.subject$.next((e as Array<any>)
+            .map( e => {   
+                return {
+                    title: e.type,
+                    subtitle: e.displayName,
+                    tags: e.requirementList,
+                    textAvatar: true,
+                    avatar: e.price
+                }                                    
+            })))).subscribe()
     }
     
     fetch() {
         return this.tickets$
+    }
+
+    ngOnDestroy() {
+        this.encondedData$.unsubscribe()
+    }
+
+    fetch2() {
+        return this.subject$
     }
 
     get(id:string) {
@@ -29,10 +51,8 @@ export class TicketDatabase {
     }
 
     remove (eid:string) {
-        let check = false
-        if (check)
-            this.fc.delete(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}/${eid}`,database.connections.admin)
-        return check            
+        this.fc.delete(`${database.tables.tickets}/${this.uid$}/${database.list.ticket}/${eid}`,database.connections.admin)
+        return true            
     }
 
     save(data:any) {
@@ -56,20 +76,7 @@ export class TicketDatabase {
 
     private getDefault() {
         let date = new Date().toISOString()
-        return {/*...defaultTicket,*/ date: date, expiresAt: date, openAt: date, nextDate: date, closeAt: date}
+        return {date: date, expiresAt: date, openAt: date, nextDate: date, closeAt: date}
     }
 }
-
-
-/*
-const defaultTicket = {
-    expires:true,
-    relativeTo: database.fields.date,
-    type: 'ticket',
-    gaugin: -1,
-    name: 'ticket prueba',
-    description: 'ticket description',
-    uses:-1,
-    price:0
-}*/
 

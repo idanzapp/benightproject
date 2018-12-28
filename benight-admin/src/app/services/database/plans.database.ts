@@ -1,13 +1,16 @@
+import { OnDestroy } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
 import { database } from '@bn8-constants/constants.database'
-import { Observable } from 'rxjs'
-import { map, shareReplay } from 'rxjs/operators'
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs'
+import { switchMap, map, shareReplay, tap } from 'rxjs/operators'
 
-export class PlansDatabase {
+export class PlansDatabase implements OnDestroy{
     
-    private plans$: Observable<any> 
-    private uid$
+    private plans$: Observable<any>= of(null)
+    private encondedData$: Subscription
+    private subject$: BehaviorSubject<any> = new BehaviorSubject(null)
+    private uid$: Promise<string>
 
     constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
 
@@ -15,11 +18,34 @@ export class PlansDatabase {
         this.uid$ = await this.auth.uid()
         this.plans$ = await this.fc.collection$(`${database.tables.plans}/${this.uid$}/${database.list.plan}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
+            
+        this.encondedData$ = this.plans$.pipe(            
+            tap(e =>  this.subject$.next((e as Array<any>)
+            .map( e => {   
+                return {
+                    title: e.displayName,
+                    subtitle: this.encodeDate(e.nextDate,e.duration),
+                    tags: e.tagList,
+                    text: e.locationList[0].displayName,
+                    textAvatar: true,
+                    avatar: this.encodePrice(e.ticketList),
+                    privateItem: e.isPrivate
+                }                                    
+            })))).subscribe()
     }
-    
+
+    ngOnDestroy() {
+        this.encondedData$.unsubscribe()
+    }
+
     fetch() {
         return this.plans$
     }
+
+    fetch2() {
+        return this.subject$
+    }
+    
 
     get(id:string) {
         return this.plans$.pipe(map(e => e.filter(u => u.id === id)[0]))
@@ -29,8 +55,8 @@ export class PlansDatabase {
         return this.get(data.id).pipe(map( u => u && u[data.field]))
     }
 
-    remove (eid:string) {
-        let check = false
+    async remove (eid:string) {
+        let check = await this.checkRemove(eid)
         if (check)
             this.fc.delete(`${database.tables.plans}/${this.uid$}/${database.list.plan}/${eid}`,database.connections.admin)
         return check
@@ -55,6 +81,51 @@ export class PlansDatabase {
     private getDefault() {
         let date = new Date().toISOString()
         return {...defaultEvent, date: date, nextDate: date, finalDate: date}
+    }
+    
+    private checkRemove(id) {
+        //tiene entradas pendientes o el evento esta en ejecucion
+        let date = new Date()
+        let onDuty:Promise<boolean>, hasTickets:Promise<boolean>
+        hasTickets = this.getField({id: id,field: database.list.ticket}).pipe(
+            map(e=> e.length===0 ? true:false)).toPromise()        
+        onDuty = this.getField({id: id,field: 'nextDate'}).pipe(
+            switchMap(e=> {
+                return this.getField({id: id,field: 'duration'}).pipe(
+                    map(u=> {
+                        //u in minutes
+                        let startDate = new Date(e)
+                        let endDate = new Date(new Date(u*60*1000).getTime() + new Date(e).getTime())
+                        return (startDate < date ) && (date < endDate )
+                    })
+        )})).toPromise()               
+        return onDuty && hasTickets
+    }
+
+    private encodePrice(ticket){
+        return ticket
+          .map(ticket => ticket && ticket.price)
+          .reduce((min, current) => min = (!min) ? current : Math.min(min, current))
+    } 
+
+    private encodeDate(nextDate,length) {
+        let date = new Date(nextDate)
+        let locale = navigator.language
+        let dateString = `${date.getDay()} ${date.toLocaleString(locale, { month: "short"})}, ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`
+        let duration = length
+        let dias = Math.floor(duration / (60*24))
+        duration = duration - (dias * 60*24)
+        let horas = Math.floor(duration / 60)
+        duration = duration - (horas * 60)
+        let minutos = duration
+        let durationString = 'dura'
+        if (dias > 0)
+          durationString = `${durationString} ${dias}d`
+        if (horas > 0)
+          durationString = `${durationString} ${horas}h`
+        if (minutos > 0)
+          durationString = `${durationString} ${minutos}m`
+        return   `${dateString} - ${durationString}`
     }
 }
 

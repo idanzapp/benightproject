@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { encrypt, decrypt } from 'scryptify'
 import { environment } from '@bn8-environments/environment'
 import { AuthService } from '@bn8-services/auth.service'
 import { Observable, of, BehaviorSubject } from 'rxjs'
@@ -83,12 +82,7 @@ export class ChatPage implements OnInit {
   async save(e) {
     this.newMsg=true
     this.cadena = e.detail.value
-    if (this.cadena!='') {
-      let encryption = await encrypt(this.cadena,this.secret)
-      let decryption = await decrypt(encryption,this.secret)
-    } else {      
-      this.newMsg=false
-    }
+    console.log(this.cadena)
   }
 
   send() {

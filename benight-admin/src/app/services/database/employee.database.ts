@@ -1,11 +1,14 @@
+import { OnDestroy } from '@angular/core'
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { database } from '@bn8-constants/constants.database'
 import { AuthService } from '@bn8-services/auth.service'
-import { Observable } from 'rxjs'
-import { shareReplay, map } from 'rxjs/operators'
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs'
+import { map, shareReplay, tap } from 'rxjs/operators'
 
-export class EmployeeDatabase {
-    private employee$: Observable<any>
+export class EmployeeDatabase implements OnDestroy {
+    private employee$: Observable<any> = of(null)
+    private encondedData$: Subscription
+    private subject$: BehaviorSubject<any> = new BehaviorSubject(null)
     private uid$
 
     constructor(private fc: FirebaseClient, private auth: AuthService) {this.preloadData()}
@@ -14,10 +17,28 @@ export class EmployeeDatabase {
         this.uid$ = await this.auth.uid()
         this.employee$ = await this.fc.collection$(`${database.tables.adminEmployees}/${this.uid$}/${database.list.employee}`, {db: database.connections.admin})
             .pipe(shareReplay(1))
+        this.encondedData$ = this.employee$.pipe(            
+            tap(e =>  this.subject$.next((e as Array<any>)
+            .map( e => {   
+                return {
+                    title: e.displayName,
+                    subtitle: e.rol,
+                    tags: e.permissionList,
+                    avatar: 'assets/img/avatar.png'
+                }                                    
+            })))).subscribe()
     }    
     
     fetch() {
         return this.employee$
+    }
+
+    ngOnDestroy() {
+        this.encondedData$.unsubscribe()
+    }
+
+    fetch2() {
+        return this.subject$
     }
 
     get(id:string) {
@@ -29,10 +50,8 @@ export class EmployeeDatabase {
     }
 
     remove (eid:string) {
-        let check = false
-        if (check) 
-            this.fc.delete(`${database.tables.adminEmployees}/${this.uid$}/${database.list.employee}/${eid}`,database.connections.admin)            
-        return check        
+        this.fc.delete(`${database.tables.adminEmployees}/${this.uid$}/${database.list.employee}/${eid}`,database.connections.admin)            
+        return true        
     }
 
     save(data:any) {

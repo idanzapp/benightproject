@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { of } from 'rxjs'
 
 import { FirebaseClient } from '@bn8-services/firebase-client.service'
 import { AuthService } from '@bn8-services/auth.service'
@@ -32,9 +31,37 @@ import { ListsDatabase } from '@bn8-database/lists.database'
 export class DataFeedService {
 
   private connection: Connection = {}
+  
+  private onDemand = {
+    bans: (db,auth) => new BansDatabase(db, auth),
+    chats:  (db,auth) => new ChatDatabase(db, auth),
+    locations:  (db,auth) => new LocationDatabase(db, auth),
+    plans:  (db,auth) => new PlansDatabase(db, auth),
+    employee:  (db,auth) => new EmployeeDatabase(db, auth),
+    events:  (db,auth) => new EventsDatabase(db, auth),
+    requirements:  (db) => new RequirementsDatabase(db),
+    tickets:  (db,auth) => new TicketDatabase(db, auth),
+    messages: (db,auth) => new MessagesDatabase(db,auth),
+    notifications: (db,auth) => new NotificationsDatabase(db,auth),
+    promos: (db,auth) => new PromoDatabase(db,auth),
+    default:  (db,auth) => new DefaultDatabase(db,auth),
+    gallery: (db,auth) => new GalleryDatabase(db,auth),
+    tags:  (db) => new TagsDatabase(db),
+    admins: (db) => new AdminsDatabase(db),
+    employees: (db) => new EmployeesDatabase(db),
+    dates: (db) => new DatesDatabase(db),
+    lists: (db) => new ListsDatabase(db), 
+    info: (auth) => new InfoDatabase(auth)
+  }
+
+  private imports = { bans: 0, chats: 0, locations: 0, plans: 0, employee: 0, events: 0,
+    requirements: 0, tickets: 0, messages: 0, notifications: 0, promos: 0, default: 0,
+    gallery: 0, tags: 1, admins: 1, employees: 1, dates: 1, lists: 1, info: 2
+  }
 
   private action = {
     fetch: (e) => e.fetch(),
+    fetch2: (e) => e.fetch2(),
     get: (e,data) => e.get(data),
     getField: (e,data) => e.getField(data),
     create: (e,id) => e.create(id),
@@ -43,41 +70,13 @@ export class DataFeedService {
     remove: (e,id) => e.remove(id),
     erase: (e,data) => e.remove(data),
     add: (e,data?) => e.add(data),
-    add2List: (e,data?) => e.add2List(data),
-    //copy: (e,data?) => e.copy()
+    add2List: (e,data?) => e.add2List(data)
   }
 
-  constructor(private db: FirebaseClient, private auth: AuthService) {
-    this.connection = {
-      bans: new BansDatabase(this.db, this.auth),
-      chats:  new ChatDatabase(this.db, this.auth),
-      locations:  new LocationDatabase(this.db, this.auth),
-      plans:  new PlansDatabase(this.db, this.auth),
-      employee:  new EmployeeDatabase(this.db, this.auth),
-      events:  new EventsDatabase(this.db, this.auth),
-      requirements:  new RequirementsDatabase(this.db),
-      tags:  new TagsDatabase(this.db),
-      tickets:  new TicketDatabase(this.db, this.auth),
-      info: new InfoDatabase(this.auth),
-      messages: new MessagesDatabase(this.db,this.auth),
-      admins: new AdminsDatabase(this.db),
-      employees: new EmployeesDatabase(this.db),
-      notifications: new NotificationsDatabase(this.db,this.auth),
-      promos: new PromoDatabase(this.db,this.auth),
-      default:  new DefaultDatabase(this.db,this.auth),
-      dates: new DatesDatabase(this.db),
-      gallery: new GalleryDatabase(this.db,this.auth),
-      lists: new ListsDatabase(this.db) 
-    }
-  }
-
-  private checkProperty (property:string, action:string, data?:any) {     
-    if (property in this.connection)
-      return this.action[action](this.connection[property], data)
-    return of(null)
-  }
+  constructor(private db: FirebaseClient, private auth: AuthService) {}  
 
   fetch(property:string) {return this.checkProperty(property,'fetch')}
+  fetch2(property:string) {return this.checkProperty(property,'fetch2')}
   get(property: string, data: any) {return this.checkProperty(property,'get',data)}
   getField(property: string, data: any) {return this.checkProperty(property,'getField',data)}
   create(property:string) {return this.checkProperty(property,'create')} 
@@ -88,14 +87,29 @@ export class DataFeedService {
   add(property: string, data?:any) {return this.checkProperty(property,'add',data)}
   addToList(property: string, data?:any) {return this.checkProperty(property,'add2List',data)}
 
-  private async getUid(url:string) {
-    let uid$ = await this.auth.uid()
-    return this.db.storage().ref(`${uid$}/locations/${url}`).getDownloadURL()
-  }
-
   getImage(url:string) {     
     return this.getUid(url)
   }
 
-  //copy(property: string, data?:any) {return this.checkProperty(property,'copy')}
+  private charge(property) {
+    switch (this.imports[property]) {
+      case 0:
+        return this.onDemand[property](this.db,this.auth)
+      case 1:      
+        return this.onDemand[property](this.db)
+      case 2:      
+        return this.onDemand[property](this.auth)
+    }
+  }
+
+  private checkProperty(property:string, action:string, data?:any) {
+    if (!this.connection.hasOwnProperty(property)) 
+      this.connection[property] = this.charge(property) 
+    return this.action[action](this.connection[property], data)
+  }
+
+  private async getUid(url:string) {
+    let uid$ = await this.auth.uid()
+    return this.db.storage().ref(`${uid$}/locations/${url}`).getDownloadURL()
+  }
 }
